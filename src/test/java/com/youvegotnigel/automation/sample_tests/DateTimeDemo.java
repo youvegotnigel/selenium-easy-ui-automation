@@ -39,7 +39,7 @@ public class DateTimeDemo {
 //        String test = dateTime.formatIfDateTime("now m0");
 //        System.out.println(test);
 
-        //Statementss
+        //Statements
         log.debug("3 days from now  : " + threeDaysFromNow);
         log.debug("2 days from now  : " + twoDaysFromNow);
         log.debug("Tomorrow will be : " + tomorrow);
