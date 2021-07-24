@@ -165,7 +165,6 @@ public class BasePageStepDefinitions extends TestBase{
         Assert.assertTrue(SortedValuesAccordingToApplication.equals(sortedValuesAccordingToPrograming));
     }
 
-
     @And("Get values for {string} column in table and verify numbers in descending order")
     public void validate_int_sorting_descending(String column) {
 
