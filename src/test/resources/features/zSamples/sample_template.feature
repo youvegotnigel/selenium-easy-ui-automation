@@ -34,6 +34,7 @@ Feature: Template
 
     ## Radio button
   Scenario: Template for Radio button Scenarios
+    And I set radio value "yes" for label "Do you have hosting?"
 
     ## Check box
   Scenario: Template for Check box Scenarios

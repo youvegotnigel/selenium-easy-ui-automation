@@ -111,6 +111,17 @@ public class BasePageStepDefinitions extends TestBase {
         }
     }
 
+    @And("^I set radio value \"(.+)\" for label \"(.+)\"$")
+    public void set_radio_button_for_label(String answer, String question) {
+
+        if (question.matches(".*\\[[\\d.]]")) {
+            var valueAndIndex = getValueAndIndex(question);
+            pageBase.setRadioForLabel(valueAndIndex[0], valueAndIndex[1], answer);
+        } else {
+            pageBase.setRadioForLabel(question, answer);
+        }
+    }
+
     public List<String> get_table_list_in_application(String column) {
 
         List<String> applicationList = new ArrayList<>();
@@ -240,7 +251,6 @@ public class BasePageStepDefinitions extends TestBase {
             default:
 
                 if (question.matches("(.*)suggest].*")) {
-
                     break;
                 } else if (question.matches("(.*)textarea].*")) {
                     set_text_for_textarea(answer, question);

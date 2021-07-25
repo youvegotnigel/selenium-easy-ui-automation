@@ -17,6 +17,7 @@ Feature: Input Form Demo
       | Zip Code                      | <zip>         |
       | Website or domain name        | <website>     |
       | Project Description[textarea] | <description> |
+    And I set radio value "yes" for label "Do you have hosting?"
 
 
     Examples:

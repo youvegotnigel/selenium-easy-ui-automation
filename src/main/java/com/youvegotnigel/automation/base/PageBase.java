@@ -153,4 +153,30 @@ public class PageBase {
             log.error(e.getMessage());
         }
     }
+
+    public void setRadioForLabel(String label_name, String value){
+
+        String xpath = "//label[contains(text(),'"+ label_name +"')]/following::input[@value='"+ value +"']";
+        WebElement element = driver.findElement(By.xpath(xpath));
+        try {
+            element.click();
+        } catch (Exception e) {
+            log.debug("Could not click on web element");
+            log.debug("xpath : " + xpath);
+            log.error(e.getMessage());
+        }
+    }
+
+    public void setRadioForLabel(String label_name, String index, String value){
+
+        String xpath = "(//label[contains(text(),'"+ label_name +"')])["+ index +"]/following::input[@value='"+ value +"']";
+        WebElement element = driver.findElement(By.xpath(xpath));
+        try {
+            element.click();
+        } catch (Exception e) {
+            log.debug("Could not click on web element");
+            log.debug("xpath : " + xpath);
+            log.error(e.getMessage());
+        }
+    }
 }
