@@ -4,7 +4,7 @@ Feature: Input Form Demo
   Background: User navigates to Application URL
     Given The Application has been launched
 
-  Scenario Outline: I should be able to login as a Standard User
+  Scenario Outline: I should be able to fil all fields of the form
     When I select main menu 'Input Forms' and select sub menu 'Input Form Submit'
     Then I should see the text 'Input form with validations' displayed
     Given I set value "<fname>" for "First Name"
