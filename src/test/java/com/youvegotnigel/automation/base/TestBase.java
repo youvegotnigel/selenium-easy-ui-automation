@@ -78,7 +78,7 @@ public class TestBase {
 
                 WebDriverManager.chromedriver().setup();
                 ChromeOptions options = new ChromeOptions();
-                options.setHeadless(true); //set headless mode true or false
+                options.setHeadless(false); //set headless mode true or false
 
                 driver = new ChromeDriver(options);
                 log.debug("Initialize chrome driver");
@@ -187,6 +187,18 @@ public class TestBase {
         return values;
     }
 
+    public String tokenize(String text, String regex){
+
+        String [] tokenizer = new String[0];
+
+        try {
+            tokenizer = text.split(Pattern.quote(regex));
+            return tokenizer[1];
+        }catch (ArrayIndexOutOfBoundsException e){
+            return tokenizer[0];
+        }
+    }
+
     public void printList(List <String> list, String name){
         System.out.println("List name : " + name);
         for(String a : list){
@@ -204,6 +216,20 @@ public class TestBase {
     public void setTextInputForLabel(String label_name, String index, String value){
 
         String xpath = "(//label[contains(text(),'"+ label_name +"')])["+ index +"]/following::input[1]";
+        WebElement element = driver.findElement(By.xpath(xpath));
+        element.sendKeys(getGlobalVariable(value));
+    }
+
+    public void setTextAreaForLabel(String label_name, String value){
+
+        String xpath = "//label[contains(text(),'"+ label_name +"')]/following::textarea[1]";
+        WebElement element = driver.findElement(By.xpath(xpath));
+        element.sendKeys(getGlobalVariable(value));
+    }
+
+    public void setTextAreaForLabel(String label_name, String index, String value){
+
+        String xpath = "(//label[contains(text(),'"+ label_name +"')])["+ index +"]/following::textarea[1]";
         WebElement element = driver.findElement(By.xpath(xpath));
         element.sendKeys(getGlobalVariable(value));
     }
