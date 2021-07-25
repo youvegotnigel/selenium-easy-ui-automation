@@ -9,6 +9,13 @@ Feature: Template
     And I set value "Ben" for "First Name"
     And I set value "24" for "Age[2]"
 
+   ## Inputs
+  Scenario: Template for Tables Scenarios
+    And I enter values as below:
+      | Last Name                     | <lname>       |
+      | E-Mail                        | <email>       |
+      | Project Description[textarea] | <description> |
+
     ## Click link/button
   Scenario: Template for Click link/button Scenarios
     And I click on '<button_name>' button
@@ -32,15 +39,7 @@ Feature: Template
   Scenario: Template for Check box Scenarios
 
     ## Tables
-  Scenario: Template for Tables Scenarios
-    Then I should see the items in my cart as below:
-      | item_name                         | item_price |
-      | Sauce Labs Backpack               | $29.99     |
-      | Sauce Labs Bike Light             | $9.99      |
-      | Sauce Labs Bolt T-Shirt           | $15.99     |
-      | Sauce Labs Fleece Jacket          | $49.99     |
-      | Sauce Labs Onesie                 | $7.99      |
-      | Test.allTheThings() T-Shirt (Red) | $15.99     |
+  Scenario: Template for Table Scenarios
 
     ## Ascending/Descending Order
   Scenario: Template for Ascending/Descending Order Scenarios
