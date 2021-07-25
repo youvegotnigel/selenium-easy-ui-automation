@@ -12,6 +12,9 @@ public class PageBase {
     public static WebDriver driver;
     public static final long WAIT = 10;
 
+    private By advertisement = By.xpath("//div[@id='image-darkener']");
+    private By closeAd = By.xpath("//a[@id='at-cv-lightbox-close']");
+
     public static final Logger log = LogManager.getLogger(PageBase.class.getName());
 
     public PageBase(WebDriver driver) {
@@ -55,6 +58,14 @@ public class PageBase {
     public String getAttribute(By by, String attribute) {
         waitForVisibility(driver.findElement(by));
         return driver.findElement(by).getAttribute(attribute);
+    }
+
+    public boolean adIsDisplayed(){
+        return isDisplayed(advertisement);
+    }
+
+    public void closeAd(){
+        click(closeAd);
     }
 
     // ############################################ Generic xpath's ############################################
