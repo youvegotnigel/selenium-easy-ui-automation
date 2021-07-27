@@ -23,6 +23,7 @@
         <maven.resources.plugin.version>2.4</maven.resources.plugin.version>
         <maven.surefire.plugin.version>2.14.1</maven.surefire.plugin.version>
         <maven.cucumber.reporting.plugin.version>3.8.0</maven.cucumber.reporting.plugin.version>
+        <java.faker>1.0.2</java.faker>
     </properties>
 
     <dependencies>
@@ -91,6 +92,13 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>ooxml-schemas</artifactId>
             <version>${ooxml.schemas.version}</version>
+        </dependency>
+        <!--   https://github.com/DiUS/java-faker   -->
+        <!--   http://dius.github.io/java-faker/apidocs/index.html  -->
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>${java.faker}</version>
         </dependency>
     </dependencies>
 
