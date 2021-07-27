@@ -31,6 +31,9 @@ Feature: Template
 
     ## Select from dropdown
   Scenario: Template for Select from dropdown Scenarios
+    And I select visible text from dropdown "New York" for label "State"
+    And I select value from dropdown "Texas" for label "State"
+    And I select index from dropdown 3 for label 'State'
 
     ## Radio button
   Scenario: Template for Radio button Scenarios

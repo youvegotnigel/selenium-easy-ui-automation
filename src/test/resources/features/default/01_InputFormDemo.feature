@@ -18,6 +18,7 @@ Feature: Input Form Demo
       | Website or domain name        | <website>     |
       | Project Description[textarea] | <description> |
     And I set radio value "yes" for label "Do you have hosting?"
+    And I select visible text from dropdown "New York" for label "State"
 
 
     Examples:

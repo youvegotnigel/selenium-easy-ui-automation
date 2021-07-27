@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PageBase {
@@ -178,5 +179,80 @@ public class PageBase {
             log.debug("xpath : " + xpath);
             log.error(e.getMessage());
         }
+    }
+
+    /**
+     *
+     * @param label_name name of the label
+     * @param visibleText select by visible text
+     */
+    public void selectFromDropdownByVisibleText(String label_name, String visibleText){
+        String xpath = "//label[contains(text(),'"+ label_name +"')]/following::select";
+        WebElement element = driver.findElement(By.xpath(xpath));
+        Select select = new Select(element);
+        select.selectByVisibleText(visibleText);
+    }
+
+    /**
+     *
+     * @param label_name name of the label
+     * @param visibleText select by visible text
+     * @param element_index element index of label
+     */
+    public void selectFromDropdownByVisibleText(String label_name, String element_index, String visibleText){
+        String xpath = "(//label[contains(text(),'"+ label_name +"')])[" + element_index +"]/following::select";
+        WebElement element = driver.findElement(By.xpath(xpath));
+        Select select = new Select(element);
+        select.selectByVisibleText(visibleText);
+    }
+
+    /**
+     *
+     * @param label_name name of the label
+     * @param value select by value
+     */
+    public void selectFromDropdownByValue(String label_name, String value){
+        String xpath = "//label[contains(text(),'"+ label_name +"')]/following::select";
+        WebElement element = driver.findElement(By.xpath(xpath));
+        Select select = new Select(element);
+        select.selectByValue(value);
+    }
+
+    /**
+     *
+     * @param label_name name of the label
+     * @param value select by value
+     * @param element_index element index of label
+     */
+    public void selectFromDropdownByValue(String label_name, String element_index, String value){
+        String xpath = "(//label[contains(text(),'"+ label_name +"')])[" + element_index +"]/following::select";
+        WebElement element = driver.findElement(By.xpath(xpath));
+        Select select = new Select(element);
+        select.selectByValue(value);
+    }
+
+    /**
+     *
+     * @param label_name name of the label
+     * @param index select by index
+     */
+    public void selectFromDropdownByIndex(String label_name, int index){
+        String xpath = "//label[contains(text(),'"+ label_name +"')]/following::select";
+        WebElement element = driver.findElement(By.xpath(xpath));
+        Select select = new Select(element);
+        select.selectByIndex(index);
+    }
+
+    /**
+     *
+     * @param label_name name of the label
+     * @param index select by index
+     * @param element_index element index of label
+     */
+    public void selectFromDropdownByIndex(String label_name, String element_index, int index){
+        String xpath = "(//label[contains(text(),'"+ label_name +"')])[" + element_index +"]/following::select";
+        WebElement element = driver.findElement(By.xpath(xpath));
+        Select select = new Select(element);
+        select.selectByIndex(index);
     }
 }

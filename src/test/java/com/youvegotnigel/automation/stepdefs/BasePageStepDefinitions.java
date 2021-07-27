@@ -122,6 +122,39 @@ public class BasePageStepDefinitions extends TestBase {
         }
     }
 
+    @And("^I select visible text from dropdown \"(.+)\" for label \"(.+)\"$")
+    public void select_from_dropdown_by_visible_text(String answer, String question){
+
+        if (question.matches(".*\\[[\\d.]]")) {
+            var valueAndIndex = getValueAndIndex(question);
+            pageBase.selectFromDropdownByVisibleText(valueAndIndex[0], valueAndIndex[1], answer);
+        } else {
+            pageBase.selectFromDropdownByVisibleText(question, answer);
+        }
+    }
+
+    @And("^I select value from dropdown \"(.+)\" for label \"(.+)\"$")
+    public void select_from_dropdown_by_value(String answer, String question){
+
+        if (question.matches(".*\\[[\\d.]]")) {
+            var valueAndIndex = getValueAndIndex(question);
+            pageBase.selectFromDropdownByValue(valueAndIndex[0], valueAndIndex[1], answer);
+        } else {
+            pageBase.selectFromDropdownByValue(question, answer);
+        }
+    }
+
+    @And("I select index from dropdown {int} for label {string}")
+    public void select_from_dropdown_by_index(int answer, String question){
+
+        if (question.matches(".*\\[[\\d.]]")) {
+            var valueAndIndex = getValueAndIndex(question);
+            pageBase.selectFromDropdownByIndex(valueAndIndex[0], valueAndIndex[1], answer);
+        } else {
+            pageBase.selectFromDropdownByIndex(question, answer);
+        }
+    }
+
     public List<String> get_table_list_in_application(String column) {
 
         List<String> applicationList = new ArrayList<>();
