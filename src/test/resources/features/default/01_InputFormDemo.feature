@@ -19,6 +19,7 @@ Feature: Input Form Demo
       | Project Description[textarea] | <description> |
     And I set radio value "yes" for label "Do you have hosting?"
     And I select visible text from dropdown "New York" for label "State"
+    And I click on 'Send' button
 
 
     Examples:
