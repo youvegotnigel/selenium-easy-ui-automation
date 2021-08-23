@@ -4,7 +4,7 @@
 
 type
 ```bash
-"mvn clean verify -Dtestng.dtd.http=true -Dmaven.test.failure.ignore=true"
+mvn clean verify -Dtestng.dtd.http=true -Dmaven.test.failure.ignore=true
 ```
 in terminal
 
@@ -17,6 +17,7 @@ in terminal
 * Capture Screenshots
 * Cucumber BDD Framework
 * Cucumber HTML Report
+* Allure Report
 
 
 ## Author
