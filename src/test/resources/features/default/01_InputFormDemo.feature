@@ -23,5 +23,5 @@ Feature: Input Form Demo
 
 
     Examples:
-      | fname | lname | email        | phone      | address     | city     | zip   | website            | description                        |
-      | Paul  | Smith | email@my.com | 1111111111 | Brooklyn NY | New York | 87542 | testautomation.com | This is my test automation project |
+      | fname  | lname   | email                    | phone        | address     | city     | zip   | website            | description                        |
+      | Eliseo | Reinger | eliseo.reinger@gmail.com | 409-615-8636 | Brooklyn NY | New York | 87542 | testautomation.com | This is my test automation project |

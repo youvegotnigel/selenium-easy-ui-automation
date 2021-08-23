@@ -1,7 +1,6 @@
 package com.youvegotnigel.automation.sample_tests;
 
 import com.github.javafaker.Faker;
-import com.github.javafaker.PhoneNumber;
 
 import java.util.Locale;
 
@@ -9,7 +8,7 @@ public class FakerDemo {
 
     public static void main(String[] args) {
 
-        for (int i=0; i<1; i++){
+        for (int i=0; i<10; i++){
             printDetails();
         }
 
