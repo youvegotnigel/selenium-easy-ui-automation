@@ -275,6 +275,22 @@ public class BasePageStepDefinitions extends TestBase {
         }
     }
 
+    @And("^(?:|I )(?:Enter|enter) (?:|.* )(?:values|details) as below information table:$")
+    public void enter_values_information_table(DataTable data) {
+
+        List<Map<String, String>> values = data.asMaps(String.class, String.class);
+        for (var value : values){
+            enterValue( value.get("Last Name"), "Last Name");
+            enterValue( value.get("E-Mail"), "E-Mail");
+            enterValue( value.get("Phone #"), "Phone #");
+            enterValue( value.get("Address"), "Address");
+            enterValue( value.get("City"), "City");
+            enterValue( value.get("Zip Code"), "Zip Code");
+            enterValue( value.get("Website or domain name"), "Website or domain name");
+            enterValue( value.get("Project Description[textarea]"), "Project Description[textarea]");
+        }
+    }
+
     public void enterValue(String answer, String question) {
 
         switch (tokenize(question, "[")) {

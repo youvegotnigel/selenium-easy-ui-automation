@@ -25,3 +25,19 @@ Feature: Input Form Demo
     Examples:
       | fname  | lname   | email                    | phone        | address     | city     | zip   | website            | description                        |
       | Eliseo | Reinger | eliseo.reinger@gmail.com | 409-615-8636 | Brooklyn NY | New York | 87542 | testautomation.com | This is my test automation project |
+
+
+  Scenario Outline: I should be able to fil all fields of the form
+    When I select main menu 'Input Forms' and select sub menu 'Input Form Submit'
+    Then I should see the text 'Input form with validations' displayed
+    Given I set value "<fname>" for "First Name"
+    And I enter values as below information table:
+      | Last Name | E-Mail  | Phone # | Address   | City   | Zip Code | Website or domain name | Project Description[textarea] |
+      | <lname>   | <email> | <phone> | <address> | <city> | <zip>    | <website>              | <description>                 |
+    And I set radio value "yes" for label "Do you have hosting?"
+    And I select visible text from dropdown "New York" for label "State"
+    And I click on 'Send' button
+
+    Examples:
+      | fname | lname | email           | phone        | address     | city     | zip   | website         | description                      |
+      | Ben   | Dover | ben.d@gmail.com | 179-685-3666 | Brooklyn NY | New York | 87542 | fishforfree.com | This is my fish business project |
