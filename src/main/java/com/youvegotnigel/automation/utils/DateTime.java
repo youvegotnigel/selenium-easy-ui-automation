@@ -25,6 +25,7 @@ public class DateTime extends DateTimeUtility{
         LoadConfigProperty();
         timeZone = config.getProperty("TIME_ZONE");
         log.info("The current TimeZone ID is: " + TimeZone.getTimeZone(timeZone).getID());
+        log.debug("Setting datetime for " + text);
 
         switch (text) {
             case "year":
