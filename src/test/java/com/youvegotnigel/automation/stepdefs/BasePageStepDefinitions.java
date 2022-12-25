@@ -23,10 +23,10 @@ public class BasePageStepDefinitions extends TestBase {
 
     @Given("The Application has been launched")
     public void application_is_launched() {
-        if (pageBase.adIsDisplayed()) {
-            pageBase.closeAd();
-        }
-        Assert.assertEquals(pageBase.getPageTitle(), "Selenium Easy - Best Demo website to practice Selenium Webdriver Online");
+//        if (pageBase.adIsDisplayed()) {
+//            pageBase.closeAd();
+//        }
+        //Assert.assertEquals(pageBase.getPageTitle(), "Selenium Framework | Practiceform");
     }
 
     @And("^I wait for \"(.+)\" seconds$")
@@ -266,13 +266,19 @@ public class BasePageStepDefinitions extends TestBase {
     @And("^(?:|I )(?:Enter|enter) (?:|.* )(?:values|details) as below:$")
     public void enter_values(DataTable data) {
 
-        //List<Map<String, String>> values = data.asMaps(String.class, String.class);
-        Map<String,String> values =  data.asMap(String.class,String.class);
+        List<Map<String, String>> values = data.asMaps(String.class, String.class);
 
-        for (var value : values.entrySet()) {
-            //enterValue("Smith", "Last Name");
-            enterValue(value.getValue(), value.getKey());
-        }
+        values.forEach(
+                map -> map.entrySet().forEach(entry ->{
+                    String key = entry.getKey();
+                    String value = entry.getValue();
+
+                    System.out.println("KEY   ::: " + key);
+                    System.out.println("VALUE ::: " + value);
+
+                    enterValue(value, key);
+                })
+        );
     }
 
     public void enterValue(String answer, String question) {
