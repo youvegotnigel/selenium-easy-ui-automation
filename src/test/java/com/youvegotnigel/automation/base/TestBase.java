@@ -159,7 +159,7 @@ public class TestBase {
         log.debug("Browser is closed");
     }
 
-    public WebDriver getDriver(){
+    public static WebDriver getDriver(){
         return eventFiringWebDriver;
     }
 
