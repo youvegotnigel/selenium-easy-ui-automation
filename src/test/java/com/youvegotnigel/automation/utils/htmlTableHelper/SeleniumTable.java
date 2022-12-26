@@ -8,22 +8,10 @@ import java.util.stream.Collectors;
 
 public class SeleniumTable extends WebElementHelper{
 
-    private static String TRANSLATE_XPATH = ".//*[translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZï¿½', 'abcdefghijklmnopqrstuvwxyz') = '{@criteria}']";
 
 
     public SeleniumTable(WebElement element) {
         super(element);
-
-        String tagName = this.getElement().getTagName();
-        String[] allowedTags = new String[]{"table", "tbody", "thead", "tfoot"};
-        if (!Arrays.asList(allowedTags).contains(tagName.toLowerCase())) {
-            throw new IllegalArgumentException("Invalid element of type \"" + tagName + "\" provided. Should be \"table\"");
-        }
-    }
-
-    public SeleniumTable(String tableName, int element_index) {
-        super(identifyTable(tableName, element_index));
-
 
         String tagName = this.getElement().getTagName();
         String[] allowedTags = new String[]{"table", "tbody", "thead", "tfoot"};
@@ -159,25 +147,27 @@ public class SeleniumTable extends WebElementHelper{
         }
     }
 
-    /**
-     * Get row index by cell info
-     * @param cell_info table cell values as a map
-     */
-    public int getRowIndexByCellsInfo(Map<String,String> cell_info){
 
-        String xpath = prepareRowXpath(cell_info, "1") + "/preceding-sibling::tr";
-        return this.findChildren(xpath).size();
-    }
 
-    /**
-     * Get column index by cell info
-     * @param columnName table header name as a String
-     */
-    public int getColumnIndexByCellsInfo(String columnName){
-
-        String xpath = prepareTableHeaderXpath(columnName) + "/preceding-sibling::th";
-        return this.findChildren(xpath).size();
-    }
+//    /**
+//     * Get row index by cell info
+//     * @param cell_info table cell values as a map
+//     */
+//    public int getRowIndexByCellsInfo(Map<String,String> cell_info){
+//
+//        String xpath = prepareRowXpath(cell_info, "1") + "/preceding-sibling::tr";
+//        return this.findChildren(xpath).size();
+//    }
+//
+//    /**
+//     * Get column index by cell info
+//     * @param columnName table header name as a String
+//     */
+//    public int getColumnIndexByCellsInfo(String columnName){
+//
+//        String xpath = prepareTableHeaderXpath(columnName) + "/preceding-sibling::th";
+//        return this.findChildren(xpath).size();
+//    }
 
     /**
      * Get column index by cell info
@@ -200,17 +190,6 @@ public class SeleniumTable extends WebElementHelper{
         }
     }
 
-    public WebElement identifyTable(String table_name, int element_index){
-
-        String xpath = "(//h4[contains(text(),'"+table_name+"')]/following-sibling::div/table)["+element_index+"]";
-        return this.getElement().findElement(By.xpath(xpath));
-    }
-
-    public static String identifyTable(Map<String,String> cell_info, String element_index){
-
-        String row_xpath = "(//thead/tr[" + prepareTableHeaderXpath(cell_info) + "]/ancestor::table)["+element_index+"]";
-        return row_xpath;
-    }
 
     /**
      * Identify table cell by row index and column index
@@ -247,70 +226,5 @@ public class SeleniumTable extends WebElementHelper{
         }
     }
 
-    /**
-     * @return Convert text to lower case with no spaces
-     */
-    public static String prepareValue(String text){
-        return text.trim().toLowerCase(Locale.ROOT);
-    }
 
-    /**
-     * @return Prepare table header xpath
-     * @param column_header value of a table header
-     */
-    public static String prepareTableHeaderXpath(String column_header){
-
-        return TRANSLATE_XPATH.replace("{@criteria}", column_header);
-    }
-
-    /**
-     * @return Prepare table body xpath
-     * @param cell_info values of table cells
-     */
-    public static String prepareTableBodyXpath(Map<String,String> cell_info){
-
-        List<String> xpathList = new ArrayList<>();
-
-        for (Map.Entry<String,String> entry : cell_info.entrySet()){
-            String translate_text = TRANSLATE_XPATH.replace("{@criteria}", prepareValue(entry.getValue()));
-            //System.out.println(translate_text);
-            xpathList.add(translate_text);
-        }
-
-        return String.join("and", xpathList);
-    }
-
-    /**
-     * @return Prepare table header xpath
-     * @param cell_info values of table headers
-     */
-    public static String prepareTableHeaderXpath(Map<String,String> cell_info){
-
-        List<String> xpathList = new ArrayList<>();
-
-        for (Map.Entry<String,String> entry : cell_info.entrySet()){
-            String translate_text = TRANSLATE_XPATH.replace("{@criteria}", prepareValue(entry.getKey()));
-            //System.out.println(translate_text);
-            xpathList.add(translate_text);
-        }
-
-        return String.join("and", xpathList);
-    }
-
-    /**
-     * @return Prepare table row xpath
-     * @param cell_info values of table cells
-     * @param element_index element index
-     */
-    public static String prepareRowXpath(Map<String,String> cell_info, String element_index){
-
-        String row_xpath = "(//tbody/tr[" + prepareTableBodyXpath(cell_info) + "])["+element_index+"]";
-        return row_xpath;
-    }
-
-    public static String prepareHeaderXpath(Map<String,String> cell_info, String element_index){
-
-        String row_xpath = "(//thead/tr[" + prepareTableHeaderXpath(cell_info) + "])["+element_index+"]";
-        return row_xpath;
-    }
 }
