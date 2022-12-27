@@ -15,7 +15,7 @@ public class TableSandboxStepDefinitions extends TestBase {
     public void navigate_to_table_sandbox(String page) {
 
         pageBase.clickOnLinkByName(page);
-        log.debug("Navigating to page ::: " + page);
+        log.info("Navigating to page ::: " + page);
     }
 
 }
