@@ -2,6 +2,8 @@ package com.youvegotnigel.automation.utils.webTableHelper;
 
 import com.youvegotnigel.automation.base.TestBase;
 import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -13,6 +15,8 @@ import java.util.List;
 
 public class WebElementHelper {
 
+    public static final Logger log = LogManager.getLogger(WebElementHelper.class.getName());
+
 
     public static List<WebElement> findChildren(WebElement parent, By findBy){
 
@@ -20,7 +24,6 @@ public class WebElementHelper {
         List<WebElement> elements = driver.findElements(findBy);
         return elements;
     }
-
 
     public static WebElement findChild(WebElement parent, By findBy){
         List<WebElement> elements = findChildren(parent, findBy);
@@ -53,7 +56,7 @@ public class WebElementHelper {
                     "arguments[0].style.top = arguments[1] + 'px';" +
                        "arguments[0].style.left = arguments[2] + 'px';", element, newY, newX);
         }catch(Exception e){
-            System.out.printf("Fail to scroll element '%s' into view using javascript due to error: %s", element, e.getMessage());
+            log.error(String.format("Fail to scroll element '%s' into view using javascript due to error: %s", element, e.getMessage()));
         }
     }
 
@@ -65,7 +68,7 @@ public class WebElementHelper {
             action.moveToElement(element).perform();
 
         }catch (Exception e){
-            System.out.printf("Fail to move to element '%s' due to error: %s", element, e.getMessage());
+            log.error(String.format("Fail to move to element '%s' due to error: %s", element, e.getMessage()));
         }
     }
 
@@ -75,13 +78,13 @@ public class WebElementHelper {
             element.click();
 
         }catch (Exception e){
-            System.out.printf("Fail to click on element '%s' due to error: %s", element, e.getMessage());
+            log.error(String.format("Fail to click on element '%s' due to error: %s", element, e.getMessage()));
         }
     }
 
     public static void selectOptionByLabel(WebElement element, String labelText, boolean isRegex){
         try {
-            System.out.printf("Selecting an option by its label. Label='%s'. Using Regular Expression: '%s'", labelText, isRegex);
+            log.error(String.format("Selecting an option by its label. Label='%s'. Using Regular Expression: '%s'", labelText, isRegex));
             String optionElementXpath = String.format(".//option[normalize-space(text())='%s']", labelText);
             if(isRegex){
                 String DELIMETER1 ="~!@1";
@@ -105,7 +108,7 @@ public class WebElementHelper {
             }
 
         }catch (Exception e){
-            System.out.printf("Could not find option with label '%s' (regex=%s) in select box due to error: %s", labelText, isRegex, e.getMessage());
+            log.error(String.format("Could not find option with label '%s' (regex=%s) in select box due to error: %s", labelText, isRegex, e.getMessage()));
         }
     }
 
