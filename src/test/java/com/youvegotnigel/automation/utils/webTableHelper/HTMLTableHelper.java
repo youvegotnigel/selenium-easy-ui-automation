@@ -18,9 +18,9 @@ public class HTMLTableHelper extends WebElementHelper {
      * @param table_name value of table header
      * @param element_index value of element index
      */
-    public WebElement identifyTable(String table_name, int element_index){
+    public static WebElement identifyTable(String table_name, int element_index){
 
-        String xpath = "(//h4[contains(text(),'"+table_name+"')]/following-sibling::div/table)["+element_index+"]";
+        String xpath = "(//h4[contains(text(),'"+table_name+"')]/following-sibling::*/table)["+element_index+"]";
         WebElement table = WebElementHelper.findChild(null, By.xpath(xpath));
         return table;
     }
@@ -30,7 +30,7 @@ public class HTMLTableHelper extends WebElementHelper {
      * @param cell_info values of table cells
      * @param element_index value of element index
      */
-    public WebElement identifyTable(Map<String,String> cell_info, int element_index){
+    public static WebElement identifyTable(Map<String,String> cell_info, int element_index){
 
         List<String> xpathList = new ArrayList<>();
 
@@ -54,15 +54,15 @@ public class HTMLTableHelper extends WebElementHelper {
      */
     public static boolean verifyRowDisplayed(WebElement table, Map<String, String> cellsInfo){
 
-        System.out.printf("Verify a row containing the following cells '%s' is displayed in the table '%s'", cellsInfo, table);
-        System.out.printf("table xPath ::: %s", table.getText());
+        System.out.printf("\nVerify a row containing the following cells '%s' is displayed in the table '%s'", cellsInfo, table);
+        System.out.printf("\ntable xPath ::: %s", table.getText());
 
         try {
             WebElement row = getMatchedRow(table, cellsInfo);
             return row != null;
 
         }catch (Exception e){
-            System.out.printf("Could not find any rows match to searching criteria %s", cellsInfo);
+            System.out.printf("\nCould not find any rows match to searching criteria %s", cellsInfo);
             e.printStackTrace();
             return false;
         }
@@ -77,7 +77,7 @@ public class HTMLTableHelper extends WebElementHelper {
      */
     public static WebElement identifyCellByValueAndColHeader(WebElement table, String columnHeader, String cellValue){
 
-        System.out.printf("identity a cell with value '%s' under column header '%s'", cellValue, columnHeader);
+        System.out.printf("\nidentity a cell with value '%s' under column header '%s'", cellValue, columnHeader);
 
         try{
             int columnIndex = getColumnIndex(table, ".", columnHeader);
@@ -88,13 +88,13 @@ public class HTMLTableHelper extends WebElementHelper {
                 return cell;
 
             }else{
-                System.out.printf("Could not find any columns with header %s", columnHeader);
+                System.out.printf("\nCould not find any columns with header %s", columnHeader);
                 return null;
             }
 
 
         }catch (Exception e){
-            System.out.printf("Could not find any columns with header %s", columnHeader);
+            System.out.printf("\nCould not find any columns with header %s", columnHeader);
             e.printStackTrace();
             return null;
         }
@@ -109,19 +109,19 @@ public class HTMLTableHelper extends WebElementHelper {
      */
     public static int getColumnIndexByHeader(WebElement table, String columnHeader){
 
-        System.out.printf("Get index of column '%s'", columnHeader);
+        System.out.printf("\nGet index of column '%s'", columnHeader);
 
         try{
             int index = getColumnIndex(table, ".", columnHeader);
             if(index>0){
                 return index;
             }else {
-                System.out.printf("Could not find column with header '%s'", columnHeader);
+                System.out.printf("\nCould not find column with header '%s'", columnHeader);
                 return -1;
             }
 
         }catch (Exception e){
-            System.out.printf("Could not find column with header '%s'", columnHeader);
+            System.out.printf("\nCould not find column with header '%s'", columnHeader);
             e.printStackTrace();
             return -1;
         }
@@ -136,19 +136,19 @@ public class HTMLTableHelper extends WebElementHelper {
      */
     public static int getColumnIndexByAttribute(WebElement table, String attribute, String value){
 
-        System.out.printf("Get index of column using attribute %s = '%s'", attribute, value);
+        System.out.printf("\nGet index of column using attribute %s = '%s'", attribute, value);
 
         try{
             int index = getColumnIndex(table, attribute, value);
             if(index>0){
                 return index;
             }else {
-                System.out.printf("Could not find column with attribute %s = '%s'", attribute, value);
+                System.out.printf("\nCould not find column with attribute %s = '%s'", attribute, value);
                 return -1;
             }
 
         }catch (Exception e){
-            System.out.printf("Could not find column with attribute %s = '%s'", attribute, value);
+            System.out.printf("\nCould not find column with attribute %s = '%s'", attribute, value);
             e.printStackTrace();
             return -1;
         }
@@ -189,7 +189,7 @@ public class HTMLTableHelper extends WebElementHelper {
         String tdTextXpath = String.format("td[%s]", textXpath);
 
         String columnsXpath = String.format(".//tr/%s|//tr/%s|.//tr/%s/preceding-sibling::th|//tr/%s/preceding-sibling::td", thTextXpath, tdTextXpath, thTextXpath, tdTextXpath);
-        System.out.printf("Find columns matching to search criteria xpath: '%s'}", columnsXpath);
+        System.out.printf("\nFind columns matching to search criteria xpath: '%s'}", columnsXpath);
         List<WebElement> columns = WebElementHelper.findChildren(table, By.xpath(columnsXpath));
         return columns;
     }
@@ -202,14 +202,14 @@ public class HTMLTableHelper extends WebElementHelper {
      */
     public static int getRowIndexByCellsInfo(WebElement table, Map<String,String> cell_info){
 
-        System.out.printf("Get index of the row containing the following cells '%s'", cell_info);
+        System.out.printf("\nGet index of the row containing the following cells '%s'", cell_info);
         try{
 
             List<WebElement> rows = getMatchedAndPrecedingRows(table, cell_info);
             return isHeaderSeparated(table) ? rows.size(): rows.size()-1;
 
         }catch (Exception e){
-            System.out.printf("Could not find any rows match to searching criteria '%s'", cell_info);
+            System.out.printf("\nCould not find any rows match to searching criteria '%s'", cell_info);
             e.printStackTrace();
             return -1;
         }
@@ -224,31 +224,31 @@ public class HTMLTableHelper extends WebElementHelper {
      */
     public static WebElement identifyCellByHeaderAndCellsInfo(WebElement table, String columnHeader, Map<String, String> cell_info){
 
-        System.out.printf("identify a cell under column header '%s' belonging to the row of another cells '%s'", columnHeader, cell_info);
+        System.out.printf("\nidentify a cell under column header '%s' belonging to the row of another cells '%s'", columnHeader, cell_info);
         try{
 
             int columnIndex = getColumnIndex(table, ".", columnHeader);
             if(columnIndex<0){
-                System.out.printf("Could not find any columns with header '%s'", columnHeader);
+                System.out.printf("\nCould not find any columns with header '%s'", columnHeader);
                 return null;
             }
 
             WebElement row = getMatchedRow(table, cell_info);
             if(row == null){
-                System.out.printf("Could not find any rows match to searching criteria '%s'", cell_info);
+                System.out.printf("\nCould not find any rows match to searching criteria '%s'", cell_info);
                 return null;
             }
 
             String cellXpath = String.format(".//*[position()=%d and (local-name()='td' or local-name()='th')]", columnIndex);
             WebElement cell = WebElementHelper.findChild(row, By.xpath(cellXpath));
             if(cell == null){
-                System.out.printf("Could not find any cell under column header '%s' belonging to the row of another cells '%s'", columnHeader, cell_info);
+                System.out.printf("\nCould not find any cell under column header '%s' belonging to the row of another cells '%s'", columnHeader, cell_info);
                 return null;
             }
             return cell;
 
         }catch (Exception e){
-            System.out.printf("Could not find any columns with header '%s'", columnHeader);
+            System.out.printf("\nCould not find any columns with header '%s'", columnHeader);
             e.printStackTrace();
             return null;
         }
@@ -264,14 +264,14 @@ public class HTMLTableHelper extends WebElementHelper {
      */
     public static WebElement identifyCellByIndexes(WebElement table, int columnIndex, int rowIndex){
 
-        System.out.printf("Identify a cell in table with row index:%d, column index:%d", rowIndex, columnIndex);
+        System.out.printf("\nIdentify a cell in table with row index:%d, column index:%d", rowIndex, columnIndex);
         try{
 
             List<WebElement> rows = WebElementHelper.findChildren(table, By.tagName("tr"));
             int rowNumber = rows.size();
 
             if(rowIndex <= 0 || rowIndex > rowNumber){
-                System.out.printf("Invalid row index: %d. It should start from 1", rowIndex);
+                System.out.printf("\nInvalid row index: %d. It should start from 1", rowIndex);
                 return null;
             }
 
@@ -313,12 +313,12 @@ public class HTMLTableHelper extends WebElementHelper {
      */
     static List<String> getCellsValueByColumnHeader(WebElement table, String columnHeader){
 
-        System.out.printf("Get values of cells in column '%s'", columnHeader);
+        System.out.printf("\nGet values of cells in column '%s'", columnHeader);
         try{
 
             int columnIndex = getColumnIndexByHeader(table, columnHeader)-1;
             if(columnIndex<0){
-                System.out.printf("Could not find any columns with header '%s'", columnHeader);
+                System.out.printf("\nCould not find any columns with header '%s'", columnHeader);
                 return null;
             }
 
@@ -328,20 +328,20 @@ public class HTMLTableHelper extends WebElementHelper {
             int rowNum = listCells.size();
 
             if(rowNum>0){
-                System.out.printf("Found %d row(s)", rowNum);
+                System.out.printf("\nFound %d row(s)", rowNum);
                 for(WebElement cell: listCells){
                     String cellValue = WebElementHelper.getTextContent(cell);
                     listValues.add(cellValue);
                 }
 
             }else{
-                System.out.printf("Could not find any row\n");
+                System.out.printf("\nCould not find any row\n");
             }
 
             return listValues;
 
         }catch (Exception e){
-            System.out.printf("Could not find any row\n");
+            System.out.printf("\nCould not find any row\n");
             e.printStackTrace();
             return Collections.emptyList();
         }
@@ -377,7 +377,7 @@ public class HTMLTableHelper extends WebElementHelper {
      */
     public static int getTotalRowCount(WebElement table){
         String trXpath = "//tbody/tr";
-        System.out.printf("Find no of rows xpath: '%s'", trXpath);
+        System.out.printf("\nFind no of rows xpath: '%s'", trXpath);
         List<WebElement> rows = WebElementHelper.findChildren(table, By.xpath(trXpath));
 
         return !rows.isEmpty() ? rows.size() : -1;
@@ -391,14 +391,14 @@ public class HTMLTableHelper extends WebElementHelper {
      */
     public static void clickOnColumn(WebElement table, String columnHeader){
 
-        System.out.printf("Click on column with header: '%s'", columnHeader);
+        System.out.printf("\nClick on column with header: '%s'", columnHeader);
         try{
 
             WebElement column = findColumn(table, columnHeader);
             column.click();
 
         }catch (Exception e){
-            System.out.printf("Could not find any columns with header '%s'", columnHeader);
+            System.out.printf("\nCould not find any columns with header '%s'", columnHeader);
             e.printStackTrace();
         }
     }
@@ -410,7 +410,7 @@ public class HTMLTableHelper extends WebElementHelper {
      */
     public static void clickOnLinkInCell(WebElement cell, String linkText){
         try {
-            System.out.printf("Click on the link by text '%s' inside the cell '%s'", linkText, cell);
+            System.out.printf("\nClick on the link by text '%s' inside the cell '%s'", linkText, cell);
             String textCriteria = XPathHelper.makeTextComparisonXPath(".", linkText, XPathHelper.CompareOptions.CONTAINS, false);
             String linkXpath = String.format(".//*[%s]", textCriteria);
             WebElement link = WebElementHelper.findChild(cell, By.xpath(linkXpath));
@@ -428,7 +428,7 @@ public class HTMLTableHelper extends WebElementHelper {
      */
     public static void setTextForCell(WebElement cell, String text){
         try{
-            System.out.printf("Set '%s' into a input control inside the cell '%s'", text, cell);
+            System.out.printf("\nSet '%s' into a input control inside the cell '%s'", text, cell);
             WebElement textControl = WebElementHelper.findChild(cell, By.xpath(".//input[not(@type = 'hidden')]|.//textarea"));
             textControl.clear();
             textControl.sendKeys(text);
@@ -445,10 +445,10 @@ public class HTMLTableHelper extends WebElementHelper {
      */
     public static void selectOptionInCell(WebElement cell, String optionText, boolean isRegex){
         try{
-            System.out.printf("Select an item with label '%s' in a cell '%s'. Using regular expression: %s", optionText, cell.getText(), isRegex);
+            System.out.printf("\nSelect an item with label '%s' in a cell '%s'. Using regular expression: %s", optionText, cell.getText(), isRegex);
             WebElement weSelect = WebElementHelper.findChild(cell, By.xpath(".//select"));
             if(weSelect == null){
-                System.err.printf("Could not find any select box inside of the cell '%s'", cell);
+                System.err.printf("\nCould not find any select box inside of the cell '%s'", cell);
                 return;
             }
             WebElementHelper.selectOptionByLabel(weSelect, optionText, isRegex);
@@ -466,7 +466,7 @@ public class HTMLTableHelper extends WebElementHelper {
 
     private static WebElement getMatchedRow(WebElement table, Map<String,String> cellsInfo){
         String rowXpath = prepareRowXpath(table, cellsInfo);
-        System.out.printf("getMatchedRow - %s", rowXpath);
+        System.out.printf("\ngetMatchedRow - %s", rowXpath);
 
         return table.findElement(By.xpath(rowXpath));
     }
@@ -501,7 +501,7 @@ public class HTMLTableHelper extends WebElementHelper {
             return headerIndexes;
 
         }catch(Exception e){
-            System.out.printf("Fail to backup column header info since an error: %s", e.getMessage());
+            System.out.printf("\nFail to backup column header info since an error: %s", e.getMessage());
             return null;
         }
     }
