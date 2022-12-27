@@ -154,28 +154,9 @@ public class HTMLTableHelper extends WebElementHelper {
         }
     }
 
-    private static WebElement getMatchedRow(WebElement table, Map<String,String> cellsInfo){
-        String rowXpath = prepareRowXpath(table, cellsInfo);
-        System.out.printf("getMatchedRow - %s", rowXpath);
-
-        return table.findElement(By.xpath(rowXpath));
-    }
-
-    private static List<WebElement>getMatchedAndPrecedingRows(WebElement table, Map<String,String> cell_info){
-        String rowsXpath = prepareRowXpath(table, cell_info);
-        rowsXpath = String.format("%s|%s/preceding-sibling::tr", rowsXpath, rowsXpath);
-        return WebElementHelper.findChildren(table, By.xpath(rowsXpath));
-    }
-
-    private static boolean isHeaderSeparated(WebElement table){
-        String headerXpath = ".//thead/tr";
-        WebElement headerRow = WebElementHelper.findChild(table, By.xpath(headerXpath));
-        return headerRow != null;
-    }
-
-
     /**
      * @return Prepare table row xpath
+     * @param table the WebElement table which the row belonging to
      * @param cell_info values of table cells
      */
     public static String prepareRowXpath(WebElement table, Map<String,String> cell_info){
@@ -196,7 +177,12 @@ public class HTMLTableHelper extends WebElementHelper {
     }
 
 
-
+    /**
+     * @return List of Table column headers
+     * @param table the WebElement table which the row belonging to
+     * @param attribute value of attribute
+     * @param value value of column
+     */
     private static List<WebElement> findColumnHeaders(WebElement table, String attribute, String value){
         String textXpath = XPathHelper.makeTextComparisonXPath(attribute, value, XPathHelper.CompareOptions.EQUALS, false);
         String thTextXpath = String.format("th[%s]", textXpath);
@@ -355,6 +341,31 @@ public class HTMLTableHelper extends WebElementHelper {
         return !rows.isEmpty() ? rows.size() : -1;
     }
 
+    private static WebElement findColumn(WebElement table, String columnHeader){
+        String textXpath = XPathHelper.makeTextComparisonXPath(".", columnHeader, XPathHelper.CompareOptions.EQUALS,false);
+        String columnXpath = String.format(".//tr/td[%s]|.//tr/th[%s]", textXpath, textXpath);
+        return WebElementHelper.findChild(table, By.xpath(columnXpath));
+    }
+
+    private static WebElement getMatchedRow(WebElement table, Map<String,String> cellsInfo){
+        String rowXpath = prepareRowXpath(table, cellsInfo);
+        System.out.printf("getMatchedRow - %s", rowXpath);
+
+        return table.findElement(By.xpath(rowXpath));
+    }
+
+    private static List<WebElement>getMatchedAndPrecedingRows(WebElement table, Map<String,String> cell_info){
+        String rowsXpath = prepareRowXpath(table, cell_info);
+        rowsXpath = String.format("%s|%s/preceding-sibling::tr", rowsXpath, rowsXpath);
+        return WebElementHelper.findChildren(table, By.xpath(rowsXpath));
+    }
+
+    private static boolean isHeaderSeparated(WebElement table){
+        String headerXpath = ".//thead/tr";
+        WebElement headerRow = WebElementHelper.findChild(table, By.xpath(headerXpath));
+        return headerRow != null;
+    }
+
     private static Map<Integer, String> getHeaderIndexes(WebElement table){
         try{
             Map<Integer, String> headerIndexes = new HashMap<>();
@@ -377,7 +388,6 @@ public class HTMLTableHelper extends WebElementHelper {
             return null;
         }
     }
-
 
     private static int getCachedHeaderIndex(String header){
 
