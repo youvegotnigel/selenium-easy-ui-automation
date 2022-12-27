@@ -400,7 +400,40 @@ public class HTMLTableHelper extends WebElementHelper {
             System.out.printf("Could not find any columns with header '%s'", columnHeader);
             e.printStackTrace();
         }
+    }
 
+    /**
+     * Click on a link with specific text inside a cell of table
+     * @param cell the cell that the link belonging to
+     * @param linkText the text display on the link
+     */
+    public static void clickOnLinkInCell(WebElement cell, String linkText){
+        try {
+            System.out.printf("Click on the link by text '%s' inside the cell '%s'", linkText, cell);
+            String textCriteria = XPathHelper.makeTextComparisonXPath(".", linkText, XPathHelper.CompareOptions.CONTAINS, false);
+            String linkXpath = String.format(".//*[%s]", textCriteria);
+            WebElement link = WebElementHelper.findChild(cell, By.xpath(linkXpath));
+            WebElementHelper.clickInView(link);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Set text for input control inside a cell
+     * @param cell the cell object need to set text
+     * @param text the value used for typing into cell
+     */
+    public static void setTextForCell(WebElement cell, String text){
+        try{
+            System.out.printf("Set '%s' into a input control inside the cell '%s'", text, cell);
+            WebElement textControl = WebElementHelper.findChild(cell, By.xpath(".//input[not(@type = 'hidden')]|.//textarea"));
+            textControl.clear();
+            textControl.sendKeys(text);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private static WebElement findColumn(WebElement table, String columnHeader){
