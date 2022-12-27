@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.*;
 
+
 public class HTMLTableHelper extends WebElementHelper {
 
     static final String FIND_TABLE_BY_ROW_XPATH = "//table[*[tr[@{rowCriteria}]]]";
@@ -434,6 +435,27 @@ public class HTMLTableHelper extends WebElementHelper {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Select option of a select box in a cell
+     * @param cell: the cell which the select box belongs to
+     * @param optionText: the label of option in select box
+     * @param isRegex : true if label is regular expression, false if not
+     */
+    public static void selectOptionInCell(WebElement cell, String optionText, boolean isRegex){
+        try{
+            System.out.printf("Select an item with label '%s' in a cell '%s'. Using regular expression: %s", optionText, cell.getText(), isRegex);
+            WebElement weSelect = WebElementHelper.findChild(cell, By.xpath(".//select"));
+            if(weSelect == null){
+                System.err.printf("Could not find any select box inside of the cell '%s'", cell);
+                return;
+            }
+            WebElementHelper.selectOptionByLabel(weSelect, optionText, isRegex);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     private static WebElement findColumn(WebElement table, String columnHeader){
