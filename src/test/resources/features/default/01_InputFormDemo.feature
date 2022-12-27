@@ -6,11 +6,11 @@ Feature: Input Form Demo
     And User has navigated "Form Fields" sandbox
 
   Scenario Outline: I should be able to fil all fields of the form
+    Given I set checkbox value "<drink>" for label "What is your favorite drink?"
+    And I set radio value "<color>" for label "What is your favorite color?"
     And I enter values as below:
       | Name   | Do you have any siblings?[select] | Email   | Message[textarea] |
       | <name> | <siblings>                        | <email> | <message>         |
-    And I set checkbox value "<drink>" for label "What is your favorite drink?"
-    And I set radio value "<color>" for label "What is your favorite color?"
     When I click on Submit form button
     And I wait for 5 seconds
     Then Application should display success message "Your message has been sent"
