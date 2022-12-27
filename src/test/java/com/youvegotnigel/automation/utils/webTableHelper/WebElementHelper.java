@@ -4,6 +4,7 @@ import com.youvegotnigel.automation.base.TestBase;
 import org.apache.commons.lang.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
@@ -35,9 +36,22 @@ public class WebElementHelper {
 
     public static void jsScrollIntoView(WebElement element){
         try{
-            var driver= TestBase.getDriver();
+            WebDriver driver= TestBase.getDriver();
             JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-            jsExecutor.executeAsyncScript("arguments[0].scrollIntoView(true);", element);
+
+            // Get the dimensions of the screen
+            int screenWidth = driver.manage().window().getSize().width;
+            int screenHeight = driver.manage().window().getSize().height;
+
+            // Calculate the new x-coordinate
+            int newX = (screenWidth/2) - element.getSize().width/2;
+
+            // Calculate the new y-coordinate
+            int newY = (screenHeight/2) - element.getSize().height/2;
+
+            jsExecutor.executeScript(
+                    "arguments[0].style.top = arguments[1] + 'px';" +
+                       "arguments[0].style.left = arguments[2] + 'px';", element, newY, newX);
         }catch(Exception e){
             System.out.printf("Fail to scroll element '%s' into view using javascript due to error: %s", element, e.getMessage());
         }
