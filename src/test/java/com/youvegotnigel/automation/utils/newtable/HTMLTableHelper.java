@@ -230,6 +230,46 @@ public class HTMLTableHelper extends WebElementHelper {
     }
 
     /**
+     * Identify a web element cell of the specific table based on column header and another cells info
+     * @param table the table passed in to identify the cell
+     * @param columnHeader the column header which that cell belonging to
+     * @param cell_info map of another cells info including their column headers and cell values to identify the row that cell belongings to
+     * @return WebElement
+     */
+    public static WebElement identifyCellByHeaderAndCellsInfo(WebElement table, String columnHeader, Map<String, String> cell_info){
+
+        System.out.printf("identify a cell under column header '%s' belonging to the row of another cells '%s'", columnHeader, cell_info);
+        try{
+
+            int columnIndex = getColumnIndex(table, ".", columnHeader);
+            if(columnIndex<0){
+                System.out.printf("Could not find any columns with header '%s'", columnHeader);
+                return null;
+            }
+
+            WebElement row = getMatchedRow(table, cell_info);
+            if(row == null){
+                System.out.printf("Could not find any rows match to searching criteria '%s'", cell_info);
+                return null;
+            }
+
+            String cellXpath = String.format(".//*[position()=%d and (local-name()='td' or local-name()='th')]", columnIndex);
+            WebElement cell = WebElementHelper.findChild(row, By.xpath(cellXpath));
+            if(cell == null){
+                System.out.printf("Could not find any cell under column header '%s' belonging to the row of another cells '%s'", columnHeader, cell_info);
+                return null;
+            }
+            return cell;
+
+        }catch (Exception e){
+            System.out.printf("Could not find any columns with header '%s'", columnHeader);
+            e.printStackTrace();
+            return null;
+        }
+        
+    }
+
+    /**
      * Get position of a column based on it's attribute
      * @param table values of table element
      * @param attribute value of attribute
