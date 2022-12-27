@@ -453,7 +453,7 @@ public class HTMLTableHelper extends WebElementHelper {
             log.debug(String.format("\nSelect an item with label '%s' in a cell '%s'. Using regular expression: %s", optionText, cell.getText(), isRegex));
             WebElement weSelect = WebElementHelper.findChild(cell, By.xpath(".//select"));
             if(weSelect == null){
-                System.err.printf("\nCould not find any select box inside of the cell '%s'", cell);
+                log.error(String.format("\nCould not find any select box inside of the cell '%s'", cell));
                 return;
             }
             WebElementHelper.selectOptionByLabel(weSelect, optionText, isRegex);
