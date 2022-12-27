@@ -6,7 +6,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WebElementHelper {
@@ -15,8 +14,7 @@ public class WebElementHelper {
     public static List<WebElement> findChildren(WebElement parent, By findBy){
 
         var driver = (parent != null) ? parent : TestBase.getDriver();
-        List<WebElement> elements = new ArrayList<>();
-        elements = driver.findElements(findBy);
+        List<WebElement> elements = driver.findElements(findBy);
         return elements;
     }
 
