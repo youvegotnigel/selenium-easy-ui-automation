@@ -30,9 +30,13 @@ public class BasePageStepDefinitions extends TestBase {
         Assert.assertEquals(pageBase.getPageTitle(), "Automation Testing Practice Website | automateNow |");
     }
 
-    @And("^I wait for \"(.+)\" seconds$")
-    public void wait_time(String time) {
-        implicitWait(Integer.parseInt(time));
+    @And("I wait for {int} seconds")
+    public void wait_time(int time) {
+        try {
+            Thread.sleep(time*1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @And("I click on {string} button")
@@ -112,7 +116,7 @@ public class BasePageStepDefinitions extends TestBase {
         }
     }
 
-    @And("^I set radio value \"(.+)\" for label \"(.+)\"$")
+    @And("^I set (?:|radio|checkbox) value \"(.+)\" for label \"(.+)\"$")
     public void set_radio_button_for_label(String answer, String question) {
 
         if (question.matches(".*\\[[\\d.]]")) {
@@ -320,7 +324,10 @@ public class BasePageStepDefinitions extends TestBase {
                 } else if (question.matches("(.*)textarea].*")) {
                     set_text_for_textarea(answer, question);
                     break;
-                } else {
+                } else if(question.matches("(.*)select].*")){
+                    select_from_dropdown_by_visible_text(answer, question.split("\\[")[0]);
+                    break;
+                }else {
                     set_text_for_label(answer, question);
                     break;
                 }
