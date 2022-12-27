@@ -1,8 +1,7 @@
 package com.youvegotnigel.automation.pageobjects;
 
 import com.youvegotnigel.automation.base.PageBase;
-import com.youvegotnigel.automation.pageobjects.forms.InputFormDemoPage;
-import com.youvegotnigel.automation.pageobjects.forms.SimpleFormDemoPage;
+import com.youvegotnigel.automation.pageobjects.forms.FormPage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -30,12 +29,8 @@ public class LandingPage extends PageBase {
         }
     }
 
-    //pass the driver for the next page
-    public SimpleFormDemoPage goToSimpleFormDemoPage() {
-        return new SimpleFormDemoPage(driver);
-    }
 
-    public InputFormDemoPage goToInputFormDemoPage() {
-        return new InputFormDemoPage(driver);
+    public FormPage goToInputFormDemoPage() {
+        return new FormPage(driver);
     }
 }
