@@ -9,11 +9,10 @@ public class Test {
     public static void main(String[] args) {
 
 
-        Date endTime = Date.from(Instant.ofEpochMilli(0));
+        String textXpath = "ABCD";
+        String columnXpath = String.format(".//tr/td[%s]|.//tr/th[%s]", textXpath, textXpath);
 
-        Date currentTime = Calendar.getInstance().getTime();
-
-        System.out.println(endTime.after(currentTime));
+        System.out.println(columnXpath);
 
     }
 }
