@@ -3,9 +3,9 @@ package com.youvegotnigel.automation.base;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -80,7 +80,7 @@ public class PageBase {
     public void clickOnButtonByName(String text) {
         String xpath = "(//button[contains(normalize-space(),'" + text + "')])[1]";
         WebElement element = driver.findElement(By.xpath(xpath));
-        jsScrollIntoView(element);
+        scrollIntoView(element);
         try {
             element.click();
         } catch (Exception e) {
@@ -93,7 +93,7 @@ public class PageBase {
     public void clickOnButtonByName(String text, String index) {
         String xpath = "(//button[contains(normalize-space(),'" + text + "')])["+ index +"]" ;
         WebElement element = driver.findElement(By.xpath(xpath));
-        jsScrollIntoView(element);
+        scrollIntoView(element);
         try {
             element.click();
         } catch (Exception e) {
@@ -106,7 +106,7 @@ public class PageBase {
     public void clickOnLinkByName(String text) {
         String xpath = "//a[contains(normalize-space(),'" + text + "')]";
         WebElement element = driver.findElement(By.xpath(xpath));
-        jsScrollIntoView(element);
+        scrollIntoView(element);
         try {
             element.click();
         } catch (Exception e) {
@@ -119,7 +119,7 @@ public class PageBase {
     public void clickOnLinkByName(String text, String index) {
         String xpath = "(//a[contains(normalize-space(),'" + text + "')])["+ index +"]" ;
         WebElement element = driver.findElement(By.xpath(xpath));
-        jsScrollIntoView(element);
+        scrollIntoView(element);
         try {
             element.click();
         } catch (Exception e) {
@@ -132,21 +132,21 @@ public class PageBase {
     public boolean isDisplayedInNormalizeSpace(String text) {
         String xpath = "//*[normalize-space()='" + text + "']";
         WebElement element = driver.findElement(By.xpath(xpath));
-        jsScrollIntoView(element);
+        scrollIntoView(element);
         return element.isDisplayed();
     }
 
     public boolean isDisplayedInNormalizeSpace(String text, String index) {
         String xpath = "(//*[normalize-space()='" + text + "'])["+ index +"]" ;
         WebElement element = driver.findElement(By.xpath(xpath));
-        jsScrollIntoView(element);
+        scrollIntoView(element);
         return element.isDisplayed();
     }
 
     public void clickOnNormalizeSpace(String text) {
         String xpath = "//*[normalize-space()='" + text + "']";
         WebElement element = driver.findElement(By.xpath(xpath));
-        jsScrollIntoView(element);
+        scrollIntoView(element);
         try {
             element.click();
         } catch (Exception e) {
@@ -159,7 +159,7 @@ public class PageBase {
     public void clickOnNormalizeSpace(String text, String index) {
         String xpath = "(//*[normalize-space()='" + text + "'])["+ index +"]" ;
         WebElement element = driver.findElement(By.xpath(xpath));
-        jsScrollIntoView(element);
+        scrollIntoView(element);
         try {
             element.click();
         } catch (Exception e) {
@@ -173,7 +173,7 @@ public class PageBase {
 
         String xpath = "//label[contains(text(),'"+ label_name +"')]/following::input[@value='"+ value +"']";
         WebElement element = driver.findElement(By.xpath(xpath));
-        jsScrollIntoView(element);
+        scrollIntoView(element);
         try {
             element.click();
         } catch (Exception e) {
@@ -187,7 +187,7 @@ public class PageBase {
 
         String xpath = "(//label[contains(text(),'"+ label_name +"')])["+ index +"]/following::input[@value='"+ value +"']";
         WebElement element = driver.findElement(By.xpath(xpath));
-        jsScrollIntoView(element);
+        scrollIntoView(element);
         try {
             element.click();
         } catch (Exception e) {
@@ -272,26 +272,14 @@ public class PageBase {
         select.selectByIndex(index);
     }
 
-    public static void jsScrollIntoView(WebElement element){
+    public static void scrollIntoView(WebElement element){
         try{
 
-            JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+            Actions actions = new Actions(driver);
+            actions.moveToElement(element).perform();
 
-            // Get the dimensions of the screen
-            int screenWidth = driver.manage().window().getSize().width;
-            int screenHeight = driver.manage().window().getSize().height;
-
-            // Calculate the new x-coordinate
-            int newX = (screenWidth/2) - element.getSize().width/2;
-
-            // Calculate the new y-coordinate
-            int newY = (screenHeight/2) - element.getSize().height/2;
-
-            jsExecutor.executeScript(
-                    "arguments[0].style.top = arguments[1] + 'px';" +
-                            "arguments[0].style.left = arguments[2] + 'px';", element, newY, newX);
         }catch(Exception e){
-            System.out.printf("Fail to scroll element '%s' into view using javascript due to error: %s", element, e.getMessage());
+            log.error(String.format("Fail to scroll element '%s' into view due to error: %s", element, e.getMessage()));
         }
     }
 }
