@@ -2,11 +2,13 @@ package com.youvegotnigel.automation.stepdefs;
 
 import com.youvegotnigel.automation.base.PageBase;
 import com.youvegotnigel.automation.base.TestBase;
+import com.youvegotnigel.automation.utils.webTableHelper.HTMLTableHelper;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import java.util.ArrayList;
@@ -122,7 +124,7 @@ public class BasePageStepDefinitions extends TestBase {
     }
 
     @And("^I select visible text from dropdown \"(.+)\" for label \"(.+)\"$")
-    public void select_from_dropdown_by_visible_text(String answer, String question){
+    public void select_from_dropdown_by_visible_text(String answer, String question) {
 
         if (question.matches(".*\\[[\\d.]]")) {
             var valueAndIndex = getValueAndIndex(question);
@@ -133,7 +135,7 @@ public class BasePageStepDefinitions extends TestBase {
     }
 
     @And("^I select value from dropdown \"(.+)\" for label \"(.+)\"$")
-    public void select_from_dropdown_by_value(String answer, String question){
+    public void select_from_dropdown_by_value(String answer, String question) {
 
         if (question.matches(".*\\[[\\d.]]")) {
             var valueAndIndex = getValueAndIndex(question);
@@ -144,7 +146,7 @@ public class BasePageStepDefinitions extends TestBase {
     }
 
     @And("I select index from dropdown {int} for label {string}")
-    public void select_from_dropdown_by_index(int answer, String question){
+    public void select_from_dropdown_by_index(int answer, String question) {
 
         if (question.matches(".*\\[[\\d.]]")) {
             var valueAndIndex = getValueAndIndex(question);
@@ -263,24 +265,45 @@ public class BasePageStepDefinitions extends TestBase {
     }
 
     @And("^Table should be displayed as below:$")
-    public void verify_table_value(DataTable data) {
+    public void verify_table_value(DataTable dataTable) {
 
-        
+//        Map<String, String> map = dataTable.asMap(String.class, String.class);
+//        var table = HTMLTableHelper.identifyTable(map, 1);
+//        Assert.assertTrue(HTMLTableHelper.verifyRowDisplayed(table, map));
+
+        List<Map<String, String>> values = dataTable.asMaps(String.class, String.class);
+
+        for(Map<String,String> map : values){
+            WebElement table = HTMLTableHelper.identifyTable(map,1);
+            Assert.assertTrue(HTMLTableHelper.verifyRowDisplayed(table, map));
+        }
+
+
     }
 
 
     @And("^\"(.+)\" table should be displayed as below:$")
-    public void verify_table_value(String tableHeader, DataTable data) {
+    public void verify_table_value(String tableHeader, DataTable dataTable) {
 
+        List<Map<String, String>> values = dataTable.asMaps(String.class, String.class);
+        WebElement table = HTMLTableHelper.identifyTable(tableHeader, 1);
+
+//        values.forEach(map ->
+//                Assert.assertTrue(HTMLTableHelper.verifyRowDisplayed(table, map))
+//        );
+
+        for(Map<String,String> map : values){
+            Assert.assertTrue(HTMLTableHelper.verifyRowDisplayed(table, map));
+        }
     }
 
     @And("^(?:|I )(?:Enter|enter) (?:|.* )(?:values|details) as below:$")
-    public void enter_values(DataTable data) {
+    public void enter_values(DataTable dataTable) {
 
-        List<Map<String, String>> values = data.asMaps(String.class, String.class);
+        List<Map<String, String>> values = dataTable.asMaps(String.class, String.class);
 
         values.forEach(
-                map -> map.entrySet().forEach(entry ->{
+                map -> map.entrySet().forEach(entry -> {
                     String key = entry.getKey();
                     String value = entry.getValue();
 
