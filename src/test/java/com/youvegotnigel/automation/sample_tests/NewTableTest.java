@@ -1,6 +1,5 @@
 package com.youvegotnigel.automation.sample_tests;
 
-import com.youvegotnigel.automation.utils.htmlTableHelper.SeleniumTable;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -34,7 +33,7 @@ public class NewTableTest {
         // get the <table> element
         WebElement tableElement = driver.findElement(By.xpath("//*[@id=\"table1\"]"));
         // get an instance of SeleniumTable
-        SeleniumTable table = new SeleniumTable(tableElement);
+
 
 
 
