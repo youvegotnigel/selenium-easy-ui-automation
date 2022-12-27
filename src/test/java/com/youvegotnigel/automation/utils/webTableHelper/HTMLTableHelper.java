@@ -59,8 +59,8 @@ public class HTMLTableHelper extends WebElementHelper {
      */
     public static boolean verifyRowDisplayed(WebElement table, Map<String, String> cellsInfo){
 
-        log.debug(String.format("Verify a row containing the following cells '%s' is displayed in the table '%s'", cellsInfo, table));
-        log.debug(String.format("table xPath ::: %s", table.getText()));
+        log.info(String.format("Verify a row containing the following cells '%s' is displayed in the table '%s'", cellsInfo, table));
+        log.info(String.format("table xPath ::: %s", table.getText()));
 
         try {
             WebElement row = getMatchedRow(table, cellsInfo);
@@ -88,7 +88,7 @@ public class HTMLTableHelper extends WebElementHelper {
      */
     public static WebElement identifyCellByValueAndColHeader(WebElement table, String columnHeader, String cellValue){
 
-        log.debug(String.format("identity a cell with value '%s' under column header '%s'", cellValue, columnHeader));
+        log.info(String.format("identity a cell with value '%s' under column header '%s'", cellValue, columnHeader));
 
         try{
             int columnIndex = getColumnIndex(table, ".", columnHeader);
@@ -120,7 +120,7 @@ public class HTMLTableHelper extends WebElementHelper {
      */
     public static int getColumnIndexByHeader(WebElement table, String columnHeader){
 
-        log.debug(String.format("Get index of column '%s'", columnHeader));
+        log.info(String.format("Get index of column '%s'", columnHeader));
 
         try{
             int index = getColumnIndex(table, ".", columnHeader);
@@ -147,7 +147,7 @@ public class HTMLTableHelper extends WebElementHelper {
      */
     public static int getColumnIndexByAttribute(WebElement table, String attribute, String value){
 
-        log.debug(String.format("Get index of column using attribute %s = '%s'", attribute, value));
+        log.info(String.format("Get index of column using attribute %s = '%s'", attribute, value));
 
         try{
             int index = getColumnIndex(table, attribute, value);
@@ -200,7 +200,7 @@ public class HTMLTableHelper extends WebElementHelper {
         String tdTextXpath = String.format("td[%s]", textXpath);
 
         String columnsXpath = String.format(".//tr/%s|//tr/%s|.//tr/%s/preceding-sibling::th|//tr/%s/preceding-sibling::td", thTextXpath, tdTextXpath, thTextXpath, tdTextXpath);
-        log.debug(String.format("Find columns matching to search criteria xpath: '%s'}", columnsXpath));
+        log.info(String.format("Find columns matching to search criteria xpath: '%s'}", columnsXpath));
         List<WebElement> columns = WebElementHelper.findChildren(table, By.xpath(columnsXpath));
         return columns;
     }
@@ -213,7 +213,7 @@ public class HTMLTableHelper extends WebElementHelper {
      */
     public static int getRowIndexByCellsInfo(WebElement table, Map<String,String> cell_info){
 
-        log.debug(String.format("Get index of the row containing the following cells '%s'", cell_info));
+        log.info(String.format("Get index of the row containing the following cells '%s'", cell_info));
         try{
 
             List<WebElement> rows = getMatchedAndPrecedingRows(table, cell_info);
@@ -235,7 +235,7 @@ public class HTMLTableHelper extends WebElementHelper {
      */
     public static WebElement identifyCellByHeaderAndCellsInfo(WebElement table, String columnHeader, Map<String, String> cell_info){
 
-        log.debug(String.format("identify a cell under column header '%s' belonging to the row of another cells '%s'", columnHeader, cell_info));
+        log.info(String.format("identify a cell under column header '%s' belonging to the row of another cells '%s'", columnHeader, cell_info));
         try{
 
             int columnIndex = getColumnIndex(table, ".", columnHeader);
@@ -275,7 +275,7 @@ public class HTMLTableHelper extends WebElementHelper {
      */
     public static WebElement identifyCellByIndexes(WebElement table, int columnIndex, int rowIndex){
 
-        log.debug(String.format("Identify a cell in table with row index:%d, column index:%d", rowIndex, columnIndex));
+        log.info(String.format("Identify a cell in table with row index:%d, column index:%d", rowIndex, columnIndex));
         try{
 
             List<WebElement> rows = WebElementHelper.findChildren(table, By.tagName("tr"));
@@ -324,7 +324,7 @@ public class HTMLTableHelper extends WebElementHelper {
      */
     static List<String> getCellsValueByColumnHeader(WebElement table, String columnHeader){
 
-        log.debug(String.format("Get values of cells in column '%s'", columnHeader));
+        log.info(String.format("Get values of cells in column '%s'", columnHeader));
         try{
 
             int columnIndex = getColumnIndexByHeader(table, columnHeader)-1;
@@ -402,7 +402,7 @@ public class HTMLTableHelper extends WebElementHelper {
      */
     public static void clickOnColumn(WebElement table, String columnHeader){
 
-        log.debug(String.format("Click on column with header: '%s'", columnHeader));
+        log.info(String.format("Click on column with header: '%s'", columnHeader));
         try{
 
             WebElement column = findColumn(table, columnHeader);
@@ -420,8 +420,8 @@ public class HTMLTableHelper extends WebElementHelper {
      * @param linkText the text display on the link
      */
     public static void clickOnLinkInCell(WebElement cell, String linkText){
+        log.info(String.format("Click on the link by text '%s' inside the cell '%s'", linkText, cell));
         try {
-            log.debug(String.format("Click on the link by text '%s' inside the cell '%s'", linkText, cell));
             String textCriteria = XPathHelper.makeTextComparisonXPath(".", linkText, XPathHelper.CompareOptions.CONTAINS, false);
             String linkXpath = String.format(".//*[%s]", textCriteria);
             WebElement link = WebElementHelper.findChild(cell, By.xpath(linkXpath));
@@ -438,8 +438,8 @@ public class HTMLTableHelper extends WebElementHelper {
      * @param text the value used for typing into cell
      */
     public static void setTextForCell(WebElement cell, String text){
+        log.info(String.format("Set '%s' into a input control inside the cell '%s'", text, cell));
         try{
-            log.debug(String.format("Set '%s' into a input control inside the cell '%s'", text, cell));
             WebElement textControl = WebElementHelper.findChild(cell, By.xpath(".//input[not(@type = 'hidden')]|.//textarea"));
             textControl.clear();
             textControl.sendKeys(text);
@@ -455,8 +455,8 @@ public class HTMLTableHelper extends WebElementHelper {
      * @param isRegex : true if label is regular expression, false if not
      */
     public static void selectOptionInCell(WebElement cell, String optionText, boolean isRegex){
+        log.info(String.format("Select an item with label '%s' in a cell '%s'. Using regular expression: %s", optionText, cell.getText(), isRegex));
         try{
-            log.debug(String.format("Select an item with label '%s' in a cell '%s'. Using regular expression: %s", optionText, cell.getText(), isRegex));
             WebElement weSelect = WebElementHelper.findChild(cell, By.xpath(".//select"));
             if(weSelect == null){
                 log.error(String.format("Could not find any select box inside of the cell '%s'", cell));
@@ -477,7 +477,7 @@ public class HTMLTableHelper extends WebElementHelper {
 
     private static WebElement getMatchedRow(WebElement table, Map<String,String> cellsInfo){
         String rowXpath = prepareRowXpath(table, cellsInfo);
-        log.debug(String.format("getMatchedRow - %s", rowXpath));
+        log.info(String.format("getMatchedRow - %s", rowXpath));
 
         return table.findElement(By.xpath(rowXpath));
     }
