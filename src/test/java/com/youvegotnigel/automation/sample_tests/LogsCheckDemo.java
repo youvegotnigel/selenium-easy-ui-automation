@@ -25,7 +25,7 @@ public class LogsCheckDemo {
         log.error("Error Logged message.");
         log.fatal("Fatal Logged message.");
 
-        String name = "Nigel";
+        String name = "Jon";
         int age = 26;
 
         log.debug(String.format("%s is now %d years old", name, age));
