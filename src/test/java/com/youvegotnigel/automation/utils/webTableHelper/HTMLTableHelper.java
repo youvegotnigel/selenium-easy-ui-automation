@@ -41,11 +41,11 @@ public class HTMLTableHelper extends WebElementHelper {
 
         for (Map.Entry<String,String> entry : cell_info.entrySet()){
             String xpath_list = XPathHelper.makeTextComparisonXPath(".", entry.getKey(), XPathHelper.CompareOptions.EQUALS, false);
-            //System.out.println(xpath_list);
-            xpathList.add(xpath_list);
+            String closure = String.format(".//*[%s]", xpath_list);
+            xpathList.add(closure);
         }
 
-        String xpath = "(//thead/tr[" + String.join("and", xpathList) + "]/ancestor::table)["+element_index+"]";
+        String xpath = "(//thead/tr[" + String.join(" and ", xpathList) + "]/ancestor::table)["+element_index+"]";
         WebElement table = WebElementHelper.findChild(null, By.xpath(xpath));
         return table;
     }
@@ -177,7 +177,7 @@ public class HTMLTableHelper extends WebElementHelper {
             cellCriteria = String.format(".//*[%s and position()=%d and (local-name()='td' or local-name()='th')]", cellCriteria, columnIndex);
             columnsXpath.add(cellCriteria);
         }
-        String rowXpath = "(//tr[" + String.join("and", columnsXpath ) + "])[1]";
+        String rowXpath = "(//tr[" + String.join(" and ", columnsXpath ) + "])[1]";
         return rowXpath;
     }
 
@@ -364,7 +364,7 @@ public class HTMLTableHelper extends WebElementHelper {
             attribute = String.format("@%s",attribute);
         }
         List<WebElement> columns = findColumnHeaders(table, attribute, value);
-        if(!columns.isEmpty()){
+        if(columns.isEmpty()){
             Map<Integer, String> headerIndexes = getHeaderIndexes(table);
             int cahedIndex = getCachedHeaderIndex(value);
             String newHeader = headerIndexes.get(cahedIndex);
