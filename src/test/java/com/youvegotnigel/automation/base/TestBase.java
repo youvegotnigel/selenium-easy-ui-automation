@@ -163,6 +163,10 @@ public class TestBase {
         return eventFiringWebDriver;
     }
 
+    public void navigateTo(String url){
+        getDriver().navigate().to(url);
+    }
+
     public String decodeText(String text){
         if(text == "" || text == null){
             return " ";
