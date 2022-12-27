@@ -6,7 +6,7 @@ Feature: Test HTML Table
     And User has navigated "Tables" sandbox
 
   Scenario: Verify Table with Table Header
-    Given I wait for "5" seconds
+    Given I wait for 5 seconds
     Then "Simple Table (item prices)" table should be displayed as below:
       | Item    | Price    |
       | Oranges | $3.99    |
@@ -15,7 +15,7 @@ Feature: Test HTML Table
 
 
   Scenario: Verify Table with Column Headers
-    Given I wait for "5" seconds
+    Given I wait for 5 seconds
     Then Table should be displayed as below:
       | Rank | Country       | Population (million) |
       | 1    | China         | 1,439.3              |
