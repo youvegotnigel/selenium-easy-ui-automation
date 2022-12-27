@@ -1,5 +1,6 @@
 package com.youvegotnigel.automation.stepdefs;
 
+import com.youvegotnigel.automation.base.PageBase;
 import com.youvegotnigel.automation.base.TestBase;
 import io.cucumber.java.en.Given;
 import org.apache.logging.log4j.LogManager;
@@ -8,13 +9,13 @@ import org.apache.logging.log4j.Logger;
 public class TableSandboxStepDefinitions extends TestBase {
 
     public static final Logger log = LogManager.getLogger(TableSandboxStepDefinitions.class.getName());
+    PageBase pageBase = new PageBase(eventFiringWebDriver);
 
-    @Given("The Application has navigated tables sandbox")
-    public void navigate_to_table_sandbox() {
+    @Given("User has navigated {string} sandbox")
+    public void navigate_to_table_sandbox(String page) {
 
-        String url = "https://automatenow.io/sandbox-automation-testing-practice-website/tables/";
-        log.debug("Navigating to URL ::: " + url);
-        navigateTo(url);
+        pageBase.clickOnLinkByName(page);
+        log.debug("Navigating to page ::: " + page);
     }
 
 }
