@@ -54,7 +54,7 @@ public class HTMLTableHelper extends WebElementHelper {
      */
     public static boolean verifyRowDisplayed(WebElement table, Map<String, String> cellsInfo){
 
-        System.out.printf("Verify a row containing the following cells %s is displayed in the table %s", cellsInfo, table);
+        System.out.printf("Verify a row containing the following cells '%s' is displayed in the table '%s'", cellsInfo, table);
         System.out.printf("table xPath ::: %s", table.getText());
 
         try {
@@ -63,7 +63,94 @@ public class HTMLTableHelper extends WebElementHelper {
 
         }catch (Exception e){
             System.out.printf("Could not find any rows match to searching criteria %s", cellsInfo);
+            e.printStackTrace();
             return false;
+        }
+    }
+
+    /**
+     * Identity a cell web element using column header and cell value
+     * @param table the WebElement table which the cell belonging to
+     * @param columnHeader the column header that the cell display under
+     * @param cellValue the value displays on the cell
+     * @return WebElement
+     */
+    public static WebElement identifyCellByValueAndColHeader(WebElement table, String columnHeader, String cellValue){
+
+        System.out.printf("identity a cell with value '%s' under column header '%s'", cellValue, columnHeader);
+
+        try{
+            int columnIndex = getColumnIndex(table, ".", columnHeader);
+            if(columnIndex > 0){
+                String cellCriteria = XPathHelper.makeTextComparisonXPath(".", cellValue, XPathHelper.CompareOptions.EQUALS, false);
+                String cellXpath = String.format(".//tr/td[%s and position() = %d]|.//tr/th[%s and position() = %d]", cellCriteria, columnIndex, cellCriteria, columnIndex);
+                WebElement cell = WebElementHelper.findChild(table, By.xpath(cellXpath));
+                return cell;
+
+            }else{
+                System.out.printf("Could not find any columns with header %s", columnHeader);
+                return null;
+            }
+
+
+        }catch (Exception e){
+            System.out.printf("Could not find any columns with header %s", columnHeader);
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    /**
+     * Get column index by it's header
+     * @param table the WebElement table which the row belonging to
+     * @param columnHeader the column header
+     * @return integer, starts from 1
+     */
+    public static int getColumnIndexByHeader(WebElement table, String columnHeader){
+
+        System.out.printf("Get index of column '%s'", columnHeader);
+
+        try{
+            int index = getColumnIndex(table, ".", columnHeader);
+            if(index>0){
+                return index;
+            }else {
+                System.out.printf("Could not find column with header '%s'", columnHeader);
+                return -1;
+            }
+
+        }catch (Exception e){
+            System.out.printf("Could not find column with header '%s'", columnHeader);
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    /**
+     * Get column index by it's attribute. It's used in case of missing column header
+     * @param table the WebElement table which the row belonging to
+     * @param attribute the attribute name used for detect position of the column
+     * @param value the attribute value used for detect position of the column
+     * @return integer, starts from 1
+     */
+    public static int getColumnIndexByAttribute(WebElement table, String attribute, String value){
+
+        System.out.printf("Get index of column using attribute %s = '%s'", attribute, value);
+
+        try{
+            int index = getColumnIndex(table, attribute, value);
+            if(index>0){
+                return index;
+            }else {
+                System.out.printf("Could not find column with attribute %s = '%s'", attribute, value);
+                return -1;
+            }
+
+        }catch (Exception e){
+            System.out.printf("Could not find column with attribute %s = '%s'", attribute, value);
+            e.printStackTrace();
+            return -1;
         }
     }
 
@@ -73,6 +160,19 @@ public class HTMLTableHelper extends WebElementHelper {
 
         return table.findElement(By.xpath(rowXpath));
     }
+
+    private static List<WebElement>getMatchedAndPrecedingRows(WebElement table, Map<String,String> cell_info){
+        String rowsXpath = prepareRowXpath(table, cell_info);
+        rowsXpath = String.format("%s|%s/preceding-sibling::tr", rowsXpath, rowsXpath);
+        return WebElementHelper.findChildren(table, By.xpath(rowsXpath));
+    }
+
+    private static boolean isHeaderSeparated(WebElement table){
+        String headerXpath = ".//thead/tr";
+        WebElement headerRow = WebElementHelper.findChild(table, By.xpath(headerXpath));
+        return headerRow != null;
+    }
+
 
     /**
      * @return Prepare table row xpath
@@ -103,9 +203,30 @@ public class HTMLTableHelper extends WebElementHelper {
         String tdTextXpath = String.format("td[%s]", textXpath);
 
         String columnsXpath = String.format(".//tr/%s|//tr/%s|.//tr/%s/preceding-sibling::th|//tr/%s/preceding-sibling::td", thTextXpath, tdTextXpath, thTextXpath, tdTextXpath);
-        System.out.printf("Find columns matching to search criteria xpath: %s}", columnsXpath);
+        System.out.printf("Find columns matching to search criteria xpath: '%s'}", columnsXpath);
         List<WebElement> columns = WebElementHelper.findChildren(table, By.xpath(columnsXpath));
         return columns;
+    }
+
+    /**
+     * Get row index using it's cells info
+     * @param table the WebElement table which the row belonging to
+     * @param cell_info map of cells info including their column headers and cell values
+     * @return integer, starts from 1
+     */
+    public static int getRowIndexByCellsInfo(WebElement table, Map<String,String> cell_info){
+
+        System.out.printf("Get index of the row containing the following cells '%s'", cell_info);
+        try{
+
+            List<WebElement> rows = getMatchedAndPrecedingRows(table, cell_info);
+            return isHeaderSeparated(table) ? rows.size(): rows.size()-1;
+
+        }catch (Exception e){
+            System.out.printf("Could not find any rows match to searching criteria '%s'", cell_info);
+            e.printStackTrace();
+            return -1;
+        }
     }
 
     /**
@@ -129,7 +250,7 @@ public class HTMLTableHelper extends WebElementHelper {
             }
         }
 
-        return !columns.isEmpty() ? columns.size() : - 1;
+        return !columns.isEmpty() ? columns.size() : -1;
     }
 
     /**
@@ -138,9 +259,10 @@ public class HTMLTableHelper extends WebElementHelper {
      */
     public static int getTotalRowCount(WebElement table){
         String trXpath = "//tbody/tr";
-        System.out.printf("Find no of rows xpath: %s", trXpath);
+        System.out.printf("Find no of rows xpath: '%s'", trXpath);
         List<WebElement> rows = WebElementHelper.findChildren(table, By.xpath(trXpath));
-        return rows.size();
+
+        return !rows.isEmpty() ? rows.size() : -1;
     }
 
     private static Map<Integer, String> getHeaderIndexes(WebElement table){
