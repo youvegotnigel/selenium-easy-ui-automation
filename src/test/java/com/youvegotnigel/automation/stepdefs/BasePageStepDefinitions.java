@@ -267,10 +267,6 @@ public class BasePageStepDefinitions extends TestBase {
     @And("^Table should be displayed as below:$")
     public void verify_table_value(DataTable dataTable) {
 
-//        Map<String, String> map = dataTable.asMap(String.class, String.class);
-//        var table = HTMLTableHelper.identifyTable(map, 1);
-//        Assert.assertTrue(HTMLTableHelper.verifyRowDisplayed(table, map));
-
         List<Map<String, String>> values = dataTable.asMaps(String.class, String.class);
 
         for(Map<String,String> map : values){
@@ -287,10 +283,6 @@ public class BasePageStepDefinitions extends TestBase {
 
         List<Map<String, String>> values = dataTable.asMaps(String.class, String.class);
         WebElement table = HTMLTableHelper.identifyTable(tableHeader, 1);
-
-//        values.forEach(map ->
-//                Assert.assertTrue(HTMLTableHelper.verifyRowDisplayed(table, map))
-//        );
 
         for(Map<String,String> map : values){
             Assert.assertTrue(HTMLTableHelper.verifyRowDisplayed(table, map));
