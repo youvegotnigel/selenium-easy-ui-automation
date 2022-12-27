@@ -344,10 +344,6 @@ public class HTMLTableHelper extends WebElementHelper {
             e.printStackTrace();
             return Collections.emptyList();
         }
-
-
-
-
     }
 
     /**
@@ -384,6 +380,27 @@ public class HTMLTableHelper extends WebElementHelper {
         List<WebElement> rows = WebElementHelper.findChildren(table, By.xpath(trXpath));
 
         return !rows.isEmpty() ? rows.size() : -1;
+    }
+
+    /**
+     * Click on a column based on it' header
+     * @param table the table that the column belongings to
+     * @param columnHeader the column header
+     * @return
+     */
+    public static void clickOnColumn(WebElement table, String columnHeader){
+
+        System.out.printf("Click on column with header: '%s'", columnHeader);
+        try{
+
+            WebElement column = findColumn(table, columnHeader);
+            column.click();
+
+        }catch (Exception e){
+            System.out.printf("Could not find any columns with header '%s'", columnHeader);
+            e.printStackTrace();
+        }
+
     }
 
     private static WebElement findColumn(WebElement table, String columnHeader){
