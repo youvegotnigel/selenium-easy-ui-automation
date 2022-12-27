@@ -266,7 +266,57 @@ public class HTMLTableHelper extends WebElementHelper {
             e.printStackTrace();
             return null;
         }
-        
+
+    }
+
+    /**
+     * Identity a cell web element using row and column indexes
+     * @param table the WebElement table which the row belonging to
+     * @param columnIndex position of the column in the table
+     * @param rowIndex position of the row in the table
+     * @return WebElement
+     */
+    public static WebElement identifyCellByIndexes(WebElement table, int columnIndex, int rowIndex){
+
+        System.out.printf("Identify a cell in table with row index:%d, column index:%d", rowIndex, columnIndex);
+        try{
+
+            List<WebElement> rows = WebElementHelper.findChildren(table, By.tagName("tr"));
+            int rowNumber = rows.size();
+
+            if(rowIndex <= 0 || rowIndex > rowNumber){
+                System.out.printf("Invalid row index: %d. It should start from 1", rowIndex);
+                return null;
+            }
+
+            WebElement row = rows.get(rowIndex);
+            List<WebElement> cols = row.findElements(By.xpath(".//td|.//th"));
+
+            //Scan all columns to see if any columns use colspan attribute
+            int originalValue = columnIndex;
+            int spanSum = 0;
+            int currentIndex = 0;
+            for(WebElement e:cols){
+                currentIndex++;
+                String colspan = e.getAttribute("colspan");
+                if(colspan != null){
+                    int increasement= Integer.parseInt(colspan)-1;
+                    spanSum += increasement;
+                    //If any colspan used, the colspan value subtracted from the index
+                    columnIndex = columnIndex - increasement;
+                }
+                if (currentIndex + spanSum >= originalValue){
+                    break;
+                }
+            }
+
+            WebElement cell = cols.get(columnIndex-1);
+            return cell;
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
