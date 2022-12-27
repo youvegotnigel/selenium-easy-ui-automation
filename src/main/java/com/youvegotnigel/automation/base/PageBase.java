@@ -13,8 +13,8 @@ public class PageBase {
     public static WebDriver driver;
     public static final long WAIT = 10;
 
-    private By advertisement = By.xpath("//div[@id='image-darkener']");
-    private By closeAd = By.xpath("//a[@id='at-cv-lightbox-close']");
+    private By cookie_info_bar = By.cssSelector("#cookie-law-info-bar");
+    private By accept_cookie = By.cssSelector("#cookie_action_close_header");
 
     public static final Logger log = LogManager.getLogger(PageBase.class.getName());
 
@@ -61,12 +61,12 @@ public class PageBase {
         return driver.findElement(by).getAttribute(attribute);
     }
 
-    public boolean adIsDisplayed(){
-        return isDisplayed(advertisement);
+    public boolean cookieBarIsDisplayed(){
+        return isDisplayed(cookie_info_bar);
     }
 
-    public void closeAd(){
-        click(closeAd);
+    public void acceptCookie(){
+        click(accept_cookie);
     }
 
     // ############################################ Generic xpath's ############################################
