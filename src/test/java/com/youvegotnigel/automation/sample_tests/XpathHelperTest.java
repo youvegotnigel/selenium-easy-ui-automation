@@ -1,6 +1,6 @@
 package com.youvegotnigel.automation.sample_tests;
 
-import com.youvegotnigel.automation.utils.newtable.XPathHelper;
+import com.youvegotnigel.automation.utils.webTableHelper.XPathHelper;
 import org.testng.annotations.Test;
 
 public class XpathHelperTest extends XPathHelper {
