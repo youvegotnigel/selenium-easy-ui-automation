@@ -9,12 +9,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
+
 
 public class BasePageStepDefinitions extends TestBase {
 
@@ -261,6 +260,18 @@ public class BasePageStepDefinitions extends TestBase {
 
         log.debug("Sorted Values According To Programing are = " + sortedValuesAccordingToPrograming);
         Assert.assertTrue(SortedValuesAccordingToApplication.equals(sortedValuesAccordingToPrograming));
+    }
+
+    @And("^Table should be displayed as below:$")
+    public void verify_table_value(DataTable data) {
+
+        
+    }
+
+
+    @And("^\"(.+)\" table should be displayed as below:$")
+    public void verify_table_value(String tableHeader, DataTable data) {
+
     }
 
     @And("^(?:|I )(?:Enter|enter) (?:|.* )(?:values|details) as below:$")
