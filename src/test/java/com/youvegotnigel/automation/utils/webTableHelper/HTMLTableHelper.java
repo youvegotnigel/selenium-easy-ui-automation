@@ -64,7 +64,13 @@ public class HTMLTableHelper extends WebElementHelper {
 
         try {
             WebElement row = getMatchedRow(table, cellsInfo);
-            return row != null;
+            if(row == null){
+                log.debug(String.format("\nCould not find any rows match to searching criteria %s", cellsInfo));
+                return false;
+            }else{
+                WebElementHelper.moveToElement(row);
+                return true;
+            }
 
         }catch (Exception e){
             log.debug(String.format("\nCould not find any rows match to searching criteria %s", cellsInfo));
