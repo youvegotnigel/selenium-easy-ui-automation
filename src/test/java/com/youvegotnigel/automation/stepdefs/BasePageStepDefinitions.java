@@ -24,10 +24,10 @@ public class BasePageStepDefinitions extends TestBase {
 
     @Given("The Application has been launched")
     public void application_is_launched() {
-//        if (pageBase.adIsDisplayed()) {
-//            pageBase.closeAd();
-//        }
-        //Assert.assertEquals(pageBase.getPageTitle(), "Selenium Framework | Practiceform");
+        if (pageBase.cookieBarIsDisplayed()) {
+            pageBase.acceptCookie();
+        }
+        Assert.assertEquals(pageBase.getPageTitle(), "Automation Testing Practice Website | automateNow |");
     }
 
     @And("^I wait for \"(.+)\" seconds$")
