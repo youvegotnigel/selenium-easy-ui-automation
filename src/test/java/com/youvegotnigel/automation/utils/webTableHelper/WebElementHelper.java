@@ -10,6 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 
 import java.util.List;
 
@@ -39,6 +40,9 @@ public class WebElementHelper {
 
     public static void jsScrollIntoView(WebElement element){
         try{
+            if(element == null){
+                Assert.fail("Can not move to NULL element");
+            }
             WebDriver driver= TestBase.getDriver();
             JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 
@@ -62,6 +66,9 @@ public class WebElementHelper {
 
     public static void moveToElement(WebElement element){
         try {
+            if(element == null){
+                Assert.fail("Can not move to NULL element");
+            }
             var driver= TestBase.getDriver();
             jsScrollIntoView(element);
             Actions action = new Actions(driver);
