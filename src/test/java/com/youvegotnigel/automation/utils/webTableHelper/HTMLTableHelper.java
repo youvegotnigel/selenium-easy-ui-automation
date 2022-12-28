@@ -322,7 +322,7 @@ public class HTMLTableHelper extends WebElementHelper {
      * @param columnHeader: name of column
      * @return list of values
      */
-    static List<String> getCellsValueByColumnHeader(WebElement table, String columnHeader){
+    public static List<String> getCellsValueByColumnHeader(WebElement table, String columnHeader){
 
         log.info(String.format("Get values of cells in column '%s'", columnHeader));
         try{
@@ -478,8 +478,13 @@ public class HTMLTableHelper extends WebElementHelper {
     private static WebElement getMatchedRow(WebElement table, Map<String,String> cellsInfo){
         String rowXpath = prepareRowXpath(table, cellsInfo);
         log.info(String.format("getMatchedRow - %s", rowXpath));
-
-        return table.findElement(By.xpath(rowXpath));
+        try{
+            return table.findElement(By.xpath(rowXpath));
+        }catch (NoSuchElementException e){
+            log.debug(String.format("Element in table '%s' was NOT found with cell_info: '%s'", table, cellsInfo));
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private static List<WebElement>getMatchedAndPrecedingRows(WebElement table, Map<String,String> cell_info){
