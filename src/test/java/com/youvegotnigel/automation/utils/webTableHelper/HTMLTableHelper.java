@@ -11,7 +11,7 @@ import java.util.*;
 public class HTMLTableHelper extends WebElementHelper {
 
     static final String FIND_TABLE_BY_ROW_XPATH = "//table[*[tr[@{rowCriteria}]]]";
-    static final String FIND_CELLS_BY_COLUMN_INDEX = "//tr[.//td[ position()= 1]|.//th[position()=0]]/*[(local-name()='td' or local-name()='th') and count(./preceding-sibling::*[local-name()='td' or local-name()='th'])=@{columnIndex}]";
+    static final String FIND_CELLS_BY_COLUMN_INDEX = ".//tr[.//td[ position()= 1]|.//th[position()=0]]/*[(local-name()='td' or local-name()='th') and count(./preceding-sibling::*[local-name()='td' or local-name()='th'])=@{columnIndex}]";
     static Map<Integer, String> cachedHeaders = new HashMap<>();
 
     public static final Logger log = LogManager.getLogger(HTMLTableHelper.class.getName());
@@ -334,7 +334,7 @@ public class HTMLTableHelper extends WebElementHelper {
             }
 
             String cellsXpath = FIND_CELLS_BY_COLUMN_INDEX.replace("@{columnIndex}", String.valueOf(columnIndex));
-            List<WebElement> listCells = WebElementHelper.findChildren(null, By.xpath(cellsXpath));
+            List<WebElement> listCells = WebElementHelper.findChildren(table, By.xpath(cellsXpath));
             List<String> listValues = new ArrayList<>();
             int rowNum = listCells.size();
 
