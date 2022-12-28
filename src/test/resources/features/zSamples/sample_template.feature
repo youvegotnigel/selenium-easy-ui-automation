@@ -2,7 +2,7 @@ Feature: Template
 
     ##Waits
   Scenario: Template for Waits Scenarios
-    And I wait for "2" seconds
+    And I wait for 2 seconds
 
     ## Set text
   Scenario: Template for Set Text Scenarios
