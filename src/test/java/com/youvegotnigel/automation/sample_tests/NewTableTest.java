@@ -11,6 +11,9 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class NewTableTest {
 
 
@@ -31,9 +34,22 @@ public class NewTableTest {
     public void test() {
 
         // get the <table> element
-        WebElement tableElement = driver.findElement(By.xpath("//*[@id=\"table1\"]"));
-        // get an instance of SeleniumTable
+        String tableXpath = "(//h4[contains(text(),'Sortable Table (countries by population)')]/following-sibling::*/table)[1]";
+        WebElement tableElement = driver.findElement(By.xpath(tableXpath));
+        String cellXpath = (".//tr[.//td[ position()= 1]|.//th[position()=0]]/*[(local-name()='td' or local-name()='th') and count(./preceding-sibling::*[local-name()='td' or local-name()='th'])=1]");
 
+        System.out.println(tableElement.isDisplayed());
+
+
+        List<WebElement> cellList = tableElement.findElements(By.xpath(cellXpath));
+        System.out.println(cellList.size());
+
+        List<String> cellTextList = new ArrayList<>();
+        for (WebElement e: cellList){
+            cellTextList.add(e.getText());
+        }
+        System.out.println(cellTextList.size());
+        System.out.println(cellTextList);
 
 
 
