@@ -161,35 +161,11 @@ public class BasePageStepDefinitions extends TestBase {
         }
     }
 
-    public List<String> get_table_list_in_application(String column) {
+    @And("Get values for {string} column in {string} table and verify strings in descending order")
+    public void validate_string_sorting_descending(String column, String tableHeader) {
 
-        List<String> applicationList = new ArrayList<>();
-//
-//        def tot_table_row_count =  WebUI.callTestCase(findTestCase('Test Cases/TS UI Tests/Page Objects/Base/Get_Table_Row_Count'), [('get_column_heder'):column, ('column_header'):column])
-//        KeywordUtil.logInfo("Total row count ::: ${tot_table_row_count}")
-//
-//        for(def no=1;no<tot_table_row_count;no+=2)
-//        {
-//            def Value = WebUI.callTestCase(findTestCase('Test Cases/TS UI Tests/Page Objects/Base/Get_Table_Value'), [('get_column_heder'):column, ('column_header'):column, ('response_code_value'):("row${no}")])
-//            KeywordUtil.logInfo("Current Row ${no} Value is = ${Value}")
-//
-//            try{
-//                applicationList.add(Integer.parseInt(Value))
-//
-//            }catch (NumberFormatException e){
-//                applicationList.add(Value)
-//
-//            }
-//
-//        }
-//
-        return applicationList;
-    }
-
-    @And("Get values for {string} column in table and verify strings in descending order")
-    public void validate_string_sorting_descending(String column) {
-
-        List<String> SortedValuesAccordingToApplication = get_table_list_in_application(column);
+        WebElement table = HTMLTableHelper.identifyTable(tableHeader,1);
+        List<String> SortedValuesAccordingToApplication = HTMLTableHelper.getCellsValueByColumnHeader(table, column);
 
         log.debug("Sorted Values According To Application are = " + SortedValuesAccordingToApplication);
         List<String> sortedValuesAccordingToPrograming = new ArrayList<>();
@@ -209,10 +185,11 @@ public class BasePageStepDefinitions extends TestBase {
         Assert.assertTrue(SortedValuesAccordingToApplication.equals(sortedValuesAccordingToPrograming));
     }
 
-    @And("Get values for {string} column in table and verify strings in ascending order")
-    public void validate_string_sorting_ascending(String column) {
+    @And("Get values for {string} column in {string} table and verify strings in ascending order")
+    public void validate_string_sorting_ascending(String column, String tableHeader) {
 
-        List<String> SortedValuesAccordingToApplication = get_table_list_in_application(column);
+        WebElement table = HTMLTableHelper.identifyTable(tableHeader,1);
+        List<String> SortedValuesAccordingToApplication = HTMLTableHelper.getCellsValueByColumnHeader(table, column);
 
         log.debug("Sorted Values According To Application are = " + SortedValuesAccordingToApplication);
         List<String> sortedValuesAccordingToPrograming = new ArrayList<>();
@@ -233,10 +210,11 @@ public class BasePageStepDefinitions extends TestBase {
         Assert.assertTrue(SortedValuesAccordingToApplication.equals(sortedValuesAccordingToPrograming));
     }
 
-    @And("Get values for {string} column in table and verify numbers in descending order")
-    public void validate_int_sorting_descending(String column) {
+    @And("Get values for {string} column in {string} table and verify numbers in descending order")
+    public void validate_int_sorting_descending(String column, String tableHeader) {
 
-        List<String> SortedValuesAccordingToApplication = get_table_list_in_application(column);
+        WebElement table = HTMLTableHelper.identifyTable(tableHeader,1);
+        List<String> SortedValuesAccordingToApplication = HTMLTableHelper.getCellsValueByColumnHeader(table, column);
 
         log.debug("Sorted Values According To Application are = " + SortedValuesAccordingToApplication);
 
@@ -251,10 +229,11 @@ public class BasePageStepDefinitions extends TestBase {
         Assert.assertTrue(SortedValuesAccordingToApplication.equals(sortedValuesAccordingToPrograming));
     }
 
-    @And("Get values for {string} column in table and verify numbers in ascending order")
-    public void validate_int_sorting_ascending(String column) {
+    @And("Get values for {string} column in {string} table and verify numbers in ascending order")
+    public void validate_int_sorting_ascending(String column, String tableHeader) {
 
-        List<String> SortedValuesAccordingToApplication = get_table_list_in_application(column);
+        WebElement table = HTMLTableHelper.identifyTable(tableHeader,1);
+        List<String> SortedValuesAccordingToApplication = HTMLTableHelper.getCellsValueByColumnHeader(table, column);
 
         log.debug("Sorted Values According To Application are = " + SortedValuesAccordingToApplication);
 

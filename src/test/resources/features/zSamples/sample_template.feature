@@ -47,7 +47,7 @@ Feature: Template
 
     ## Ascending/Descending Order
   Scenario: Template for Ascending/Descending Order Scenarios
-    Then Get values for "Name" column in table and verify strings in descending order
-    Then Get values for "ID" column in table and verify numbers in descending order
-    Then Get values for "Name" column in table and verify strings in ascending order
-    Then Get values for "ID" column in table and verify numbers in ascending order
+    Then Get values for "Name" column in "Items" table and verify strings in descending order
+    Then Get values for "ID" column in "Items" table and verify numbers in descending order
+    Then Get values for "Name" column in "Items" table and verify strings in ascending order
+    Then Get values for "ID" column in "Items" table and verify numbers in ascending order
