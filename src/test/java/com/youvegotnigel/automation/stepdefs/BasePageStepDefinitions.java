@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 public class BasePageStepDefinitions extends TestBase {
@@ -268,7 +269,7 @@ public class BasePageStepDefinitions extends TestBase {
         Assert.assertTrue(SortedValuesAccordingToApplication.equals(sortedValuesAccordingToPrograming));
     }
 
-    @And("^Table should be displayed as below:$")
+    @And("^Table (?:|should be|is) displayed as below:$")
     public void verify_table_value(DataTable dataTable) {
 
         List<Map<String, String>> values = dataTable.asMaps(String.class, String.class);
@@ -278,9 +279,42 @@ public class BasePageStepDefinitions extends TestBase {
             Assert.assertTrue(HTMLTableHelper.verifyRowDisplayed(table, map));
         }
 
+    }
+
+    @And("^Table (?:|should not be|is not) displayed as below:$")
+    public void verify_table_value_not_displayed(DataTable dataTable) {
+
+        List<Map<String, String>> values = dataTable.asMaps(String.class, String.class);
+
+        for(Map<String,String> map : values){
+            WebElement table = HTMLTableHelper.identifyTable(map,1);
+            Assert.assertFalse(HTMLTableHelper.verifyRowDisplayed(table, map));
+        }
 
     }
 
+    @And("^I click on header \"(.+)\" column of below table$")
+    public void click_on_table_column_header(String columnHeader, DataTable dataTable) {
+
+        List<Map<String, String>> values = dataTable.asMaps(String.class, String.class);
+
+        for(Map<String,String> map : values){
+            WebElement table = HTMLTableHelper.identifyTable(map,1);
+            HTMLTableHelper.clickOnColumn(table, columnHeader);
+        }
+
+    }
+
+    @And("^\"(.+)\" Table should filer \"(.+)\" as below:$")
+    public void click_on_table_column_header(String tableName, String columnHeader, DataTable dataTable) {
+
+        WebElement table = HTMLTableHelper.identifyTable(tableName,1);
+        List<List<String>> values = dataTable.asLists();
+        List<String> expectedValueList = values.stream().flatMap(List::stream).collect(Collectors.toList());
+        List<String> actualValueList = HTMLTableHelper.getCellsValueByColumnHeader(table, columnHeader);
+
+        Assert.assertTrue(actualValueList.equals(expectedValueList), String.format("Actual List:::'%s', Expected List:::'%s'",actualValueList, expectedValueList));
+    }
 
     @And("^\"(.+)\" table should be displayed as below:$")
     public void verify_table_value(String tableHeader, DataTable dataTable) {
@@ -291,6 +325,13 @@ public class BasePageStepDefinitions extends TestBase {
         for(Map<String,String> map : values){
             Assert.assertTrue(HTMLTableHelper.verifyRowDisplayed(table, map));
         }
+    }
+
+    @And("^I click on \"(.+)\" cell in \"(.+)\" Table$")
+    public void click_on_table_cell(String cellValue, String tableHeader) {
+
+        WebElement table = HTMLTableHelper.identifyTable(tableHeader, 1);
+        HTMLTableHelper.clickOnLinkInCell(table, cellValue);
     }
 
     @And("^(?:|I )(?:Enter|enter) (?:|.* )(?:values|details) as below:$")
