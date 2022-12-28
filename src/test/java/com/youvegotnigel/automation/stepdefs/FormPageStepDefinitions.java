@@ -1,7 +1,7 @@
 package com.youvegotnigel.automation.stepdefs;
 
 import com.youvegotnigel.automation.base.TestBase;
-import com.youvegotnigel.automation.pageobjects.forms.FormPage;
+import com.youvegotnigel.automation.pageobjects.FormPage;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import org.apache.logging.log4j.LogManager;
