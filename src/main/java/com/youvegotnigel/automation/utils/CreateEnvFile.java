@@ -25,13 +25,14 @@ public final class CreateEnvFile {
 
         Capabilities caps = ((RemoteWebDriver) DriverManager.getDriver()).getCapabilities();
 
-        properties.setProperty("Browser", caps.getBrowserName());
+        properties.setProperty("Branch", FrameworkConstants.getGitBranchName());
         properties.setProperty("Browser Version", caps.getVersion());
+        properties.setProperty("Browser", caps.getBrowserName());
         properties.setProperty("AUT", PropertyUtils.get("LOGIN_URL"));
-
+        
         FileWriter writer = null;
         try {
-            writer = new FileWriter(FrameworkConstants.getAllureEnvironmentProperties());
+            writer = new FileWriter("allure-results\\environment.properties");
             properties.store(writer, "youvegotnigel");
         } catch (IOException ex) {
             ex.printStackTrace();
