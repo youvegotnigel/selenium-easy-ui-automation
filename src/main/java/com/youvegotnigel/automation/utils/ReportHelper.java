@@ -1,5 +1,6 @@
 package com.youvegotnigel.automation.utils;
 
+import com.youvegotnigel.automation.constants.FrameworkConstants;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 
@@ -23,7 +24,7 @@ public class ReportHelper {
 
         // optionally add metadata presented on main page via properties file
         List<String> classificationFiles = new ArrayList<String>();
-        classificationFiles.add("src/test/resources/config/config.properties");
+        classificationFiles.add(FrameworkConstants.getConfigFilePath());
         //configuration.addClassificationFiles(classificationFiles);
 
         ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
