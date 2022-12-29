@@ -1,13 +1,11 @@
 package com.youvegotnigel.automation.runner;
 
+import com.youvegotnigel.automation.driver.Driver;
 import com.youvegotnigel.automation.utils.ReportHelper;
 import io.cucumber.testng.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 @CucumberOptions(
         features = "src/test/resources/features/default",
@@ -53,9 +51,10 @@ public class TestRunner extends AbstractTestNGCucumberTests{
         testNGCucumberRunner.finish();
         try {
             ReportHelper.generateCucumberReport();
+            Driver.quitDriver();
         }catch (Exception e){
             log.warn("No feature files found");
-            log.error(e.getMessage());
+            log.error(e.getStackTrace());
         }
     }
 

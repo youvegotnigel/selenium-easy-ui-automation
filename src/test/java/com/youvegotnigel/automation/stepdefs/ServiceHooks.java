@@ -53,7 +53,6 @@ public class ServiceHooks {
         if(scenario.isFailed()){
             log.error("✘ Failed scenario : " + scenario.getName());
         }
-        //CreateEnvFile createEnvFile = new CreateEnvFile();
         CreateEnvFile.createFile();
         Driver.quitDriver();
     }
