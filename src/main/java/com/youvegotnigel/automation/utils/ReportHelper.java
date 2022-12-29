@@ -2,7 +2,6 @@ package com.youvegotnigel.automation.utils;
 
 import com.youvegotnigel.automation.constants.FrameworkConstants;
 import com.youvegotnigel.automation.driver.DriverManager;
-import com.youvegotnigel.automation.factories.DriverFactory;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import org.openqa.selenium.Capabilities;
@@ -22,7 +21,7 @@ public class ReportHelper {
         jsonFiles.add("target/cucumber-reports/cucumber.json");
 
         String workingDir = System.getProperty("user.dir");
-        String projectName = workingDir.substring(workingDir.lastIndexOf('/')+1);
+        String projectName = workingDir.substring(workingDir.lastIndexOf(File.separator)+1);
 
         Configuration configuration = new Configuration(reportOutputDirectory, projectName);
         configuration.addClassifications("Platform", caps.getPlatform().toString());
