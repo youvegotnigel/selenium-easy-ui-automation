@@ -29,10 +29,10 @@ public final class CreateEnvFile {
         properties.setProperty("Browser Version", caps.getVersion());
         properties.setProperty("Browser", caps.getBrowserName());
         properties.setProperty("AUT", PropertyUtils.get("LOGIN_URL"));
-        
+
         FileWriter writer = null;
         try {
-            writer = new FileWriter("allure-results\\environment.properties");
+            writer = new FileWriter(FrameworkConstants.getAllureEnvironmentProperties());
             properties.store(writer, "youvegotnigel");
         } catch (IOException ex) {
             ex.printStackTrace();
