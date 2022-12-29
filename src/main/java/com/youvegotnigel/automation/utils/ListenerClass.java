@@ -6,6 +6,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.events.WebDriverEventListener;
 import org.testng.*;
 
+import java.util.Arrays;
+
 public class ListenerClass implements ITestListener, ISuiteListener, IInvokedMethodListener, WebDriverEventListener {
 
     public static final Logger log = LogManager.getLogger(ListenerClass.class.getName());
@@ -53,7 +55,7 @@ public class ListenerClass implements ITestListener, ISuiteListener, IInvokedMet
     public void onTestSuccess(ITestResult result) {
 
         if (result.getStatus() == ITestResult.SUCCESS) {
-            //log.info("The test case " + result.getName() + " has been passed");
+            //log.info(result.getMethod().getMethodName() + " is passed!");
         }
     }
 
@@ -63,7 +65,9 @@ public class ListenerClass implements ITestListener, ISuiteListener, IInvokedMet
         if (result.getStatus() == ITestResult.FAILURE) {
 
             log.warn("💥 Exception Found !!!");
+            //log.warn(result.getMethod().getMethodName() + " is failed!");
             log.error("Caused by : " + result.getThrowable());
+            log.error(Arrays.toString(result.getThrowable().getStackTrace()));
         }
 
     }
