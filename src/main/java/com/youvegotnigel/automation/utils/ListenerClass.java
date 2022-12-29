@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 public class ListenerClass implements ITestListener, ISuiteListener, IInvokedMethodListener, WebDriverEventListener {
 
-    public static final Logger log = LogManager.getLogger(ListenerClass.class.getName());
+    private static final Logger log = LogManager.getLogger(ListenerClass.class.getName());
 
     @Override
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {

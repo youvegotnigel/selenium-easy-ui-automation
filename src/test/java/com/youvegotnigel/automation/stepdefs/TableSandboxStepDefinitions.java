@@ -1,23 +1,23 @@
 package com.youvegotnigel.automation.stepdefs;
 
-import com.youvegotnigel.automation.base.PageBase;
-import com.youvegotnigel.automation.base.TestBase;
+import com.youvegotnigel.automation.base.BasePage;
+import com.youvegotnigel.automation.driver.DriverManager;
 import com.youvegotnigel.automation.pageobjects.TablePage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class TableSandboxStepDefinitions extends TestBase {
+public class TableSandboxStepDefinitions{
 
     public static final Logger log = LogManager.getLogger(TableSandboxStepDefinitions.class.getName());
-    PageBase pageBase = new PageBase(eventFiringWebDriver);
-    TablePage tablePage = new TablePage(eventFiringWebDriver);
+    BasePage basePage = new BasePage(DriverManager.getDriver());
+    TablePage tablePage = new TablePage(DriverManager.getDriver());
 
     @Given("User has navigated {string} sandbox")
     public void navigate_to_table_sandbox(String page) {
 
-        pageBase.clickOnLinkByName(page);
+        basePage.clickOnLinkByName(page);
         log.info("Navigating to page ::: " + page);
     }
 

@@ -34,15 +34,15 @@ public final class ExplicitWaitFactory {
 
         WebElement element = null;
         if(waitstrategy == WaitStrategy.CLICKABLE) {
-            element = 	new WebDriverWait(DriverManager.getDriver(), FrameworkConstants.getExplicitWait())
+            element = 	new WebDriverWait(DriverManager.getDriver(), FrameworkConstants.getPageLoadWait())
                     .until(ExpectedConditions.elementToBeClickable(by));
         }
         else if(waitstrategy == WaitStrategy.PRESENCE) {
-            element =	new WebDriverWait(DriverManager.getDriver(), FrameworkConstants.getExplicitWait())
+            element =	new WebDriverWait(DriverManager.getDriver(), FrameworkConstants.getPageLoadWait())
                     .until(ExpectedConditions.presenceOfElementLocated(by));
         }
         else if(waitstrategy == WaitStrategy.VISIBLE) {
-            element =new WebDriverWait(DriverManager.getDriver(), FrameworkConstants.getExplicitWait())
+            element =new WebDriverWait(DriverManager.getDriver(), FrameworkConstants.getPageLoadWait())
                     .until(ExpectedConditions.visibilityOfElementLocated(by));
         }
         else if(waitstrategy == WaitStrategy.NONE) {

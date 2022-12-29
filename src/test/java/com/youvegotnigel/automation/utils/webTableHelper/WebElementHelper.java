@@ -1,6 +1,6 @@
 package com.youvegotnigel.automation.utils.webTableHelper;
 
-import com.youvegotnigel.automation.base.TestBase;
+import com.youvegotnigel.automation.driver.DriverManager;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,7 +21,7 @@ public class WebElementHelper {
 
     public static List<WebElement> findChildren(WebElement parent, By findBy){
 
-        var driver = (parent != null) ? parent : TestBase.getDriver();
+        var driver = (parent != null) ? parent : DriverManager.getDriver();
         List<WebElement> elements = driver.findElements(findBy);
         return elements;
     }
@@ -32,7 +32,7 @@ public class WebElementHelper {
     }
 
     public static String getTextContent(WebElement element){
-        var driver= TestBase.getDriver();
+        var driver= DriverManager.getDriver();
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
         String text = (String) jsExecutor.executeScript("return arguments[0].textContent;",element);
         return !text.isEmpty() ? text : "";
@@ -43,7 +43,7 @@ public class WebElementHelper {
             if(element == null){
                 Assert.fail("Can not move to NULL element");
             }
-            WebDriver driver= TestBase.getDriver();
+            WebDriver driver= DriverManager.getDriver();
             JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 
             // Get the dimensions of the screen
@@ -69,7 +69,7 @@ public class WebElementHelper {
             if(element == null){
                 Assert.fail("Can not move to NULL element");
             }
-            var driver= TestBase.getDriver();
+            var driver= DriverManager.getDriver();
             jsScrollIntoView(element);
             Actions action = new Actions(driver);
             action.moveToElement(element).perform();

@@ -1,5 +1,6 @@
 package com.youvegotnigel.automation.base;
 
+import com.youvegotnigel.automation.constants.FrameworkConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -10,25 +11,27 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class PageBase {
-    public static WebDriver driver;
-    public static final long WAIT = 10;
+public class BasePage {
+    private static WebDriver driver;
 
     private By cookie_info_bar = By.cssSelector("#cookie-law-info-bar");
     private By accept_cookie = By.cssSelector("#cookie_action_close_header");
 
-    public static final Logger log = LogManager.getLogger(PageBase.class.getName());
+    public static final Logger log = LogManager.getLogger(BasePage.class.getName());
 
-    public PageBase(WebDriver driver) {
+    public BasePage(WebDriver driver) {
         this.driver = driver;
     }
 
+    public WebDriver getDriver(){
+        return this.driver;
+    }
     public String getPageTitle() {
         return driver.getTitle();
     }
 
     public void waitForVisibility(WebElement by) {
-        WebDriverWait wait = new WebDriverWait(driver, WAIT);
+        WebDriverWait wait = new WebDriverWait(driver, FrameworkConstants.getPageLoadWait());
         wait.until(ExpectedConditions.visibilityOf(by));
     }
 
@@ -76,6 +79,34 @@ public class PageBase {
     }
 
     // ############################################ Generic xpath's ############################################
+
+    public void setTextInputForLabel(String label_name, String value){
+
+        String xpath = "(//label[contains(text(),'"+ label_name +"')])[1]/following::input[1]";
+        WebElement element = driver.findElement(By.xpath(xpath));
+        element.sendKeys(value);
+    }
+
+    public void setTextInputForLabel(String label_name, String index, String value){
+
+        String xpath = "(//label[contains(text(),'"+ label_name +"')])["+ index +"]/following::input[1]";
+        WebElement element = driver.findElement(By.xpath(xpath));
+        element.sendKeys(value);
+    }
+
+    public void setTextAreaForLabel(String label_name, String value){
+
+        String xpath = "//label[contains(text(),'"+ label_name +"')]/following::textarea[1]";
+        WebElement element = driver.findElement(By.xpath(xpath));
+        element.sendKeys(value);
+    }
+
+    public void setTextAreaForLabel(String label_name, String index, String value){
+
+        String xpath = "(//label[contains(text(),'"+ label_name +"')])["+ index +"]/following::textarea[1]";
+        WebElement element = driver.findElement(By.xpath(xpath));
+        element.sendKeys(value);
+    }
 
     public void clickOnButtonByName(String text) {
         String xpath = "(//button[contains(normalize-space(),'" + text + "')])[1]";

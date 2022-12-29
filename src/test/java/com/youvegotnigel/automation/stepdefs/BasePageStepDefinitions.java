@@ -1,7 +1,7 @@
 package com.youvegotnigel.automation.stepdefs;
 
-import com.youvegotnigel.automation.base.PageBase;
-import com.youvegotnigel.automation.base.TestBase;
+import com.youvegotnigel.automation.base.BasePage;
+import com.youvegotnigel.automation.driver.DriverManager;
 import com.youvegotnigel.automation.utils.webTableHelper.HTMLTableHelper;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
@@ -11,24 +11,22 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 
-public class BasePageStepDefinitions extends TestBase {
+public class BasePageStepDefinitions {
 
-    PageBase pageBase = new PageBase(eventFiringWebDriver);
+    BasePage basePage = new BasePage(DriverManager.getDriver());
     public static final Logger log = LogManager.getLogger(BasePageStepDefinitions.class.getName());
 
     @Given("The Application has been launched")
     public void application_is_launched() {
-        if (pageBase.cookieBarIsDisplayed()) {
-            pageBase.acceptCookie();
+        if (basePage.cookieBarIsDisplayed()) {
+            basePage.acceptCookie();
         }
-        Assert.assertEquals(pageBase.getPageTitle(), "Automation Testing Practice Website | automateNow |");
+        Assert.assertEquals(basePage.getPageTitle(), "Automation Testing Practice Website | automateNow |");
     }
 
     @And("I wait for {int} seconds")
@@ -45,9 +43,9 @@ public class BasePageStepDefinitions extends TestBase {
 
         if (text.matches(".*\\[[\\d.]]")) {
             var valueAndIndex = getValueAndIndex(text);
-            pageBase.clickOnButtonByName(valueAndIndex[0], valueAndIndex[1]);
+            basePage.clickOnButtonByName(valueAndIndex[0], valueAndIndex[1]);
         } else {
-            pageBase.clickOnButtonByName(text);
+            basePage.clickOnButtonByName(text);
         }
     }
 
@@ -56,9 +54,9 @@ public class BasePageStepDefinitions extends TestBase {
 
         if (text.matches(".*\\[[\\d.]]")) {
             var valueAndIndex = getValueAndIndex(text);
-            pageBase.clickOnLinkByName(valueAndIndex[0], valueAndIndex[1]);
+            basePage.clickOnLinkByName(valueAndIndex[0], valueAndIndex[1]);
         } else {
-            pageBase.clickOnLinkByName(text);
+            basePage.clickOnLinkByName(text);
         }
     }
 
@@ -67,9 +65,9 @@ public class BasePageStepDefinitions extends TestBase {
 
         if (text.matches(".*\\[[\\d.]]")) {
             var valueAndIndex = getValueAndIndex(text);
-            pageBase.clickOnNormalizeSpace(text, valueAndIndex[1]);
+            basePage.clickOnNormalizeSpace(text, valueAndIndex[1]);
         } else {
-            pageBase.clickOnNormalizeSpace(text);
+            basePage.clickOnNormalizeSpace(text);
         }
     }
 
@@ -78,9 +76,9 @@ public class BasePageStepDefinitions extends TestBase {
 
         if (text.matches(".*\\[[\\d.]]")) {
             var valueAndIndex = getValueAndIndex(text);
-            Assert.assertTrue(pageBase.isDisplayedInNormalizeSpace(valueAndIndex[0], valueAndIndex[1]), "Not found text ::: " + text);
+            Assert.assertTrue(basePage.isDisplayedInNormalizeSpace(valueAndIndex[0], valueAndIndex[1]), "Not found text ::: " + text);
         } else {
-            Assert.assertTrue(pageBase.isDisplayedInNormalizeSpace(text), "Not found text ::: " + text);
+            Assert.assertTrue(basePage.isDisplayedInNormalizeSpace(text), "Not found text ::: " + text);
         }
     }
 
@@ -89,9 +87,9 @@ public class BasePageStepDefinitions extends TestBase {
 
         if (text.matches(".*\\[[\\d.]]")) {
             var valueAndIndex = getValueAndIndex(text);
-            Assert.assertFalse(pageBase.isDisplayedInNormalizeSpace(valueAndIndex[0], valueAndIndex[1]), "Found text ::: " + text);
+            Assert.assertFalse(basePage.isDisplayedInNormalizeSpace(valueAndIndex[0], valueAndIndex[1]), "Found text ::: " + text);
         } else {
-            Assert.assertFalse(pageBase.isDisplayedInNormalizeSpace(text), "Found text ::: " + text);
+            Assert.assertFalse(basePage.isDisplayedInNormalizeSpace(text), "Found text ::: " + text);
         }
     }
 
@@ -100,9 +98,9 @@ public class BasePageStepDefinitions extends TestBase {
 
         if (question.matches(".*\\[[\\d.]]")) {
             var valueAndIndex = getValueAndIndex(question);
-            setTextInputForLabel(valueAndIndex[0], valueAndIndex[1], answer);
+            basePage.setTextInputForLabel(valueAndIndex[0], valueAndIndex[1], answer);
         } else {
-            setTextInputForLabel(question, answer);
+            basePage.setTextInputForLabel(question, answer);
         }
     }
 
@@ -111,9 +109,9 @@ public class BasePageStepDefinitions extends TestBase {
 
         if (question.matches(".*\\[[\\d.]]")) {
             var valueAndIndex = getValueAndIndex(question);
-            setTextAreaForLabel(valueAndIndex[0], valueAndIndex[1], answer);
+            basePage.setTextAreaForLabel(valueAndIndex[0], valueAndIndex[1], answer);
         } else {
-            setTextAreaForLabel(getValueAndIndex(question)[0], answer);
+            basePage.setTextAreaForLabel(getValueAndIndex(question)[0], answer);
         }
     }
 
@@ -122,9 +120,9 @@ public class BasePageStepDefinitions extends TestBase {
 
         if (question.matches(".*\\[[\\d.]]")) {
             var valueAndIndex = getValueAndIndex(question);
-            pageBase.setRadioForLabel(valueAndIndex[0], valueAndIndex[1], answer);
+            basePage.setRadioForLabel(valueAndIndex[0], valueAndIndex[1], answer);
         } else {
-            pageBase.setRadioForLabel(question, answer);
+            basePage.setRadioForLabel(question, answer);
         }
     }
 
@@ -133,9 +131,9 @@ public class BasePageStepDefinitions extends TestBase {
 
         if (question.matches(".*\\[[\\d.]]")) {
             var valueAndIndex = getValueAndIndex(question);
-            pageBase.selectFromDropdownByVisibleText(valueAndIndex[0], valueAndIndex[1], answer);
+            basePage.selectFromDropdownByVisibleText(valueAndIndex[0], valueAndIndex[1], answer);
         } else {
-            pageBase.selectFromDropdownByVisibleText(question, answer);
+            basePage.selectFromDropdownByVisibleText(question, answer);
         }
     }
 
@@ -144,9 +142,9 @@ public class BasePageStepDefinitions extends TestBase {
 
         if (question.matches(".*\\[[\\d.]]")) {
             var valueAndIndex = getValueAndIndex(question);
-            pageBase.selectFromDropdownByValue(valueAndIndex[0], valueAndIndex[1], answer);
+            basePage.selectFromDropdownByValue(valueAndIndex[0], valueAndIndex[1], answer);
         } else {
-            pageBase.selectFromDropdownByValue(question, answer);
+            basePage.selectFromDropdownByValue(question, answer);
         }
     }
 
@@ -155,9 +153,9 @@ public class BasePageStepDefinitions extends TestBase {
 
         if (question.matches(".*\\[[\\d.]]")) {
             var valueAndIndex = getValueAndIndex(question);
-            pageBase.selectFromDropdownByIndex(valueAndIndex[0], valueAndIndex[1], answer);
+            basePage.selectFromDropdownByIndex(valueAndIndex[0], valueAndIndex[1], answer);
         } else {
-            pageBase.selectFromDropdownByIndex(question, answer);
+            basePage.selectFromDropdownByIndex(question, answer);
         }
     }
 
@@ -352,6 +350,44 @@ public class BasePageStepDefinitions extends TestBase {
                     break;
                 }
 
+        }
+    }
+
+
+    //TODO: Need to add this logic
+/*    public String getGlobalVariable(String variable){
+//
+//        if(variable.startsWith("_")){
+//            LoadConfigProperty();
+//            return config.getProperty(variable);
+//        }
+//        return  variable;}
+ */
+
+    public String decodeText(String text){
+        if(text == "" || text == null){
+            return " ";
+        }
+        byte[] actualByte = Base64.getDecoder().decode(text);
+        String actualString = new String(actualByte);
+        return actualString;
+    }
+
+    public String[] getValueAndIndex(String value) {
+        String[] values = value.split(Pattern.quote("["));
+        values[1] = values[1].replaceAll("[^\\d.]", "");
+        return values;
+    }
+
+    public String tokenize(String text, String regex){
+
+        String [] tokenizer = new String[0];
+
+        try {
+            tokenizer = text.split(Pattern.quote(regex));
+            return tokenizer[1];
+        }catch (ArrayIndexOutOfBoundsException e){
+            return tokenizer[0];
         }
     }
 

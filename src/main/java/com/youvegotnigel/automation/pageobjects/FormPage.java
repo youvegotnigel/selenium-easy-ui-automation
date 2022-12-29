@@ -1,14 +1,14 @@
 package com.youvegotnigel.automation.pageobjects;
 
-import com.youvegotnigel.automation.base.PageBase;
+import com.youvegotnigel.automation.base.BasePage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class FormPage extends PageBase {
+public class FormPage extends BasePage {
 
-    public static final Logger log = LogManager.getLogger(FormPage.class.getName());
+    private static final Logger log = LogManager.getLogger(FormPage.class.getName());
 
     private By form_success_header = By.cssSelector("#contact-form-success-header");
     private By form_submit = By.xpath("(//button[@class='pushbutton-wide' and @type='submit'])[1]");

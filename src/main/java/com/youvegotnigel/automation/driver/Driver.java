@@ -5,7 +5,6 @@ import com.youvegotnigel.automation.utils.PropertyUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.net.MalformedURLException;
 import java.util.Objects;
 
 /**
@@ -38,9 +37,9 @@ public final class Driver {
                 log.error("Please check the capabilities of browser");
                 log.error(e.getMessage());
             }
-            DriverFactory.getDriver().manage().window().maximize();
+            DriverManager.getDriver().manage().window().maximize();
             log.debug("Maximizing Browser Window");
-            DriverFactory.getDriver().manage().deleteAllCookies();
+            DriverManager.getDriver().manage().deleteAllCookies();
             log.debug("Deleting All Cookies");
             DriverManager.getDriver().get(PropertyUtils.get("LOGIN_URL"));
             log.debug("Navigating to Application URL + " + PropertyUtils.get("LOGIN_URL"));
