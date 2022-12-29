@@ -39,6 +39,7 @@ public final class PropertyUtils {
 				CONFIGMAP.put(String.valueOf(entry.getKey()), String.valueOf(entry.getValue()).trim()); //remove the trailing and leading spaces
 			}
 		} catch (IOException e) {
+			log.error(e.getMessage());
 			e.printStackTrace();
 			System.exit(0);
 		} 
@@ -50,10 +51,10 @@ public final class PropertyUtils {
 	 * @return corresponding value for the requested key if found else throws Exception
 	 */
 	public static String get(String key){
-		if (Objects.isNull(key) || Objects.isNull(CONFIGMAP.get(key.toLowerCase()))) {
-			log.error(String.format("Property name %s is not found. Please check config.properties", key));
+		if (Objects.isNull(key) || Objects.isNull(CONFIGMAP.get(key))) {
+			log.error(String.format("Property named '%s' was NOT found. Please check in file='%s'", key, FrameworkConstants.getConfigFilePath()));
 		}
-		return CONFIGMAP.get(key.toLowerCase());
+		return CONFIGMAP.get(key);
 	}
 
 }
