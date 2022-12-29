@@ -14,11 +14,13 @@ import org.testng.annotations.Test;
         glue = {"com/youvegotnigel/automation/stepdefs"},
         tags = "@regression and not @ignore",
         dryRun = false,
+        monochrome = true,
         plugin = {
                 "pretty",
                 "io.qameta.allure.cucumber6jvm.AllureCucumber6Jvm",
-                "html:target/cucumber-reports/cucumber-pretty",
-                "json:target/cucumber-reports/CucumberTestReport.json"
+                "html:target/cucumber-reports/cucumber.html",
+                "junit:target/cucumber-reports/cucumber.xml",
+                "json:target/cucumber-reports/cucumber.json"
         })
 public class TestRunner extends AbstractTestNGCucumberTests{
     private TestNGCucumberRunner testNGCucumberRunner;
