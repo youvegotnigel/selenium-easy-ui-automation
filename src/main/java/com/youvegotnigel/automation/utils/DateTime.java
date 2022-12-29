@@ -8,7 +8,7 @@ import java.util.TimeZone;
 public class DateTime extends DateTimeUtility{
 
     private static final String timeZone = PropertyUtils.get("TIME_ZONE");
-    public static final Logger log = LogManager.getLogger(DateTime.class.getName());
+    private static final Logger log = LogManager.getLogger(DateTime.class.getName());
 
     /**
      * Get date time formatted value

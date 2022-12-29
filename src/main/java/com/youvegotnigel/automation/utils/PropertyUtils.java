@@ -24,7 +24,7 @@ public final class PropertyUtils {
 
 	private static Properties property = new Properties();
 	private static final Map<String, String> CONFIGMAP = new HashMap<>();
-	public static final Logger log = LogManager.getLogger(PropertyUtils.class.getName());
+	private static final Logger log = LogManager.getLogger(PropertyUtils.class.getName());
 
 
 	/**

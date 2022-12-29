@@ -19,7 +19,7 @@ import java.util.Objects;
  */
 public final class Driver {
 
-    public static final Logger log = LogManager.getLogger(Driver.class.getName());
+    private static final Logger log = LogManager.getLogger(Driver.class.getName());
 
     /**
      * Private constructor to avoid external instantiation
@@ -34,10 +34,17 @@ public final class Driver {
         if(Objects.isNull(DriverManager.getDriver())) {
             try {
                 DriverManager.setDriver(DriverFactory.getDriver());
-            } catch (MalformedURLException e) {
+            } catch (Exception e) {
                 log.error("Please check the capabilities of browser");
+                log.error(e.getMessage());
             }
+            DriverFactory.getDriver().manage().window().maximize();
+            log.debug("Maximizing Browser Window");
+            DriverFactory.getDriver().manage().deleteAllCookies();
+            log.debug("Deleting All Cookies");
             DriverManager.getDriver().get(PropertyUtils.get("LOGIN_URL"));
+            log.debug("Navigating to Application URL + " + PropertyUtils.get("LOGIN_URL"));
+
         }
     }
 

@@ -16,7 +16,7 @@ import java.util.List;
 
 public class WebElementHelper {
 
-    public static final Logger log = LogManager.getLogger(WebElementHelper.class.getName());
+    private static final Logger log = LogManager.getLogger(WebElementHelper.class.getName());
 
 
     public static List<WebElement> findChildren(WebElement parent, By findBy){

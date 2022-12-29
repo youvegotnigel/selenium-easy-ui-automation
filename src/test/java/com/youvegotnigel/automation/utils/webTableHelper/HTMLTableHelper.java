@@ -14,7 +14,7 @@ public class HTMLTableHelper extends WebElementHelper {
     static final String FIND_CELLS_BY_COLUMN_INDEX = ".//tr[.//td[ position()= 1]|.//th[position()=0]]/*[(local-name()='td' or local-name()='th') and count(./preceding-sibling::*[local-name()='td' or local-name()='th'])=@{columnIndex}]";
     static Map<Integer, String> cachedHeaders = new HashMap<>();
 
-    public static final Logger log = LogManager.getLogger(HTMLTableHelper.class.getName());
+    private static final Logger log = LogManager.getLogger(HTMLTableHelper.class.getName());
 
 
 
