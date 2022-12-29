@@ -8,11 +8,13 @@ import java.util.Objects;
 import java.util.Properties;
 
 import com.youvegotnigel.automation.constants.FrameworkConstants;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Read the property file and store it in a HashMap for faster processing.
  * Users can prefer to use json instead of property file based on their requirement.
  *
- * 
  * Dec 29, 2022
  * @author Nigel Mulholland
  * @version 1.0
@@ -22,6 +24,8 @@ public final class PropertyUtils {
 
 	private static Properties property = new Properties();
 	private static final Map<String, String> CONFIGMAP = new HashMap<>();
+	public static final Logger log = LogManager.getLogger(PropertyUtils.class.getName());
+
 
 	/**
 	 * Private constructor to avoid external instantiation
@@ -41,16 +45,13 @@ public final class PropertyUtils {
 	}
 
 	/**
-	 * Receives the property, converts to lowercase, return the corresponding value
-	 * for the key from the HashMap
-	 * @author Nigel Mulholland
-	 * Dec 29, 2022
+	 * Receives the property, converts to lowercase, return the corresponding value for the key from the HashMap
 	 * @param key To be fetched from property file
 	 * @return corresponding value for the requested key if found else throws Exception
 	 */
-	public static String get(String key) throws Exception {
+	public static String get(String key){
 		if (Objects.isNull(key) || Objects.isNull(CONFIGMAP.get(key.toLowerCase()))) {
-			throw new Exception(String.format("Property name %s is not found. Please check config.properties", key));
+			log.error(String.format("Property name %s is not found. Please check config.properties", key));
 		}
 		return CONFIGMAP.get(key.toLowerCase());
 	}
