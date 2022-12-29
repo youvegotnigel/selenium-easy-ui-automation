@@ -48,7 +48,7 @@ public class NewTableTest {
         System.out.println(cellList.size());
 
         List<String> cellTextList = new ArrayList<>();
-        for (WebElement e: cellList){
+        for (WebElement e : cellList) {
             cellTextList.add(e.getText());
         }
         System.out.println(cellTextList.size());
@@ -60,15 +60,12 @@ public class NewTableTest {
         String BV = caps.getVersion();
         System.out.println("OS: " + OS + ", Browser: " + browserName + " V " + BV);
 
-        for(String s: caps.getCapabilityNames()){
+        for (String s : caps.getCapabilityNames()) {
             System.out.println(s);
         }
 
         String timeZone = PropertyUtils.get("TIME_ZONE");
         System.out.println(timeZone);
-
-
-
 
     }
 
