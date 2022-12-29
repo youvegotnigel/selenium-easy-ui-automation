@@ -32,6 +32,9 @@ public class FrameworkConstants {
     private static final String CONFIG_FILE_PATH = RESOURCES_PATH + "/config/config.properties";
     private static final String ALLURE_Environment_PROPERTIES_PATH = "allure-results\\environment.properties";
     private static final String CUCUMBER_REPORT_FOLDER_PATH = System.getProperty("user.dir")+"/target/cucumber-reports";
+    private static final String CUCUMBER_HTML_FILE_PATH = "html:target/cucumber-reports/cucumber.html";
+    private static final String CUCUMBER_XML_FILE_PATH = "junit:target/cucumber-reports/cucumber.xml";
+    private static final String CUCUMBER_JSON_FILE_PATH = "json:target/cucumber-reports/cucumber.json";
     private static String GIT_BRANCH_NAME = "";
 
 
@@ -56,6 +59,16 @@ public class FrameworkConstants {
             GIT_BRANCH_NAME = findGitBranchName();
         }
         return GIT_BRANCH_NAME;
+    }
+    public static String getCucumberJsonFilePath() {
+        return CUCUMBER_JSON_FILE_PATH;
+    }
+
+    public static String getCucumberHtmlFilePath() {
+        return CUCUMBER_HTML_FILE_PATH;
+    }
+    public static String getCucumberXmlFilePath() {
+        return CUCUMBER_XML_FILE_PATH;
     }
 
     private static String findGitBranchName() {
