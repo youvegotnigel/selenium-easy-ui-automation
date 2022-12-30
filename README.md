@@ -4,7 +4,7 @@
 
 type
 ```bash
-mvn clean verify -Dtestng.dtd.http=true -Dmaven.test.failure.ignore=true
+mvn clean install -Ddataproviderthreadcount=1
 ```
 in terminal
 
@@ -19,6 +19,16 @@ in terminal
 * Cucumber HTML Report
 * Allure Report
 
+## Parallel Execution
+type
+```bash
+mvn clean install -Ddataproviderthreadcount=3
+```
+in terminal
+
+https://www.youtube.com/watch?v=ZZMXc6YTkL4
+
+https://github.com/naveenanimation20/LatestCucumber6WithPOM/tree/master/src/test/java/parallel
 
 ## Author
 * **Nigel Mulholland** - [Linkedin](https://www.linkedin.com/in/nigel-mulholland/) 
