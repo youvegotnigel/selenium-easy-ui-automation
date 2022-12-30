@@ -33,7 +33,7 @@ public class FrameworkConstants {
     private static final int ELEMENT_LOAD_WAIT = 3;
     private static final int PAGE_LOAD_WAIT = 10;
     private static final String RESOURCES_PATH = System.getProperty("user.dir") + "/src/test/resources";
-    private static final String CONFIG_FILE_NAME = "default_config";
+    private static final String CONFIG_FILE_NAME = "default_config"; //Update this value to change config file
     private static final String CONFIG_FILE_PATH = RESOURCES_PATH + "/config/" + CONFIG_FILE_NAME + ".properties";
     private static final String ALLURE_Environment_PROPERTIES_PATH = "allure-results\\environment.properties";
     private static final String CUCUMBER_REPORT_FOLDER_PATH = System.getProperty("user.dir") + "/target/cucumber-reports";
