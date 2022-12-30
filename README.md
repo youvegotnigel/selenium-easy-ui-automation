@@ -19,6 +19,8 @@ in terminal
 * Cucumber HTML Report
 * Allure Report
 
+## Refer for parallel execution
+https://www.youtube.com/watch?v=ZZMXc6YTkL4
 
 ## Author
 * **Nigel Mulholland** - [Linkedin](https://www.linkedin.com/in/nigel-mulholland/) 
