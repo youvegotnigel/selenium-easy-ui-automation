@@ -1,5 +1,6 @@
 package com.youvegotnigel.automation.stepdefs;
 
+import com.youvegotnigel.automation.constants.FrameworkConstants;
 import com.youvegotnigel.automation.driver.Driver;
 import com.youvegotnigel.automation.driver.DriverManager;
 import com.youvegotnigel.automation.utils.CreateEnvFile;
@@ -54,6 +55,7 @@ public class ServiceHooks {
             log.error("✘ Failed scenario : " + scenario.getName());
         }
         CreateEnvFile.createFile();
+        FrameworkConstants.createReportData();
         Driver.quitDriver();
     }
 
