@@ -1,6 +1,6 @@
 package com.youvegotnigel.automation.pageobjects;
 
-
+import com.youvegotnigel.automation.factories.ExplicitWaitFactory.WaitStrategy;
 import com.youvegotnigel.automation.base.BasePage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,7 +19,7 @@ public class TablePage extends BasePage {
     }
 
     public void table_search(String text){
-        setText(input_search,text);
+        setText(input_search, text, WaitStrategy.VISIBLE);
     }
 
 }

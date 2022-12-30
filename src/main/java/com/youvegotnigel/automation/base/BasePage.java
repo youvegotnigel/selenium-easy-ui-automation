@@ -1,6 +1,8 @@
 package com.youvegotnigel.automation.base;
 
 import com.youvegotnigel.automation.constants.FrameworkConstants;
+import com.youvegotnigel.automation.factories.ExplicitWaitFactory;
+import com.youvegotnigel.automation.factories.ExplicitWaitFactory.WaitStrategy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -30,52 +32,47 @@ public class BasePage {
         return driver.getTitle();
     }
 
-    public void waitForVisibility(WebElement by) {
-        WebDriverWait wait = new WebDriverWait(driver, FrameworkConstants.getPageLoadWait());
-        wait.until(ExpectedConditions.visibilityOf(by));
+    public void clearText(By by, WaitStrategy waitStrategy) {
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, by);
+        element.clear();
     }
 
-    public void clearText(By by) {
-        waitForVisibility(driver.findElement(by));
-        driver.findElement(by).clear();
+    public void click(By by, WaitStrategy waitStrategy) {
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, by);
+        element.click();
     }
 
-    public void click(By by) {
-        waitForVisibility(driver.findElement(by));
-        driver.findElement(by).click();
+    public void submit(By by, WaitStrategy waitStrategy) {
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, by);
+        element.submit();
     }
 
-    public void submit(By by) {
-        waitForVisibility(driver.findElement(by));
-        driver.findElement(by).submit();
+    public void setText(By by, String text, WaitStrategy waitStrategy) {
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, by);
+        element.sendKeys(text);
     }
 
-    public void setText(By by, String text) {
-        waitForVisibility(driver.findElement(by));
-        driver.findElement(by).sendKeys(text);
+    public String getText(By by, WaitStrategy waitStrategy) {
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, by);
+        return element.getText();
     }
 
-    public String getText(By by) {
-        waitForVisibility(driver.findElement(by));
-        return driver.findElement(by).getText();
+    public boolean isDisplayed(By by, WaitStrategy waitStrategy) {
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, by);
+        return element.isDisplayed();
     }
 
-    public boolean isDisplayed(By by) {
-        waitForVisibility(driver.findElement(by));
-        return driver.findElement(by).isDisplayed();
-    }
-
-    public String getAttribute(By by, String attribute) {
-        waitForVisibility(driver.findElement(by));
-        return driver.findElement(by).getAttribute(attribute);
+    public String getAttribute(By by, String attribute, WaitStrategy waitStrategy) {
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, by);
+        return element.getAttribute(attribute);
     }
 
     public boolean cookieBarIsDisplayed(){
-        return isDisplayed(cookie_info_bar);
+        return isDisplayed(cookie_info_bar, WaitStrategy.VISIBLE);
     }
 
     public void acceptCookie(){
-        click(accept_cookie);
+        click(accept_cookie, WaitStrategy.CLICKABLE);
     }
 
     // ############################################ Generic xpath's ############################################
