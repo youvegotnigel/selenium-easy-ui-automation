@@ -5,8 +5,14 @@ import com.youvegotnigel.automation.factories.ExplicitWaitFactory.WaitStrategy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
+/**
+ * Dec 30, 2022
+ *
+ * @author Nigel Mulholland
+ * @version 1.0
+ * @since 1.0
+ */
 public class FormPage extends BasePage {
 
     private static final Logger log = LogManager.getLogger(FormPage.class.getName());
@@ -15,8 +21,8 @@ public class FormPage extends BasePage {
     private By form_submit = By.xpath("(//button[@class='pushbutton-wide' and @type='submit'])[1]");
 
     //Constructor
-    public FormPage(WebDriver driver) {
-        super(driver);
+    public FormPage() {
+        super();
     }
 
 

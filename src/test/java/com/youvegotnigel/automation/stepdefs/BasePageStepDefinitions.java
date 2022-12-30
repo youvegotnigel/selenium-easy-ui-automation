@@ -1,7 +1,6 @@
 package com.youvegotnigel.automation.stepdefs;
 
 import com.youvegotnigel.automation.base.BasePage;
-import com.youvegotnigel.automation.driver.DriverManager;
 import com.youvegotnigel.automation.factories.ExplicitWaitFactory.WaitStrategy;
 import com.youvegotnigel.automation.utils.webTableHelper.HTMLTableHelper;
 import io.cucumber.datatable.DataTable;
@@ -16,11 +15,18 @@ import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-
+/**
+ * Dec 30, 2022
+ *
+ * @author Nigel Mulholland
+ * @version 1.0
+ * @since 1.0
+ */
 public class BasePageStepDefinitions {
 
-    BasePage basePage = new BasePage(DriverManager.getDriver());
     public static final Logger log = LogManager.getLogger(BasePageStepDefinitions.class.getName());
+
+    BasePage basePage = new BasePage();
 
     @Given("The Application has been launched")
     public void application_is_launched() {

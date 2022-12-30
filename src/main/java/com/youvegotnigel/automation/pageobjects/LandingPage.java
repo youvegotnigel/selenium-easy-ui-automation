@@ -6,16 +6,22 @@ import com.youvegotnigel.automation.factories.ExplicitWaitFactory.WaitStrategy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+/**
+ * Dec 30, 2022
+ *
+ * @author Nigel Mulholland
+ * @version 1.0
+ * @since 1.0
+ */
 public class LandingPage extends BasePage {
 
     private static final Logger log = LogManager.getLogger(LandingPage.class.getName());
 
     //Constructor
-    public LandingPage(WebDriver driver) {
-        super(driver);
+    public LandingPage() {
+        super();
     }
 
     public void selectFromTreeMenu(String text, WaitStrategy waitStrategy) {
