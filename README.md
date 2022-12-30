@@ -22,5 +22,7 @@ in terminal
 ## Refer for parallel execution
 https://www.youtube.com/watch?v=ZZMXc6YTkL4
 
+https://github.com/naveenanimation20/LatestCucumber6WithPOM/tree/master/src/test/java/parallel
+
 ## Author
 * **Nigel Mulholland** - [Linkedin](https://www.linkedin.com/in/nigel-mulholland/) 
