@@ -4,7 +4,7 @@ import com.youvegotnigel.automation.driver.DriverManager;
 import com.youvegotnigel.automation.pageobjects.LandingPage;
 import io.cucumber.java.en.And;
 
-public class LandingPageStepDefinitions{
+public class LandingPageStepDefinitions {
 
     LandingPage landingPage = new LandingPage(DriverManager.getDriver());
 

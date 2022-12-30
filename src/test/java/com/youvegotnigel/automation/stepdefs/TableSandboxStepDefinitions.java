@@ -8,7 +8,7 @@ import io.cucumber.java.en.Given;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class TableSandboxStepDefinitions{
+public class TableSandboxStepDefinitions {
 
     public static final Logger log = LogManager.getLogger(TableSandboxStepDefinitions.class.getName());
     BasePage basePage = new BasePage(DriverManager.getDriver());

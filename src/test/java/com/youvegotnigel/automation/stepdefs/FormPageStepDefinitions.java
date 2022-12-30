@@ -11,7 +11,7 @@ import org.testng.Assert;
 import java.util.List;
 import java.util.Map;
 
-public class FormPageStepDefinitions{
+public class FormPageStepDefinitions {
 
     public static final Logger log = LogManager.getLogger(FormPageStepDefinitions.class.getName());
 
