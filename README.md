@@ -20,15 +20,15 @@ in terminal
 * Allure Report
 
 ## Parallel Execution
+To turn on parallel execution mode set ```@DataProvider(parallel = true)``` in the Test Runner class.
+By default, it will be set to false.
+
 type
 ```bash
 mvn clean install -Ddataproviderthreadcount=3
 ```
 in terminal
 
-https://www.youtube.com/watch?v=ZZMXc6YTkL4
-
-https://github.com/naveenanimation20/LatestCucumber6WithPOM/tree/master/src/test/java/parallel
 
 ## Author
 * **Nigel Mulholland** - [Linkedin](https://www.linkedin.com/in/nigel-mulholland/) 
