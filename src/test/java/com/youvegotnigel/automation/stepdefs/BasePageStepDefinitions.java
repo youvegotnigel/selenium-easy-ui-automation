@@ -365,7 +365,7 @@ public class BasePageStepDefinitions {
  */
 
     public String decodeText(String text){
-        if(text == "" || text == null){
+        if(text.equals("")|| text.equals(null)){
             return " ";
         }
         byte[] actualByte = Base64.getDecoder().decode(text);
