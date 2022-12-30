@@ -1,7 +1,7 @@
 package com.youvegotnigel.automation.stepdefs;
 
 import com.youvegotnigel.automation.base.BasePage;
-import com.youvegotnigel.automation.driver.DriverManager;
+import com.youvegotnigel.automation.factories.ExplicitWaitFactory.WaitStrategy;
 import com.youvegotnigel.automation.utils.webTableHelper.HTMLTableHelper;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
@@ -15,11 +15,18 @@ import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-
+/**
+ * Dec 30, 2022
+ *
+ * @author Nigel Mulholland
+ * @version 1.0
+ * @since 1.0
+ */
 public class BasePageStepDefinitions {
 
-    BasePage basePage = new BasePage(DriverManager.getDriver());
     public static final Logger log = LogManager.getLogger(BasePageStepDefinitions.class.getName());
+
+    BasePage basePage = new BasePage();
 
     @Given("The Application has been launched")
     public void application_is_launched() {
@@ -43,9 +50,9 @@ public class BasePageStepDefinitions {
 
         if (text.matches(".*\\[[\\d.]]")) {
             var valueAndIndex = getValueAndIndex(text);
-            basePage.clickOnButtonByName(valueAndIndex[0], valueAndIndex[1]);
+            basePage.clickOnButtonByName(valueAndIndex[0], valueAndIndex[1], WaitStrategy.CLICKABLE);
         } else {
-            basePage.clickOnButtonByName(text);
+            basePage.clickOnButtonByName(text, WaitStrategy.CLICKABLE);
         }
     }
 
@@ -54,9 +61,9 @@ public class BasePageStepDefinitions {
 
         if (text.matches(".*\\[[\\d.]]")) {
             var valueAndIndex = getValueAndIndex(text);
-            basePage.clickOnLinkByName(valueAndIndex[0], valueAndIndex[1]);
+            basePage.clickOnLinkByName(valueAndIndex[0], valueAndIndex[1], WaitStrategy.CLICKABLE);
         } else {
-            basePage.clickOnLinkByName(text);
+            basePage.clickOnLinkByName(text, WaitStrategy.CLICKABLE);
         }
     }
 
@@ -65,9 +72,9 @@ public class BasePageStepDefinitions {
 
         if (text.matches(".*\\[[\\d.]]")) {
             var valueAndIndex = getValueAndIndex(text);
-            basePage.clickOnNormalizeSpace(text, valueAndIndex[1]);
+            basePage.clickOnNormalizeSpace(text, valueAndIndex[1], WaitStrategy.CLICKABLE);
         } else {
-            basePage.clickOnNormalizeSpace(text);
+            basePage.clickOnNormalizeSpace(text, WaitStrategy.CLICKABLE);
         }
     }
 
@@ -76,9 +83,9 @@ public class BasePageStepDefinitions {
 
         if (text.matches(".*\\[[\\d.]]")) {
             var valueAndIndex = getValueAndIndex(text);
-            Assert.assertTrue(basePage.isDisplayedInNormalizeSpace(valueAndIndex[0], valueAndIndex[1]), "Not found text ::: " + text);
+            Assert.assertTrue(basePage.isDisplayedInNormalizeSpace(valueAndIndex[0], valueAndIndex[1], WaitStrategy.VISIBLE), "Not found text ::: " + text);
         } else {
-            Assert.assertTrue(basePage.isDisplayedInNormalizeSpace(text), "Not found text ::: " + text);
+            Assert.assertTrue(basePage.isDisplayedInNormalizeSpace(text, WaitStrategy.VISIBLE), "Not found text ::: " + text);
         }
     }
 
@@ -87,9 +94,9 @@ public class BasePageStepDefinitions {
 
         if (text.matches(".*\\[[\\d.]]")) {
             var valueAndIndex = getValueAndIndex(text);
-            Assert.assertFalse(basePage.isDisplayedInNormalizeSpace(valueAndIndex[0], valueAndIndex[1]), "Found text ::: " + text);
+            Assert.assertFalse(basePage.isDisplayedInNormalizeSpace(valueAndIndex[0], valueAndIndex[1], WaitStrategy.VISIBLE), "Found text ::: " + text);
         } else {
-            Assert.assertFalse(basePage.isDisplayedInNormalizeSpace(text), "Found text ::: " + text);
+            Assert.assertFalse(basePage.isDisplayedInNormalizeSpace(text, WaitStrategy.VISIBLE), "Found text ::: " + text);
         }
     }
 
@@ -98,9 +105,9 @@ public class BasePageStepDefinitions {
 
         if (question.matches(".*\\[[\\d.]]")) {
             var valueAndIndex = getValueAndIndex(question);
-            basePage.setTextInputForLabel(valueAndIndex[0], valueAndIndex[1], answer);
+            basePage.setTextInputForLabel(valueAndIndex[0], valueAndIndex[1], answer, WaitStrategy.VISIBLE);
         } else {
-            basePage.setTextInputForLabel(question, answer);
+            basePage.setTextInputForLabel(question, answer, WaitStrategy.VISIBLE);
         }
     }
 
@@ -109,9 +116,9 @@ public class BasePageStepDefinitions {
 
         if (question.matches(".*\\[[\\d.]]")) {
             var valueAndIndex = getValueAndIndex(question);
-            basePage.setTextAreaForLabel(valueAndIndex[0], valueAndIndex[1], answer);
+            basePage.setTextAreaForLabel(valueAndIndex[0], valueAndIndex[1], answer, WaitStrategy.VISIBLE);
         } else {
-            basePage.setTextAreaForLabel(getValueAndIndex(question)[0], answer);
+            basePage.setTextAreaForLabel(getValueAndIndex(question)[0], answer, WaitStrategy.VISIBLE);
         }
     }
 
@@ -120,9 +127,9 @@ public class BasePageStepDefinitions {
 
         if (question.matches(".*\\[[\\d.]]")) {
             var valueAndIndex = getValueAndIndex(question);
-            basePage.setRadioForLabel(valueAndIndex[0], valueAndIndex[1], answer);
+            basePage.setRadioForLabel(valueAndIndex[0], valueAndIndex[1], answer, WaitStrategy.CLICKABLE);
         } else {
-            basePage.setRadioForLabel(question, answer);
+            basePage.setRadioForLabel(question, answer, WaitStrategy.CLICKABLE);
         }
     }
 
@@ -131,9 +138,9 @@ public class BasePageStepDefinitions {
 
         if (question.matches(".*\\[[\\d.]]")) {
             var valueAndIndex = getValueAndIndex(question);
-            basePage.selectFromDropdownByVisibleText(valueAndIndex[0], valueAndIndex[1], answer);
+            basePage.selectFromDropdownByVisibleText(valueAndIndex[0], valueAndIndex[1], answer, WaitStrategy.CLICKABLE);
         } else {
-            basePage.selectFromDropdownByVisibleText(question, answer);
+            basePage.selectFromDropdownByVisibleText(question, answer, WaitStrategy.CLICKABLE);
         }
     }
 
@@ -142,9 +149,9 @@ public class BasePageStepDefinitions {
 
         if (question.matches(".*\\[[\\d.]]")) {
             var valueAndIndex = getValueAndIndex(question);
-            basePage.selectFromDropdownByValue(valueAndIndex[0], valueAndIndex[1], answer);
+            basePage.selectFromDropdownByValue(valueAndIndex[0], valueAndIndex[1], answer, WaitStrategy.CLICKABLE);
         } else {
-            basePage.selectFromDropdownByValue(question, answer);
+            basePage.selectFromDropdownByValue(question, answer, WaitStrategy.CLICKABLE);
         }
     }
 
@@ -153,9 +160,9 @@ public class BasePageStepDefinitions {
 
         if (question.matches(".*\\[[\\d.]]")) {
             var valueAndIndex = getValueAndIndex(question);
-            basePage.selectFromDropdownByIndex(valueAndIndex[0], valueAndIndex[1], answer);
+            basePage.selectFromDropdownByIndex(valueAndIndex[0], valueAndIndex[1], answer, WaitStrategy.CLICKABLE);
         } else {
-            basePage.selectFromDropdownByIndex(question, answer);
+            basePage.selectFromDropdownByIndex(question, answer, WaitStrategy.CLICKABLE);
         }
     }
 

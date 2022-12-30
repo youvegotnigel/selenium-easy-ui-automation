@@ -1,6 +1,5 @@
 package com.youvegotnigel.automation.stepdefs;
 
-import com.youvegotnigel.automation.driver.DriverManager;
 import com.youvegotnigel.automation.pageobjects.FormPage;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
@@ -11,11 +10,17 @@ import org.testng.Assert;
 import java.util.List;
 import java.util.Map;
 
-public class FormPageStepDefinitions{
+/**
+ * Dec 30, 2022
+ *
+ * @author Nigel Mulholland
+ * @version 1.0
+ * @since 1.0
+ */
+public class FormPageStepDefinitions {
 
-    public static final Logger log = LogManager.getLogger(FormPageStepDefinitions.class.getName());
-
-    FormPage formPage = new FormPage(DriverManager.getDriver());
+    private static final Logger log = LogManager.getLogger(FormPageStepDefinitions.class.getName());
+    FormPage formPage = new FormPage();
 
 
     @And("I click on Submit form button")

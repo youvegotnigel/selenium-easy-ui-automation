@@ -17,6 +17,13 @@ import org.openqa.selenium.logging.LogType;
 
 import static org.openqa.selenium.OutputType.BYTES;
 
+/**
+ * Dec 30, 2022
+ *
+ * @author Nigel Mulholland
+ * @version 1.0
+ * @since 1.0
+ */
 public class ServiceHooks {
 
     private static final Logger log = LogManager.getLogger(ServiceHooks.class.getName());

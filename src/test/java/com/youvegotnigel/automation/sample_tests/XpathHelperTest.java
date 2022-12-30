@@ -3,6 +3,14 @@ package com.youvegotnigel.automation.sample_tests;
 import com.youvegotnigel.automation.utils.webTableHelper.XPathHelper;
 import org.testng.annotations.Test;
 
+/**
+ * This is a Test Class to verify generic methods are working as expected
+ * Dec 30, 2022
+ *
+ * @author Nigel Mulholland
+ * @version 1.0
+ * @since 1.0
+ */
 public class XpathHelperTest extends XPathHelper {
 
     @Test

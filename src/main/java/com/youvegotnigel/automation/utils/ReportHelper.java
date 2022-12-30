@@ -8,8 +8,16 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Dec 30, 2022
+ *
+ * @author Nigel Mulholland
+ * @version 1.0
+ * @since 1.0
+ */
 public class ReportHelper {
 
+    //TODO: Need to remove the hardcoded values here
     public static void generateCucumberReport() {
 
         File reportOutputDirectory = new File("target");

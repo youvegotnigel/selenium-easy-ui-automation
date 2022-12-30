@@ -4,6 +4,14 @@ import com.youvegotnigel.automation.utils.DateTime;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * This is a Test Class to verify generic methods are working as expected
+ * Dec 30, 2022
+ *
+ * @author Nigel Mulholland
+ * @version 1.0
+ * @since 1.0
+ */
 public class DateTimeDemo {
 
     public static void main(String[] args) {

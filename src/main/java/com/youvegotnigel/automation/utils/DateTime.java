@@ -5,6 +5,14 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.TimeZone;
 
+/**
+ * Define the datetime values for feature files
+ * Dec 30, 2022
+ *
+ * @author Nigel Mulholland
+ * @version 1.0
+ * @since 1.0
+ */
 public class DateTime extends DateTimeUtility{
 
     private static final String timeZone = PropertyUtils.get("TIME_ZONE");

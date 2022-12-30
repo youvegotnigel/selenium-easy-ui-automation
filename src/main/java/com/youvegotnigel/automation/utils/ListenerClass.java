@@ -8,6 +8,13 @@ import org.testng.*;
 
 import java.util.Arrays;
 
+/**
+ * Dec 30, 2022
+ *
+ * @author Nigel Mulholland
+ * @version 1.0
+ * @since 1.0
+ */
 public class ListenerClass implements ITestListener, ISuiteListener, IInvokedMethodListener, WebDriverEventListener {
 
     private static final Logger log = LogManager.getLogger(ListenerClass.class.getName());
