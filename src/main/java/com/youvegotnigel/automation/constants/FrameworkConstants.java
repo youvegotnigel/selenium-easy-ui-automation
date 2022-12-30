@@ -21,7 +21,7 @@ import java.io.InputStreamReader;
  */
 public class FrameworkConstants {
 
-    public static final Logger log = LogManager.getLogger(FrameworkConstants.class.getName());
+    private static final Logger log = LogManager.getLogger(FrameworkConstants.class.getName());
 
     /**
      * Private constructor to avoid external instantiation
