@@ -139,27 +139,6 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            <plugin>
-                <groupId>net.masterthought</groupId>
-                <artifactId>maven-cucumber-reporting</artifactId>
-                <version>${maven.cucumber.reporting.plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>execution</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <projectName>MyProjectName</projectName>  <!-- Replace with project name -->
-                            <outputDirectory>target/cucumber-reports/advanced-reports</outputDirectory>
-                            <cucumberOutput>target/cucumber-reports/CucumberTestReport.json</cucumberOutput>
-                            <buildNumber>1</buildNumber>
-                            <parallelTesting>false</parallelTesting>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
