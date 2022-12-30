@@ -12,7 +12,6 @@ import java.io.InputStreamReader;
 
 /**
  * Define the framework constants here
- * <p>
  * Dec 29, 2022
  *
  * @author Nigel Mulholland

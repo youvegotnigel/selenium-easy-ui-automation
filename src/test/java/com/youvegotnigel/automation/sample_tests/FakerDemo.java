@@ -4,6 +4,14 @@ import com.github.javafaker.Faker;
 
 import java.util.Locale;
 
+/**
+ * This is a Test Class to verify generic methods are working as expected
+ * Dec 30, 2022
+ *
+ * @author Nigel Mulholland
+ * @version 1.0
+ * @since 1.0
+ */
 public class FakerDemo {
 
     public static void main(String[] args) {

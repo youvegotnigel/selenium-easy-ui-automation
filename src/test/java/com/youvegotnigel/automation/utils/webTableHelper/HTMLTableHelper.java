@@ -7,7 +7,13 @@ import org.openqa.selenium.WebElement;
 
 import java.util.*;
 
-
+/**
+ * Dec 30, 2022
+ *
+ * @author Nigel Mulholland
+ * @version 1.0
+ * @since 1.0
+ */
 public class HTMLTableHelper extends WebElementHelper {
 
     static final String FIND_TABLE_BY_ROW_XPATH = "//table[*[tr[@{rowCriteria}]]]";

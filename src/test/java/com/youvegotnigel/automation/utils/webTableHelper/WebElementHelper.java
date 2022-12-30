@@ -14,6 +14,13 @@ import org.testng.Assert;
 
 import java.util.List;
 
+/**
+ * Dec 30, 2022
+ *
+ * @author Nigel Mulholland
+ * @version 1.0
+ * @since 1.0
+ */
 public class WebElementHelper {
 
     private static final Logger log = LogManager.getLogger(WebElementHelper.class.getName());

@@ -13,6 +13,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * Helper class for datetime methods
+ *
+ * Dec 30, 2022
+ *
+ * @author Nigel Mulholland
+ * @version 1.0
+ * @since 1.0
+ */
 public class DateTimeUtility {
 
     /**
