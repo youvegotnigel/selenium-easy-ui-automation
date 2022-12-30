@@ -2,15 +2,19 @@ package com.youvegotnigel.automation.factories;
 
 import com.youvegotnigel.automation.utils.PropertyUtils;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.github.bonigarcia.wdm.config.DriverManagerType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Dec 29, 2022
@@ -53,6 +57,7 @@ public final class DriverFactory {
 
             case "edge":
                 WebDriverManager.edgedriver().setup();
+                //EdgeOptions edgeOptions = new EdgeOptions();
                 driver = new EdgeDriver();
                 log.debug("Initialize edge driver");
                 break;
@@ -63,6 +68,19 @@ public final class DriverFactory {
                 options.setHeadless(is_headless);
                 driver = new ChromeDriver(options);
                 log.debug("Initialize chrome driver");
+                break;
+
+            case "safari":
+                DriverManagerType safari = DriverManagerType.SAFARI;
+                WebDriverManager.getInstance(safari).setup();
+                Class<?> safariClass = null;
+                try {
+                    safariClass = Class.forName(safari.browserClass());
+                    driver = (WebDriver) safariClass.getDeclaredConstructor().newInstance();
+                } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException |
+                         IllegalAccessException | InvocationTargetException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
         }
 
