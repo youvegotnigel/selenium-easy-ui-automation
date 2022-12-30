@@ -38,7 +38,7 @@ public class TestRunner extends AbstractTestNGCucumberTests{
         testNGCucumberRunner.runScenario(pickleWrapper.getPickle());
     }
 
-    @DataProvider(parallel = false)
+    @DataProvider(parallel = true)
     @Override
     public Object[][] scenarios() {
         return testNGCucumberRunner.provideScenarios();
