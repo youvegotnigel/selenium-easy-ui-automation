@@ -2,6 +2,7 @@ package com.youvegotnigel.automation.stepdefs;
 
 import com.youvegotnigel.automation.base.BasePage;
 import com.youvegotnigel.automation.driver.DriverManager;
+import com.youvegotnigel.automation.factories.ExplicitWaitFactory.WaitStrategy;
 import com.youvegotnigel.automation.pageobjects.TablePage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -17,7 +18,7 @@ public class TableSandboxStepDefinitions {
     @Given("User has navigated {string} sandbox")
     public void navigate_to_table_sandbox(String page) {
 
-        basePage.clickOnLinkByName(page);
+        basePage.clickOnLinkByName(page, WaitStrategy.CLICKABLE);
         log.info("Navigating to page ::: " + page);
     }
 

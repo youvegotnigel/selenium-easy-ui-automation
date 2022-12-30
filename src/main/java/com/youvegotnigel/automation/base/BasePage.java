@@ -1,6 +1,6 @@
 package com.youvegotnigel.automation.base;
 
-import com.youvegotnigel.automation.constants.FrameworkConstants;
+import com.youvegotnigel.automation.driver.DriverManager;
 import com.youvegotnigel.automation.factories.ExplicitWaitFactory;
 import com.youvegotnigel.automation.factories.ExplicitWaitFactory.WaitStrategy;
 import org.apache.logging.log4j.LogManager;
@@ -9,9 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BasePage {
     private static WebDriver driver;
@@ -25,11 +23,8 @@ public class BasePage {
         this.driver = driver;
     }
 
-    public WebDriver getDriver(){
-        return this.driver;
-    }
     public String getPageTitle() {
-        return driver.getTitle();
+        return DriverManager.getDriver().getTitle();
     }
 
     public void clearText(By by, WaitStrategy waitStrategy) {
@@ -75,151 +70,151 @@ public class BasePage {
         click(accept_cookie, WaitStrategy.CLICKABLE);
     }
 
-    // ############################################ Generic xpath's ############################################
+    // ############################################ Generic xPath Expressions ############################################
 
-    public void setTextInputForLabel(String label_name, String value){
+    public void setTextInputForLabel(String label_name, String value, WaitStrategy waitStrategy){
 
         String xpath = "(//label[contains(text(),'"+ label_name +"')])[1]/following::input[1]";
-        WebElement element = driver.findElement(By.xpath(xpath));
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         element.sendKeys(value);
     }
 
-    public void setTextInputForLabel(String label_name, String index, String value){
+    public void setTextInputForLabel(String label_name, String index, String value, WaitStrategy waitStrategy){
 
         String xpath = "(//label[contains(text(),'"+ label_name +"')])["+ index +"]/following::input[1]";
-        WebElement element = driver.findElement(By.xpath(xpath));
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         element.sendKeys(value);
     }
 
-    public void setTextAreaForLabel(String label_name, String value){
+    public void setTextAreaForLabel(String label_name, String value, WaitStrategy waitStrategy){
 
         String xpath = "//label[contains(text(),'"+ label_name +"')]/following::textarea[1]";
-        WebElement element = driver.findElement(By.xpath(xpath));
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         element.sendKeys(value);
     }
 
-    public void setTextAreaForLabel(String label_name, String index, String value){
+    public void setTextAreaForLabel(String label_name, String index, String value, WaitStrategy waitStrategy){
 
         String xpath = "(//label[contains(text(),'"+ label_name +"')])["+ index +"]/following::textarea[1]";
-        WebElement element = driver.findElement(By.xpath(xpath));
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         element.sendKeys(value);
     }
 
-    public void clickOnButtonByName(String text) {
+    public void clickOnButtonByName(String text, WaitStrategy waitStrategy) {
         String xpath = "(//button[contains(normalize-space(),'" + text + "')])[1]";
-        WebElement element = driver.findElement(By.xpath(xpath));
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         scrollIntoView(element);
         try {
             element.click();
         } catch (Exception e) {
-            log.debug("Could not click on web element");
+            log.error("Could not click on web element");
             log.debug("xpath : " + xpath);
             log.error(e.getMessage());
         }
     }
 
-    public void clickOnButtonByName(String text, String index) {
+    public void clickOnButtonByName(String text, String index, WaitStrategy waitStrategy) {
         String xpath = "(//button[contains(normalize-space(),'" + text + "')])["+ index +"]" ;
-        WebElement element = driver.findElement(By.xpath(xpath));
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         scrollIntoView(element);
         try {
             element.click();
         } catch (Exception e) {
-            log.debug("Could not click on web element");
+            log.error("Could not click on web element");
             log.debug("xpath : " + xpath);
             log.error(e.getMessage());
         }
     }
 
-    public void clickOnLinkByName(String text) {
+    public void clickOnLinkByName(String text, WaitStrategy waitStrategy) {
         String xpath = "//a[contains(normalize-space(),'" + text + "')]";
-        WebElement element = driver.findElement(By.xpath(xpath));
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         scrollIntoView(element);
         try {
             element.click();
         } catch (Exception e) {
-            log.debug("Could not click on web element");
+            log.error("Could not click on web element");
             log.debug("xpath : " + xpath);
             log.error(e.getMessage());
         }
     }
 
-    public void clickOnLinkByName(String text, String index) {
+    public void clickOnLinkByName(String text, String index, WaitStrategy waitStrategy) {
         String xpath = "(//a[contains(normalize-space(),'" + text + "')])["+ index +"]" ;
-        WebElement element = driver.findElement(By.xpath(xpath));
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         scrollIntoView(element);
         try {
             element.click();
         } catch (Exception e) {
-            log.debug("Could not click on web element");
+            log.error("Could not click on web element");
             log.debug("xpath : " + xpath);
             log.error(e.getMessage());
         }
     }
 
-    public boolean isDisplayedInNormalizeSpace(String text) {
+    public boolean isDisplayedInNormalizeSpace(String text, WaitStrategy waitStrategy) {
         String xpath = "//*[normalize-space()='" + text + "']";
-        WebElement element = driver.findElement(By.xpath(xpath));
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         scrollIntoView(element);
         return element.isDisplayed();
     }
 
-    public boolean isDisplayedInNormalizeSpace(String text, String index) {
+    public boolean isDisplayedInNormalizeSpace(String text, String index, WaitStrategy waitStrategy) {
         String xpath = "(//*[normalize-space()='" + text + "'])["+ index +"]" ;
-        WebElement element = driver.findElement(By.xpath(xpath));
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         scrollIntoView(element);
         return element.isDisplayed();
     }
 
-    public void clickOnNormalizeSpace(String text) {
+    public void clickOnNormalizeSpace(String text, WaitStrategy waitStrategy) {
         String xpath = "//*[normalize-space()='" + text + "']";
-        WebElement element = driver.findElement(By.xpath(xpath));
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         scrollIntoView(element);
         try {
             element.click();
         } catch (Exception e) {
-            log.debug("Could not click on web element");
+            log.error("Could not click on web element");
             log.debug("xpath : " + xpath);
             log.error(e.getMessage());
         }
     }
 
-    public void clickOnNormalizeSpace(String text, String index) {
+    public void clickOnNormalizeSpace(String text, String index, WaitStrategy waitStrategy) {
         String xpath = "(//*[normalize-space()='" + text + "'])["+ index +"]" ;
-        WebElement element = driver.findElement(By.xpath(xpath));
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         scrollIntoView(element);
         try {
             element.click();
         } catch (Exception e) {
-            log.debug("Could not click on web element");
+            log.error("Could not click on web element");
             log.debug("xpath : " + xpath);
             log.error(e.getMessage());
         }
     }
 
-    public void setRadioForLabel(String label_name, String value){
+    public void setRadioForLabel(String label_name, String value, WaitStrategy waitStrategy){
 
         String xpath = "//label[contains(text(),'"+ label_name +"')]/following::input[@value='"+ value +"']";
-        WebElement element = driver.findElement(By.xpath(xpath));
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         scrollIntoView(element);
         try {
             element.click();
         } catch (Exception e) {
-            log.debug("Could not click on web element");
+            log.error("Could not click on web element");
             log.debug("xpath : " + xpath);
             log.error(e.getMessage());
         }
     }
 
-    public void setRadioForLabel(String label_name, String index, String value){
+    public void setRadioForLabel(String label_name, String index, String value, WaitStrategy waitStrategy){
 
         String xpath = "(//label[contains(text(),'"+ label_name +"')])["+ index +"]/following::input[@value='"+ value +"']";
-        WebElement element = driver.findElement(By.xpath(xpath));
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         scrollIntoView(element);
         try {
             element.click();
         } catch (Exception e) {
-            log.debug("Could not click on web element");
+            log.error("Could not click on web element");
             log.debug("xpath : " + xpath);
             log.error(e.getMessage());
         }
@@ -230,9 +225,9 @@ public class BasePage {
      * @param label_name name of the label
      * @param visibleText select by visible text
      */
-    public void selectFromDropdownByVisibleText(String label_name, String visibleText){
+    public void selectFromDropdownByVisibleText(String label_name, String visibleText, WaitStrategy waitStrategy){
         String xpath = "(//label[contains(text(),'"+ label_name +"')])[1]/following::select";
-        WebElement element = driver.findElement(By.xpath(xpath));
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         Select select = new Select(element);
         select.selectByVisibleText(visibleText);
     }
@@ -243,9 +238,9 @@ public class BasePage {
      * @param visibleText select by visible text
      * @param element_index element index of label
      */
-    public void selectFromDropdownByVisibleText(String label_name, String element_index, String visibleText){
+    public void selectFromDropdownByVisibleText(String label_name, String element_index, String visibleText, WaitStrategy waitStrategy){
         String xpath = "(//label[contains(text(),'"+ label_name +"')])[" + element_index +"]/following::select";
-        WebElement element = driver.findElement(By.xpath(xpath));
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         Select select = new Select(element);
         select.selectByVisibleText(visibleText);
     }
@@ -255,9 +250,9 @@ public class BasePage {
      * @param label_name name of the label
      * @param value select by value
      */
-    public void selectFromDropdownByValue(String label_name, String value){
+    public void selectFromDropdownByValue(String label_name, String value, WaitStrategy waitStrategy){
         String xpath = "//label[contains(text(),'"+ label_name +"')]/following::select";
-        WebElement element = driver.findElement(By.xpath(xpath));
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         Select select = new Select(element);
         select.selectByValue(value);
     }
@@ -268,9 +263,9 @@ public class BasePage {
      * @param value select by value
      * @param element_index element index of label
      */
-    public void selectFromDropdownByValue(String label_name, String element_index, String value){
+    public void selectFromDropdownByValue(String label_name, String element_index, String value, WaitStrategy waitStrategy){
         String xpath = "(//label[contains(text(),'"+ label_name +"')])[" + element_index +"]/following::select";
-        WebElement element = driver.findElement(By.xpath(xpath));
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         Select select = new Select(element);
         select.selectByValue(value);
     }
@@ -280,9 +275,9 @@ public class BasePage {
      * @param label_name name of the label
      * @param index select by index
      */
-    public void selectFromDropdownByIndex(String label_name, int index){
+    public void selectFromDropdownByIndex(String label_name, int index, WaitStrategy waitStrategy){
         String xpath = "//label[contains(text(),'"+ label_name +"')]/following::select";
-        WebElement element = driver.findElement(By.xpath(xpath));
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         Select select = new Select(element);
         select.selectByIndex(index);
     }
@@ -293,9 +288,9 @@ public class BasePage {
      * @param index select by index
      * @param element_index element index of label
      */
-    public void selectFromDropdownByIndex(String label_name, String element_index, int index){
+    public void selectFromDropdownByIndex(String label_name, String element_index, int index, WaitStrategy waitStrategy){
         String xpath = "(//label[contains(text(),'"+ label_name +"')])[" + element_index +"]/following::select";
-        WebElement element = driver.findElement(By.xpath(xpath));
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         Select select = new Select(element);
         select.selectByIndex(index);
     }
@@ -303,7 +298,7 @@ public class BasePage {
     public static void scrollIntoView(WebElement element){
         try{
 
-            Actions actions = new Actions(driver);
+            Actions actions = new Actions(DriverManager.getDriver());
             actions.moveToElement(element).perform();
 
         }catch(Exception e){
