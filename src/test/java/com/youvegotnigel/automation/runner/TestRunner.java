@@ -29,7 +29,7 @@ import org.testng.annotations.*;
         })
 public class TestRunner extends AbstractTestNGCucumberTests{
     private TestNGCucumberRunner testNGCucumberRunner;
-    public static final Logger log = LogManager.getLogger(TestRunner.class.getName());
+    private static final Logger log = LogManager.getLogger(TestRunner.class.getName());
 
     @BeforeClass(alwaysRun = true)
     @Override
