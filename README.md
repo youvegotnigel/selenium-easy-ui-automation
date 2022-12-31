@@ -4,7 +4,7 @@
 
 type
 ```bash
-mvn clean install -Ddataproviderthreadcount=1
+mvn clean install -DconfigFile=qa_config -Ddataproviderthreadcount=1
 ```
 in terminal
 
@@ -19,15 +19,17 @@ in terminal
 * Cucumber HTML Report
 * Allure Report
 
+## IDE Configurations
+Set `-DconfigFile=default_config` as a program argument in the IDE runner.
+![](.README\inteliJ_runner_config.jpg)
+
 ## Parallel Execution
 To turn on parallel execution mode set ```@DataProvider(parallel = true)``` in the Test Runner class.
-By default, it will be set to false.
-
-type
+By default, it will be set to false,
+and type in terminal
 ```bash
-mvn clean install -Ddataproviderthreadcount=3
+mvn clean install -DconfigFile=default_config -Ddataproviderthreadcount=3
 ```
-in terminal
 
 
 ## Author
