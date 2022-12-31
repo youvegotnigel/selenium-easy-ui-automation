@@ -2,6 +2,13 @@ package com.youvegotnigel.automation.utils.webTableHelper;
 
 import org.apache.commons.lang.StringUtils;
 
+/**
+ * Dec 30, 2022
+ *
+ * @author Nigel Mulholland
+ * @version 1.0
+ * @since 1.0
+ */
 public class XPathHelper {
 
     public enum CompareOptions {

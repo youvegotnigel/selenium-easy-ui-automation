@@ -17,9 +17,16 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Dec 30, 2022
+ *
+ * @author Nigel Mulholland
+ * @version 1.0
+ * @since 1.0
+ */
 public class ExcelUtility {
 
-    public static final Logger log = LogManager.getLogger(ExcelUtility.class.getName());
+    private static final Logger log = LogManager.getLogger(ExcelUtility.class.getName());
     public static XSSFWorkbook workbook;
     public static XSSFSheet sheet;
     public static XSSFCell xssfCell;

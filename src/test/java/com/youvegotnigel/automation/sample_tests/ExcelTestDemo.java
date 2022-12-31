@@ -2,6 +2,14 @@ package com.youvegotnigel.automation.sample_tests;
 
 import com.youvegotnigel.automation.utils.ExcelUtility;
 
+/**
+ * This is a Test Class to verify generic methods are working as expected
+ * Dec 30, 2022
+ *
+ * @author Nigel Mulholland
+ * @version 1.0
+ * @since 1.0
+ */
 public class ExcelTestDemo {
 
     public static void main(String[] args) {

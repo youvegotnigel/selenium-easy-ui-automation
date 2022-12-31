@@ -6,9 +6,18 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.events.WebDriverEventListener;
 import org.testng.*;
 
+import java.util.Arrays;
+
+/**
+ * Dec 30, 2022
+ *
+ * @author Nigel Mulholland
+ * @version 1.0
+ * @since 1.0
+ */
 public class ListenerClass implements ITestListener, ISuiteListener, IInvokedMethodListener, WebDriverEventListener {
 
-    public static final Logger log = LogManager.getLogger(ListenerClass.class.getName());
+    private static final Logger log = LogManager.getLogger(ListenerClass.class.getName());
 
     @Override
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
@@ -34,12 +43,11 @@ public class ListenerClass implements ITestListener, ISuiteListener, IInvokedMet
     @Override
     public void onFinish(ISuite suite) {
 
+        log.info("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+        log.info("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
         log.info("**************** TEST SUITE : " + suite.getName() + " HAS COMPLETED *******************");
-        log.info("X");
-        log.info("X");
-        log.info("XXXXXXXXXXXXXXXXXXXXXXX             "+"-E---N---D-"+"             XXXXXXXXXXXXXXXXXXXXXX");
-        log.info("X");
-        log.info("X");
+        log.info("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+        log.info("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 
     }
 
@@ -53,7 +61,7 @@ public class ListenerClass implements ITestListener, ISuiteListener, IInvokedMet
     public void onTestSuccess(ITestResult result) {
 
         if (result.getStatus() == ITestResult.SUCCESS) {
-            //log.info("The test case " + result.getName() + " has been passed");
+            //log.info(result.getMethod().getMethodName() + " is passed!");
         }
     }
 
@@ -63,7 +71,9 @@ public class ListenerClass implements ITestListener, ISuiteListener, IInvokedMet
         if (result.getStatus() == ITestResult.FAILURE) {
 
             log.warn("💥 Exception Found !!!");
+            //log.warn(result.getMethod().getMethodName() + " is failed!");
             log.error("Caused by : " + result.getThrowable());
+            log.error(Arrays.toString(result.getThrowable().getStackTrace()));
         }
 
     }

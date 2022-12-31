@@ -4,7 +4,7 @@
 
 type
 ```bash
-mvn clean verify -Dtestng.dtd.http=true -Dmaven.test.failure.ignore=true
+mvn clean install -DconfigFile=qa_config -Ddataproviderthreadcount=1
 ```
 in terminal
 
@@ -18,6 +18,18 @@ in terminal
 * Cucumber BDD Framework
 * Cucumber HTML Report
 * Allure Report
+
+## IDE Configurations
+Set `-DconfigFile=default_config` as a program argument in the IDE runner.
+![](.README\inteliJ_runner_config.jpg)
+
+## Parallel Execution
+To turn on parallel execution mode set ```@DataProvider(parallel = true)``` in the Test Runner class.
+By default, it will be set to false,
+and type in terminal
+```bash
+mvn clean install -DconfigFile=default_config -Ddataproviderthreadcount=3
+```
 
 
 ## Author

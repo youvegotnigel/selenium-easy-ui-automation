@@ -19,5 +19,10 @@ Feature: Input Form Demo
       | <name> | <drink>                       | <color>                       | <siblings>                 | <email> | <message> |
 
     Examples:
-      | name   | siblings | email                  | message                            | color | drink  |
-      | Eliseo | No       | eliseo.ringer@mail.com | This is my test automation project | Blue  | Coffee |
+      | name   | siblings | email                  | message                                   | color  | drink  |
+      | Eliseo | No       | eliseo.ringer@mail.com | This is my first test automation project  | Blue   | Coffee |
+      | Ava    | Yes      | ava.ringer@mail.com    | This is my second test automation project | Red    | Milk   |
+      | James  | Yes      | james.ringer@mail.com  | This is my third test automation project  | Yellow | Wine   |
+      | Ethan  | No       | ethan.ringer@mail.com  | This is my fourth test automation project | Green  | Coffee |
+      | Liam   | Yes      | liam.ringer@mail.com   | This is my fifth test automation project  | Green  | Water  |
+      | Noah   | No       | noah.ringer@mail.com   | This is my sixth test automation project  | Blue   | Coffee |

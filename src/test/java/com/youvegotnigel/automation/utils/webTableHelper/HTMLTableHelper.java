@@ -7,14 +7,20 @@ import org.openqa.selenium.WebElement;
 
 import java.util.*;
 
-
+/**
+ * Dec 30, 2022
+ *
+ * @author Nigel Mulholland
+ * @version 1.0
+ * @since 1.0
+ */
 public class HTMLTableHelper extends WebElementHelper {
 
     static final String FIND_TABLE_BY_ROW_XPATH = "//table[*[tr[@{rowCriteria}]]]";
     static final String FIND_CELLS_BY_COLUMN_INDEX = ".//tr[.//td[ position()= 1]|.//th[position()=0]]/*[(local-name()='td' or local-name()='th') and count(./preceding-sibling::*[local-name()='td' or local-name()='th'])=@{columnIndex}]";
     static Map<Integer, String> cachedHeaders = new HashMap<>();
 
-    public static final Logger log = LogManager.getLogger(HTMLTableHelper.class.getName());
+    private static final Logger log = LogManager.getLogger(HTMLTableHelper.class.getName());
 
 
 
@@ -73,7 +79,8 @@ public class HTMLTableHelper extends WebElementHelper {
             }
 
         }catch (Exception e){
-            log.debug(String.format("Could not find any rows match to searching criteria %s", cellsInfo));
+            log.error(String.format("Could not find any rows match to searching criteria %s", cellsInfo));
+            log.error(e);
             e.printStackTrace();
             return false;
         }
@@ -105,7 +112,8 @@ public class HTMLTableHelper extends WebElementHelper {
 
 
         }catch (Exception e){
-            log.debug(String.format("Could not find any columns with header %s", columnHeader));
+            log.error(String.format("Could not find any columns with header %s", columnHeader));
+            log.error(e);
             e.printStackTrace();
             return null;
         }
@@ -132,7 +140,8 @@ public class HTMLTableHelper extends WebElementHelper {
             }
 
         }catch (Exception e){
-            log.debug(String.format("Could not find column with header '%s'", columnHeader));
+            log.error(String.format("Could not find column with header '%s'", columnHeader));
+            log.error(e);
             e.printStackTrace();
             return -1;
         }
@@ -159,7 +168,8 @@ public class HTMLTableHelper extends WebElementHelper {
             }
 
         }catch (Exception e){
-            log.debug(String.format("Could not find column with attribute %s = '%s'", attribute, value));
+            log.error(String.format("Could not find column with attribute %s = '%s'", attribute, value));
+            log.error(e);
             e.printStackTrace();
             return -1;
         }
@@ -220,7 +230,8 @@ public class HTMLTableHelper extends WebElementHelper {
             return isHeaderSeparated(table) ? rows.size(): rows.size()-1;
 
         }catch (Exception e){
-            log.debug(String.format("Could not find any rows match to searching criteria '%s'", cell_info));
+            log.error(String.format("Could not find any rows match to searching criteria '%s'", cell_info));
+            log.error(e);
             e.printStackTrace();
             return -1;
         }
@@ -259,7 +270,8 @@ public class HTMLTableHelper extends WebElementHelper {
             return cell;
 
         }catch (Exception e){
-            log.debug(String.format("Could not find any columns with header '%s'", columnHeader));
+            log.error(String.format("Could not find any columns with header '%s'", columnHeader));
+            log.error(e);
             e.printStackTrace();
             return null;
         }
@@ -311,6 +323,7 @@ public class HTMLTableHelper extends WebElementHelper {
             return cell;
 
         }catch (Exception e){
+            log.error(e);
             e.printStackTrace();
             return null;
         }
@@ -352,7 +365,8 @@ public class HTMLTableHelper extends WebElementHelper {
             return listValues;
 
         }catch (Exception e){
-            log.debug(String.format("Could not find any row\n"));
+            log.error(String.format("Could not find any row\n"));
+            log.error(e);
             e.printStackTrace();
             return Collections.emptyList();
         }
@@ -428,6 +442,7 @@ public class HTMLTableHelper extends WebElementHelper {
             WebElementHelper.clickInView(link);
 
         }catch (Exception e){
+            log.error(e);
             e.printStackTrace();
         }
     }
@@ -444,6 +459,7 @@ public class HTMLTableHelper extends WebElementHelper {
             textControl.clear();
             textControl.sendKeys(text);
         }catch (Exception e){
+            log.error(e);
             e.printStackTrace();
         }
     }
@@ -464,6 +480,7 @@ public class HTMLTableHelper extends WebElementHelper {
             }
             WebElementHelper.selectOptionByLabel(weSelect, optionText, isRegex);
         }catch (Exception e){
+            log.error(e);
             e.printStackTrace();
         }
 
@@ -481,7 +498,8 @@ public class HTMLTableHelper extends WebElementHelper {
         try{
             return table.findElement(By.xpath(rowXpath));
         }catch (NoSuchElementException e){
-            log.debug(String.format("Element in table '%s' was NOT found with cell_info: '%s'", table, cellsInfo));
+            log.error(String.format("Element in table '%s' was NOT found with cell_info: '%s'", table, cellsInfo));
+            log.error(e);
             e.printStackTrace();
             return null;
         }

@@ -1,10 +1,13 @@
 package com.youvegotnigel.automation.sample_tests;
 
+import com.youvegotnigel.automation.utils.PropertyUtils;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
@@ -14,6 +17,14 @@ import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This is a Test Class to verify generic methods are working as expected
+ * Dec 30, 2022
+ *
+ * @author Nigel Mulholland
+ * @version 1.0
+ * @since 1.0
+ */
 public class NewTableTest {
 
 
@@ -45,14 +56,24 @@ public class NewTableTest {
         System.out.println(cellList.size());
 
         List<String> cellTextList = new ArrayList<>();
-        for (WebElement e: cellList){
+        for (WebElement e : cellList) {
             cellTextList.add(e.getText());
         }
         System.out.println(cellTextList.size());
         System.out.println(cellTextList);
 
+        Capabilities caps = ((RemoteWebDriver) driver).getCapabilities();
+        String browserName = caps.getBrowserName().toLowerCase();
+        String OS = caps.getPlatform().toString();
+        String BV = caps.getVersion();
+        System.out.println("OS: " + OS + ", Browser: " + browserName + " V " + BV);
 
+        for (String s : caps.getCapabilityNames()) {
+            System.out.println(s);
+        }
 
+        String timeZone = PropertyUtils.get("TIME_ZONE");
+        System.out.println(timeZone);
 
     }
 

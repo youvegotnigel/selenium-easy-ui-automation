@@ -3,16 +3,20 @@ package com.youvegotnigel.automation.utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.FileInputStream;
-import java.util.Arrays;
-import java.util.Properties;
 import java.util.TimeZone;
 
+/**
+ * Define the datetime values for feature files
+ * Dec 30, 2022
+ *
+ * @author Nigel Mulholland
+ * @version 1.0
+ * @since 1.0
+ */
 public class DateTime extends DateTimeUtility{
 
-    public static Properties config;
-    private static String timeZone;
-    public static final Logger log = LogManager.getLogger(DateTime.class.getName());
+    private static final String timeZone = PropertyUtils.get("TIME_ZONE");
+    private static final Logger log = LogManager.getLogger(DateTime.class.getName());
 
     /**
      * Get date time formatted value
@@ -22,8 +26,6 @@ public class DateTime extends DateTimeUtility{
      */
     public static String formatIfDateTime(String text) {
 
-        LoadConfigProperty();
-        timeZone = config.getProperty("TIME_ZONE");
         log.info("The current TimeZone ID is: " + TimeZone.getTimeZone(timeZone).getID());
         log.debug("Setting datetime for " + text);
 
@@ -112,18 +114,6 @@ public class DateTime extends DateTimeUtility{
                 }
 
                 return text;
-        }
-    }
-
-    public static void LoadConfigProperty(){
-        try {
-            config = new Properties();
-            FileInputStream ip = new FileInputStream(
-                    System.getProperty("user.dir") + "//src//test//resources//config//config.properties");
-            config.load(ip);
-            log.debug("Properties file loaded successfully");
-        }catch (Exception e){
-            log.error("Configuration Properties file not found." + Arrays.toString(e.getStackTrace()));
         }
     }
 }

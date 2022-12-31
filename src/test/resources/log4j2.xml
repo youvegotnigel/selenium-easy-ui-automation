@@ -4,8 +4,8 @@
         <Property name="basePath">./logs</Property>
     </Properties>
     <Appenders>
-        <RollingFile name="File" filePattern="${basePath}/application-%d{yyyy-MM-dd}.log"
-                     fileName="${basePath}/application.log">
+        <RollingFile name="File" filePattern="${basePath}/automation_framework_%d{yyyy_MM_dd}.log"
+                     fileName="${basePath}/automation_framework.log">
             <PatternLayout pattern="%d{yyyy-MM-dd} - %d{HH:mm:ss.SSS} | %-5level: %-3L | %-45c{4} :- %msg%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
@@ -17,7 +17,7 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Root level="debug">
+        <Root level="ALL">
             <AppenderRef ref="File"/>
             <AppenderRef ref="Console"/>
         </Root>

@@ -1,24 +1,32 @@
 package com.youvegotnigel.automation.pageobjects;
 
-import com.youvegotnigel.automation.base.PageBase;
+import com.youvegotnigel.automation.base.BasePage;
+import com.youvegotnigel.automation.factories.ExplicitWaitFactory;
+import com.youvegotnigel.automation.factories.ExplicitWaitFactory.WaitStrategy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class LandingPage extends PageBase {
+/**
+ * Dec 30, 2022
+ *
+ * @author Nigel Mulholland
+ * @version 1.0
+ * @since 1.0
+ */
+public class LandingPage extends BasePage {
 
-    public static final Logger log = LogManager.getLogger(LandingPage.class.getName());
+    private static final Logger log = LogManager.getLogger(LandingPage.class.getName());
 
     //Constructor
-    public LandingPage(WebDriver driver) {
-        super(driver);
+    public LandingPage() {
+        super();
     }
 
-    public void selectFromTreeMenu(String text) {
+    public void selectFromTreeMenu(String text, WaitStrategy waitStrategy) {
         String xpath = "//ul[@id='treemenu']/descendant-or-self::a[contains(text(),'" + text +"')]";
-        WebElement element = driver.findElement(By.xpath(xpath));
+        WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         try {
             element.click();
         } catch (Exception e) {
@@ -26,10 +34,5 @@ public class LandingPage extends PageBase {
             log.debug("xpath : " + xpath);
             log.error(e.getMessage());
         }
-    }
-
-
-    public FormPage goToInputFormDemoPage() {
-        return new FormPage(driver);
     }
 }

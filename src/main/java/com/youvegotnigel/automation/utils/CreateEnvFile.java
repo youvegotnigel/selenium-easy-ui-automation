@@ -1,32 +1,45 @@
 package com.youvegotnigel.automation.utils;
 
+import com.youvegotnigel.automation.constants.FrameworkConstants;
+import com.youvegotnigel.automation.driver.DriverManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Properties;
 
-public class CreateEnvFile {
+/**
+ * Dec 30, 2022
+ *
+ * @author Nigel Mulholland
+ * @version 1.0
+ * @since 1.0
+ */
+public final class CreateEnvFile {
 
-    Properties properties = new Properties();
-    Properties config = new Properties();
-    //Properties config;
-    public static final Logger log = LogManager.getLogger(CreateEnvFile.class.getName());
+    private static Properties properties = new Properties();
+    private static final Logger log = LogManager.getLogger(CreateEnvFile.class.getName());
 
-    public void createFile() {
+    /**
+     * Private constructor to avoid external instantiation
+     */
+    private CreateEnvFile() {}
 
-        LoadConfigProperty();
-        //config = new Properties();
+    public static void createFile() {
 
-        properties.setProperty("Browser", config.getProperty("BROWSER_TYPE"));
-        properties.setProperty("Browser Version", "92.0.4515.107");
-        properties.setProperty("AUT", config.getProperty("LOGIN_URL"));
+        Capabilities caps = ((RemoteWebDriver) DriverManager.getDriver()).getCapabilities();
+
+        properties.setProperty("Branch", FrameworkConstants.getGitBranchName());
+        properties.setProperty("Browser Version", caps.getVersion());
+        properties.setProperty("Browser", caps.getBrowserName());
+        properties.setProperty("AUT", PropertyUtils.get("LOGIN_URL"));
+
         FileWriter writer = null;
         try {
-            writer = new FileWriter("allure-results\\environment.properties");
+            writer = new FileWriter(FrameworkConstants.getAllureEnvironmentProperties());
             properties.store(writer, "youvegotnigel");
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -39,19 +52,6 @@ public class CreateEnvFile {
                     e.printStackTrace();
                 }
             }
-        }
-
-    }
-
-    public void LoadConfigProperty() {
-        try {
-            //config = new Properties();
-            FileInputStream ip = new FileInputStream(
-                    System.getProperty("user.dir") + "//src//test//resources//config//config.properties");
-            config.load(ip);
-            log.info("Properties file loaded successfully");
-        } catch (Exception e) {
-            log.error("Configuration Properties file not found." + Arrays.toString(e.getStackTrace()));
         }
 
     }

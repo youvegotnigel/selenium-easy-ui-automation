@@ -1,23 +1,30 @@
 package com.youvegotnigel.automation.stepdefs;
 
-import com.youvegotnigel.automation.base.PageBase;
-import com.youvegotnigel.automation.base.TestBase;
+import com.youvegotnigel.automation.base.BasePage;
+import com.youvegotnigel.automation.factories.ExplicitWaitFactory.WaitStrategy;
 import com.youvegotnigel.automation.pageobjects.TablePage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class TableSandboxStepDefinitions extends TestBase {
+/**
+ * Dec 30, 2022
+ *
+ * @author Nigel Mulholland
+ * @version 1.0
+ * @since 1.0
+ */
+public class TableSandboxStepDefinitions {
 
     public static final Logger log = LogManager.getLogger(TableSandboxStepDefinitions.class.getName());
-    PageBase pageBase = new PageBase(eventFiringWebDriver);
-    TablePage tablePage = new TablePage(eventFiringWebDriver);
+    BasePage basePage = new BasePage();
+    TablePage tablePage = new TablePage();
 
     @Given("User has navigated {string} sandbox")
     public void navigate_to_table_sandbox(String page) {
 
-        pageBase.clickOnLinkByName(page);
+        basePage.clickOnLinkByName(page, WaitStrategy.CLICKABLE);
         log.info("Navigating to page ::: " + page);
     }
 
