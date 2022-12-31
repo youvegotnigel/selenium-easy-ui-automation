@@ -1,5 +1,6 @@
 package com.youvegotnigel.automation.factories;
 
+import com.youvegotnigel.automation.utils.ListenerClass;
 import com.youvegotnigel.automation.utils.PropertyUtils;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.github.bonigarcia.wdm.config.DriverManagerType;
@@ -15,6 +16,8 @@ import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.support.events.EventFiringDecorator;
+import org.openqa.selenium.support.events.WebDriverListener;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -85,7 +88,8 @@ public final class DriverFactory {
                 throw new IllegalArgumentException(browser);
         }
 
-        return driver;
+        WebDriverListener listener = new ListenerClass();
+        return new EventFiringDecorator<>(listener).decorate(driver);
     }
 
 }
