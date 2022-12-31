@@ -2,10 +2,15 @@ package com.youvegotnigel.automation.utils;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.*;
-import org.openqa.selenium.support.events.WebDriverEventListener;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.events.WebDriverListener;
 import org.testng.*;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 
 /**
@@ -15,26 +20,16 @@ import java.util.Arrays;
  * @version 1.0
  * @since 1.0
  */
-public class ListenerClass implements ITestListener, ISuiteListener, IInvokedMethodListener, WebDriverEventListener {
+public class ListenerClass implements WebDriverListener, ITestListener, ISuiteListener {
 
     private static final Logger log = LogManager.getLogger(ListenerClass.class.getName());
-
-    @Override
-    public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
-
-    }
-
-    @Override
-    public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
-
-    }
 
     @Override
     public void onStart(ISuite suite) {
 
         log.info("****************************************************************************************");
         log.info("****************************************************************************************");
-        log.info("$$$$$$$$$$$$$$$$$$   TEST SUITE : "+suite.getName()+ " HAS STARTED   $$$$$$$$$$$$$$$$$$");
+        log.info("$$$$$$$$$$$$$$$$$$   TEST SUITE : " + suite.getName() + " HAS STARTED   $$$$$$$$$$$$$$$$$$");
         log.info("****************************************************************************************");
         log.info("****************************************************************************************");
 
@@ -94,141 +89,56 @@ public class ListenerClass implements ITestListener, ISuiteListener, IInvokedMet
     }
 
     @Override
-    public void beforeAlertAccept(WebDriver driver) {
-
+    public void beforeFindElement(WebDriver driver, By locator) {
+        log.debug("Trying to find element : " + locator.toString());
     }
 
     @Override
-    public void afterAlertAccept(WebDriver driver) {
-
+    public void afterFindElement(WebDriver driver, By locator, WebElement result) {
+        highlightElement(driver, result);
+        log.debug("Found element : " + locator.toString());
     }
 
     @Override
-    public void afterAlertDismiss(WebDriver driver) {
-
-    }
-
-    @Override
-    public void beforeAlertDismiss(WebDriver driver) {
-
-    }
-
-    @Override
-    public void beforeNavigateTo(String url, WebDriver driver) {
-
-    }
-
-    @Override
-    public void afterNavigateTo(String url, WebDriver driver) {
+    public void afterGetCurrentUrl(String result, WebDriver driver) {
         log.debug("Navigated to : " + driver.getCurrentUrl());
     }
 
     @Override
-    public void beforeNavigateBack(WebDriver driver) {
-
-    }
-
-    @Override
-    public void afterNavigateBack(WebDriver driver) {
-
-    }
-
-    @Override
-    public void beforeNavigateForward(WebDriver driver) {
-
-    }
-
-    @Override
-    public void afterNavigateForward(WebDriver driver) {
-
-    }
-
-    @Override
-    public void beforeNavigateRefresh(WebDriver driver) {
-
-    }
-
-    @Override
-    public void afterNavigateRefresh(WebDriver driver) {
-
-    }
-
-    @Override
-    public void beforeFindBy(By by, WebElement element, WebDriver driver) {
-        log.debug("Trying to find element : " + by.toString());
-    }
-
-    @Override
-    public void afterFindBy(By by, WebElement element, WebDriver driver) {
-        log.debug("Found element : " + by.toString());
-    }
-
-    @Override
-    public void beforeClickOn(WebElement element, WebDriver driver) {
+    public void beforeClick(WebElement element) {
         String path = element.toString().split("->")[1];
         log.debug("Trying to find element to click on :" + path);
     }
 
     @Override
-    public void afterClickOn(WebElement element, WebDriver driver) {
-
+    public void afterClick(WebElement element) {
         String path = element.toString().split("->")[1];
         log.debug("Found element to click on :" + path);
     }
 
     @Override
-    public void beforeChangeValueOf(WebElement element, WebDriver driver, CharSequence[] keysToSend) {
-
+    public void afterIsDisplayed(WebElement element, boolean result) {
+        String path = element.toString().split("->")[1];
+        log.debug("Found element displayed :" + path);
     }
 
     @Override
-    public void afterChangeValueOf(WebElement element, WebDriver driver, CharSequence[] keysToSend) {
-
-    }
-
-    @Override
-    public void beforeScript(String script, WebDriver driver) {
-
-    }
-
-    @Override
-    public void afterScript(String script, WebDriver driver) {
-
-    }
-
-    @Override
-    public void beforeSwitchToWindow(String windowName, WebDriver driver) {
-
-    }
-
-    @Override
-    public void afterSwitchToWindow(String windowName, WebDriver driver) {
-
-    }
-
-    @Override
-    public void onException(Throwable throwable, WebDriver driver) {
-        log.warn("💥 Exception Found !!!");
-        log.error("Caused by : " + throwable.getMessage());
-    }
-
-    @Override
-    public <X> void beforeGetScreenshotAs(OutputType<X> target) {
-
-    }
-
-    @Override
-    public <X> void afterGetScreenshotAs(OutputType<X> target, X screenshot) {
-
-    }
-
-    @Override
-    public void beforeGetText(WebElement element, WebDriver driver) {
+    public void beforeGetText(WebElement element) {
         log.debug("Trying to find element with text: " + element.getText());
     }
 
     @Override
-    public void afterGetText(WebElement element, WebDriver driver, String text) {
+    public void afterGetText(WebElement element, String result) {
         log.debug("Found element with text : " + element.getText());
+    }
+
+    @Override
+    public void onError(Object target, Method method, Object[] args, InvocationTargetException e) {
+        log.warn("💥 Exception Found !!!");
+        log.error("Caused by : " + e.getMessage());
+    }
+
+    private void highlightElement(WebDriver driver, WebElement element) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].style.border='3px solid red'", element);
     }
 }
