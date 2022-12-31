@@ -58,6 +58,7 @@ public final class DriverFactory {
                 break;
 
             case "edge":
+                //TODO: Run edge on headless mode
                 WebDriverManager.edgedriver().setup();
                 //EdgeOptions edgeOptions = new EdgeOptions();
                 driver = new EdgeDriver();
@@ -73,6 +74,7 @@ public final class DriverFactory {
                 break;
 
             case "safari":
+                //TODO: Test if working in safari browser
                 DriverManagerType safari = DriverManagerType.SAFARI;
                 WebDriverManager.getInstance(safari).setup();
                 Class<?> safariClass = null;
