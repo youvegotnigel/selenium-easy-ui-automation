@@ -1,5 +1,6 @@
 package com.youvegotnigel.automation.base;
 
+import com.youvegotnigel.automation.constants.FrameworkConstants;
 import com.youvegotnigel.automation.driver.DriverManager;
 import com.youvegotnigel.automation.factories.ExplicitWaitFactory;
 import com.youvegotnigel.automation.factories.ExplicitWaitFactory.WaitStrategy;
@@ -49,7 +50,7 @@ public class BasePage {
 
     public void setText(By by, String text, WaitStrategy waitStrategy) {
         WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, by);
-        element.sendKeys(text);
+        element.sendKeys(FrameworkConstants.getGlobalVariable(text));
     }
 
     public String getText(By by, WaitStrategy waitStrategy) {
@@ -81,28 +82,28 @@ public class BasePage {
 
         String xpath = "(//label[contains(text(),'"+ label_name +"')])[1]/following::input[1]";
         WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
-        element.sendKeys(value);
+        element.sendKeys(FrameworkConstants.getGlobalVariable(value));
     }
 
     public void setTextInputForLabel(String label_name, String index, String value, WaitStrategy waitStrategy){
 
         String xpath = "(//label[contains(text(),'"+ label_name +"')])["+ index +"]/following::input[1]";
         WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
-        element.sendKeys(value);
+        element.sendKeys(FrameworkConstants.getGlobalVariable(value));
     }
 
     public void setTextAreaForLabel(String label_name, String value, WaitStrategy waitStrategy){
 
         String xpath = "//label[contains(text(),'"+ label_name +"')]/following::textarea[1]";
         WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
-        element.sendKeys(value);
+        element.sendKeys(FrameworkConstants.getGlobalVariable(value));
     }
 
     public void setTextAreaForLabel(String label_name, String index, String value, WaitStrategy waitStrategy){
 
         String xpath = "(//label[contains(text(),'"+ label_name +"')])["+ index +"]/following::textarea[1]";
         WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
-        element.sendKeys(value);
+        element.sendKeys(FrameworkConstants.getGlobalVariable(value));
     }
 
     public void clickOnButtonByName(String text, WaitStrategy waitStrategy) {
@@ -132,7 +133,7 @@ public class BasePage {
     }
 
     public void clickOnLinkByName(String text, WaitStrategy waitStrategy) {
-        String xpath = "//a[contains(normalize-space(),'" + text + "')]";
+        String xpath = "//a[contains(normalize-space(),'" + FrameworkConstants.getGlobalVariable(text) + "')]";
         WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         scrollIntoView(element);
         try {
@@ -145,7 +146,7 @@ public class BasePage {
     }
 
     public void clickOnLinkByName(String text, String index, WaitStrategy waitStrategy) {
-        String xpath = "(//a[contains(normalize-space(),'" + text + "')])["+ index +"]" ;
+        String xpath = "(//a[contains(normalize-space(),'" + FrameworkConstants.getGlobalVariable(text) + "')])["+ index +"]" ;
         WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         scrollIntoView(element);
         try {
@@ -158,21 +159,21 @@ public class BasePage {
     }
 
     public boolean isDisplayedInNormalizeSpace(String text, WaitStrategy waitStrategy) {
-        String xpath = "//*[normalize-space()='" + text + "']";
+        String xpath = "//*[normalize-space()='" + FrameworkConstants.getGlobalVariable(text) + "']";
         WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         scrollIntoView(element);
         return element.isDisplayed();
     }
 
     public boolean isDisplayedInNormalizeSpace(String text, String index, WaitStrategy waitStrategy) {
-        String xpath = "(//*[normalize-space()='" + text + "'])["+ index +"]" ;
+        String xpath = "(//*[normalize-space()='" + FrameworkConstants.getGlobalVariable(text) + "'])["+ index +"]" ;
         WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         scrollIntoView(element);
         return element.isDisplayed();
     }
 
     public void clickOnNormalizeSpace(String text, WaitStrategy waitStrategy) {
-        String xpath = "//*[normalize-space()='" + text + "']";
+        String xpath = "//*[normalize-space()='" + FrameworkConstants.getGlobalVariable(text) + "']";
         WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         scrollIntoView(element);
         try {
@@ -185,7 +186,7 @@ public class BasePage {
     }
 
     public void clickOnNormalizeSpace(String text, String index, WaitStrategy waitStrategy) {
-        String xpath = "(//*[normalize-space()='" + text + "'])["+ index +"]" ;
+        String xpath = "(//*[normalize-space()='" + FrameworkConstants.getGlobalVariable(text) + "'])["+ index +"]" ;
         WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         scrollIntoView(element);
         try {
@@ -199,7 +200,7 @@ public class BasePage {
 
     public void setRadioForLabel(String label_name, String value, WaitStrategy waitStrategy){
 
-        String xpath = "//label[contains(text(),'"+ label_name +"')]/following::input[@value='"+ value +"']";
+        String xpath = "//label[contains(text(),'"+ FrameworkConstants.getGlobalVariable(label_name) +"')]/following::input[@value='"+ value +"']";
         WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         scrollIntoView(element);
         try {
@@ -213,7 +214,7 @@ public class BasePage {
 
     public void setRadioForLabel(String label_name, String index, String value, WaitStrategy waitStrategy){
 
-        String xpath = "(//label[contains(text(),'"+ label_name +"')])["+ index +"]/following::input[@value='"+ value +"']";
+        String xpath = "(//label[contains(text(),'"+ FrameworkConstants.getGlobalVariable(label_name) +"')])["+ index +"]/following::input[@value='"+ value +"']";
         WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         scrollIntoView(element);
         try {
@@ -231,7 +232,7 @@ public class BasePage {
      * @param visibleText select by visible text
      */
     public void selectFromDropdownByVisibleText(String label_name, String visibleText, WaitStrategy waitStrategy){
-        String xpath = "(//label[contains(text(),'"+ label_name +"')])[1]/following::select";
+        String xpath = "(//label[contains(text(),'"+ FrameworkConstants.getGlobalVariable(label_name) +"')])[1]/following::select";
         WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         Select select = new Select(element);
         select.selectByVisibleText(visibleText);
@@ -244,7 +245,7 @@ public class BasePage {
      * @param element_index element index of label
      */
     public void selectFromDropdownByVisibleText(String label_name, String element_index, String visibleText, WaitStrategy waitStrategy){
-        String xpath = "(//label[contains(text(),'"+ label_name +"')])[" + element_index +"]/following::select";
+        String xpath = "(//label[contains(text(),'"+ FrameworkConstants.getGlobalVariable(label_name) +"')])[" + element_index +"]/following::select";
         WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         Select select = new Select(element);
         select.selectByVisibleText(visibleText);
@@ -256,7 +257,7 @@ public class BasePage {
      * @param value select by value
      */
     public void selectFromDropdownByValue(String label_name, String value, WaitStrategy waitStrategy){
-        String xpath = "//label[contains(text(),'"+ label_name +"')]/following::select";
+        String xpath = "//label[contains(text(),'"+ FrameworkConstants.getGlobalVariable(label_name) +"')]/following::select";
         WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         Select select = new Select(element);
         select.selectByValue(value);
@@ -269,7 +270,7 @@ public class BasePage {
      * @param element_index element index of label
      */
     public void selectFromDropdownByValue(String label_name, String element_index, String value, WaitStrategy waitStrategy){
-        String xpath = "(//label[contains(text(),'"+ label_name +"')])[" + element_index +"]/following::select";
+        String xpath = "(//label[contains(text(),'"+ FrameworkConstants.getGlobalVariable(label_name) +"')])[" + element_index +"]/following::select";
         WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         Select select = new Select(element);
         select.selectByValue(value);
@@ -281,7 +282,7 @@ public class BasePage {
      * @param index select by index
      */
     public void selectFromDropdownByIndex(String label_name, int index, WaitStrategy waitStrategy){
-        String xpath = "//label[contains(text(),'"+ label_name +"')]/following::select";
+        String xpath = "//label[contains(text(),'"+ FrameworkConstants.getGlobalVariable(label_name) +"')]/following::select";
         WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         Select select = new Select(element);
         select.selectByIndex(index);
@@ -294,7 +295,7 @@ public class BasePage {
      * @param element_index element index of label
      */
     public void selectFromDropdownByIndex(String label_name, String element_index, int index, WaitStrategy waitStrategy){
-        String xpath = "(//label[contains(text(),'"+ label_name +"')])[" + element_index +"]/following::select";
+        String xpath = "(//label[contains(text(),'"+ FrameworkConstants.getGlobalVariable(label_name) +"')])[" + element_index +"]/following::select";
         WebElement element = ExplicitWaitFactory.performExplicitWait(waitStrategy, By.xpath(xpath));
         Select select = new Select(element);
         select.selectByIndex(index);

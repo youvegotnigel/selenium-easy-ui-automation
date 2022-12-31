@@ -131,14 +131,18 @@ public class FrameworkConstants {
      */
     public static String getGlobalVariable(String variable){
 
+        log.debug(String.format("Searching for global variable value of '%s'", variable));
         if (variable.startsWith("_")) {
             try {
                 Field field = FrameworkConstants.class.getField(variable);
-                return field.get(null).toString();
+                String value = field.get(null).toString();
+                log.debug(String.format("Found value='%s' for variable='%s'", value, variable));
+                return value;
             } catch (NoSuchFieldException | IllegalAccessException e) {
                 return variable;
             }
         }
+        log.debug(String.format("'%s' is not defined as a Global variable", variable));
         return variable;
     }
 
