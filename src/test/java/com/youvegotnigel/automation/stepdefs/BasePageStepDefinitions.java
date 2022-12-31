@@ -361,16 +361,6 @@ public class BasePageStepDefinitions {
     }
 
 
-    //TODO: Need to add this logic
-/*    public String getGlobalVariable(String variable){
-//
-//        if(variable.startsWith("_")){
-//            LoadConfigProperty();
-//            return config.getProperty(variable);
-//        }
-//        return  variable;}
- */
-
     public String decodeText(String text){
         if(text.equals("")|| text.equals(null)){
             return " ";

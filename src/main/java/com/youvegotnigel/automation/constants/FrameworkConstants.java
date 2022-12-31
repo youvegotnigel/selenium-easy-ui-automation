@@ -9,6 +9,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
 import java.util.Objects;
 
 /**
@@ -119,6 +120,26 @@ public class FrameworkConstants {
             e.printStackTrace();
             return "*** GIT_BRANCH_NAME_NOT_FOUND :( ***";
         }
+    }
+
+    /**
+     * This method will return the value of the variable defined in the FrameworkConstants class
+     * For this to work the variable must have public access modifier
+     *
+     * @param variable name of the variable
+     * @return value of the variable
+     */
+    public static String getGlobalVariable(String variable){
+
+        if (variable.startsWith("_")) {
+            try {
+                Field field = FrameworkConstants.class.getField(variable);
+                return field.get(null).toString();
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                return variable;
+            }
+        }
+        return variable;
     }
 
 }
