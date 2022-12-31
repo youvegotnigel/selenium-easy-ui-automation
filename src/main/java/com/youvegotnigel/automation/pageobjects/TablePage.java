@@ -15,7 +15,7 @@ import org.openqa.selenium.By;
  */
 public class TablePage extends BasePage {
 
-    private By input_search = By.xpath("(//label[contains(text(),'Search:')])[1]/input");
+    private static final By input_search = By.xpath("(//label[contains(text(),'Search:')])[1]/input");
 
     private static final Logger log = LogManager.getLogger(TablePage.class.getName());
 

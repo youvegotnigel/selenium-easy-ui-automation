@@ -17,8 +17,8 @@ public class FormPage extends BasePage {
 
     private static final Logger log = LogManager.getLogger(FormPage.class.getName());
 
-    private By form_success_header = By.cssSelector("#contact-form-success-header");
-    private By form_submit = By.xpath("(//button[@class='pushbutton-wide' and @type='submit'])[1]");
+    private static final By form_success_header = By.cssSelector("#contact-form-success-header");
+    private static final By form_submit = By.xpath("(//button[@class='pushbutton-wide' and @type='submit'])[1]");
 
     //Constructor
     public FormPage() {
