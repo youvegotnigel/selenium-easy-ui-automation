@@ -61,9 +61,16 @@ public class ServiceHooks {
         if(scenario.isFailed()){
             log.error("✘ Failed scenario : " + scenario.getName());
         }
-        CreateEnvFile.createFile();
-        FrameworkConstants.createReportData();
-        Driver.quitDriver();
+        try{
+            CreateEnvFile.createFile();
+            FrameworkConstants.createReportData();
+        }catch (Exception e){
+            log.error(e.getStackTrace().toString());
+            e.printStackTrace();
+        }finally {
+            Driver.quitDriver();
+        }
+
     }
 
     public void analyzeLog(Scenario scenario){
