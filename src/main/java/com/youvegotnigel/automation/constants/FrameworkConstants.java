@@ -98,9 +98,9 @@ public class FrameworkConstants {
     public static void createReportData() {
         if (CUCUMBER_REPORT_PLATFORM_NAME.equals("") || CUCUMBER_REPORT_BROWSER_NAME.equals("") || CUCUMBER_REPORT_BROWSER_VERSION.equals("")) {
             Capabilities caps = ((RemoteWebDriver) DriverManager.getDriver()).getCapabilities();
-            CUCUMBER_REPORT_PLATFORM_NAME = caps.getPlatform().toString();
+            CUCUMBER_REPORT_PLATFORM_NAME = caps.getPlatformName().name();
             CUCUMBER_REPORT_BROWSER_NAME = caps.getBrowserName();
-            CUCUMBER_REPORT_BROWSER_VERSION = caps.getVersion();
+            CUCUMBER_REPORT_BROWSER_VERSION = caps.getBrowserVersion();
         }
     }
     private static String findGitBranchName() {

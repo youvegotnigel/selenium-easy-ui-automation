@@ -30,11 +30,9 @@ public final class CreateEnvFile {
 
     public static void createFile() {
 
-        Capabilities caps = ((RemoteWebDriver) DriverManager.getDriver()).getCapabilities();
-
         properties.setProperty("Branch", FrameworkConstants.getGitBranchName());
-        properties.setProperty("Browser Version", caps.getVersion());
-        properties.setProperty("Browser", caps.getBrowserName());
+        properties.setProperty("Browser Version", FrameworkConstants.getCucumberReportBrowserVersion());
+        properties.setProperty("Browser", FrameworkConstants.getCucumberReportBrowserName());
         properties.setProperty("AUT", PropertyUtils.get("LOGIN_URL"));
 
         FileWriter writer = null;

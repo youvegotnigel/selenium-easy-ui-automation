@@ -1,6 +1,7 @@
 package com.youvegotnigel.automation.sample_tests;
 
 import com.youvegotnigel.automation.utils.PropertyUtils;
+//import io.github.bonigarcia.wdm.WebDriverManager;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
@@ -14,6 +15,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,23 +64,13 @@ public class NewTableTest {
         System.out.println(cellTextList.size());
         System.out.println(cellTextList);
 
-        Capabilities caps = ((RemoteWebDriver) driver).getCapabilities();
-        String browserName = caps.getBrowserName().toLowerCase();
-        String OS = caps.getPlatform().toString();
-        String BV = caps.getVersion();
-        System.out.println("OS: " + OS + ", Browser: " + browserName + " V " + BV);
-
-        for (String s : caps.getCapabilityNames()) {
-            System.out.println(s);
-        }
-
         String timeZone = PropertyUtils.get("TIME_ZONE");
         System.out.println(timeZone);
 
     }
 
     public void explicitWaitMethod(By element) {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfElementLocated(element));
     }
 
