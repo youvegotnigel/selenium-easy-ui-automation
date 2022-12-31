@@ -20,8 +20,8 @@ import org.openqa.selenium.support.ui.Select;
  */
 public class BasePage {
 
-    private By cookie_info_bar = By.cssSelector("#cookie-law-info-bar");
-    private By accept_cookie = By.cssSelector("#cookie_action_close_header");
+    private static final By cookie_info_bar = By.cssSelector("#cookie-law-info-bar");
+    private static final By accept_cookie = By.cssSelector("#cookie_action_close_header");
 
     private static final Logger log = LogManager.getLogger(BasePage.class.getName());
 
