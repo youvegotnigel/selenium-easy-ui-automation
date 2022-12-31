@@ -3,6 +3,7 @@ package com.youvegotnigel.automation.factories;
 import com.youvegotnigel.automation.utils.PropertyUtils;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.github.bonigarcia.wdm.config.DriverManagerType;
+import io.github.bonigarcia.wdm.managers.OperaDriverManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -13,6 +14,7 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.safari.SafariDriver;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -75,18 +77,12 @@ public final class DriverFactory {
 
             case "safari":
                 //TODO: Test if working in safari browser
-                DriverManagerType safari = DriverManagerType.SAFARI;
-                WebDriverManager.getInstance(safari).setup();
-                Class<?> safariClass = null;
-                try {
-                    safariClass = Class.forName(safari.browserClass());
-                    driver = (WebDriver) safariClass.getDeclaredConstructor().newInstance();
-                } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException |
-                         IllegalAccessException | InvocationTargetException e) {
-                    throw new RuntimeException(e);
-                }
+                driver = new SafariDriver();
                 log.debug("Initializing safari driver");
                 break;
+
+            default:
+                throw new IllegalArgumentException(browser);
         }
 
         return driver;
