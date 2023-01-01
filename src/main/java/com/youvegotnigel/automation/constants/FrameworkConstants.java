@@ -132,7 +132,7 @@ public class FrameworkConstants {
     private static String findGitBranchName() {
         try {
             // Run the 'git symbolic-ref --short HEAD' command
-            Process process = Runtime.getRuntime().exec("git symbolic-ref --short HEAD");
+            Process process = Runtime.getRuntime().exec("git branch --show-current");
 
             // Read the output of the command
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
