@@ -101,6 +101,9 @@ public class FrameworkConstants {
         return BROWSER_VERSION;
     }
 
+    /**
+     * This method will extract the browser version using JavascriptExecutor
+     */
     public static void extractBrowserVersion() {
 
         String script = "return navigator.userAgent;";
