@@ -3,7 +3,7 @@ Feature: Input Form Demo
 
   Background: User navigates to Application URL
     Given The Application has been launched
-    And User has navigated "Form Fields" sandbox
+    And User has navigated "form-fields" sandbox
 
   Scenario Outline: I should be able to fil all fields of the form
     Given I set checkbox value "<drink>" for label "What is your favorite drink?"

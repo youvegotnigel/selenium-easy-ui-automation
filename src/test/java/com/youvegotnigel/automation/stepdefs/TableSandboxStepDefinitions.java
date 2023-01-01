@@ -24,8 +24,9 @@ public class TableSandboxStepDefinitions {
     @Given("User has navigated {string} sandbox")
     public void navigate_to_table_sandbox(String page) {
 
-        basePage.clickOnLinkByName(page, WaitStrategy.CLICKABLE);
-        log.info("Navigating to page ::: " + page);
+        String url = basePage.getCurrentURL() + page;
+        basePage.navigateToURL(url);
+        log.info("Navigating to page ::: " + url);
     }
 
     @And("I type {string} in table search")
