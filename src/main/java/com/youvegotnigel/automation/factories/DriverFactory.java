@@ -1,5 +1,6 @@
 package com.youvegotnigel.automation.factories;
 
+import com.youvegotnigel.automation.utils.ListenerClass;
 import com.youvegotnigel.automation.utils.PropertyUtils;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.github.bonigarcia.wdm.config.DriverManagerType;
@@ -13,8 +14,9 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-
-import java.lang.reflect.InvocationTargetException;
+import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.support.events.EventFiringDecorator;
+import org.openqa.selenium.support.events.WebDriverListener;
 
 /**
  * Dec 29, 2022
@@ -58,6 +60,7 @@ public final class DriverFactory {
                 break;
 
             case "edge":
+                //TODO: Run edge on headless mode
                 WebDriverManager.edgedriver().setup();
                 //EdgeOptions edgeOptions = new EdgeOptions();
                 driver = new EdgeDriver();
@@ -73,21 +76,17 @@ public final class DriverFactory {
                 break;
 
             case "safari":
-                DriverManagerType safari = DriverManagerType.SAFARI;
-                WebDriverManager.getInstance(safari).setup();
-                Class<?> safariClass = null;
-                try {
-                    safariClass = Class.forName(safari.browserClass());
-                    driver = (WebDriver) safariClass.getDeclaredConstructor().newInstance();
-                } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException |
-                         IllegalAccessException | InvocationTargetException e) {
-                    throw new RuntimeException(e);
-                }
+                //TODO: Test if working in safari browser
+                driver = new SafariDriver();
                 log.debug("Initializing safari driver");
                 break;
+
+            default:
+                throw new IllegalArgumentException(browser);
         }
 
-        return driver;
+        WebDriverListener listener = new ListenerClass();
+        return new EventFiringDecorator<>(listener).decorate(driver);
     }
 
 }

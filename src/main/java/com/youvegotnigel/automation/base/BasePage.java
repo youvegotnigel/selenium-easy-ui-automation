@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.MoveTargetOutOfBoundsException;
 import org.openqa.selenium.support.ui.Select;
 
 /**
@@ -31,6 +32,18 @@ public class BasePage {
 
     public String getPageTitle() {
         return DriverManager.getDriver().getTitle();
+    }
+
+    public void refreshPage(){
+        DriverManager.getDriver().navigate().refresh();
+    }
+
+    public String getCurrentURL(){
+        return DriverManager.getDriver().getCurrentUrl();
+    }
+
+    public void navigateToURL(String url){
+        DriverManager.getDriver().navigate().to(url);
     }
 
     public void clearText(By by, WaitStrategy waitStrategy) {
@@ -307,7 +320,7 @@ public class BasePage {
             Actions actions = new Actions(DriverManager.getDriver());
             actions.moveToElement(element).perform();
 
-        }catch(Exception e){
+        }catch(MoveTargetOutOfBoundsException e){
             log.error(String.format("Fail to scroll element '%s' into view due to error: %s", element, e.getMessage()));
         }
     }

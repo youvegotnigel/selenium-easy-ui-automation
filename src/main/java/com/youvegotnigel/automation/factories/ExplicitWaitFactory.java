@@ -9,6 +9,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+
 /**
  * Explicit wait factory produces different waits before operating on web-element
  * Dec 29, 2022
@@ -41,24 +43,24 @@ public final class ExplicitWaitFactory {
         switch (waitstrategy) {
             case CLICKABLE:
                 log.debug("Wait for Element Clickable...");
-                element = new WebDriverWait(DriverManager.getDriver(), FrameworkConstants.getPageLoadWait())
+                element = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.getPageLoadWait()))
                         .until(ExpectedConditions.elementToBeClickable(by));
                 break;
 
             case PRESENCE:
                 log.debug("Wait for Element Presence...");
-                element = new WebDriverWait(DriverManager.getDriver(), FrameworkConstants.getPageLoadWait())
+                element = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.getPageLoadWait()))
                         .until(ExpectedConditions.presenceOfElementLocated(by));
                 break;
 
             case VISIBLE:
                 log.debug("Wait for Element Visible...");
-                element = new WebDriverWait(DriverManager.getDriver(), FrameworkConstants.getPageLoadWait())
+                element = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.getPageLoadWait()))
                         .until(ExpectedConditions.visibilityOfElementLocated(by));
                 break;
 
             case HANDLE_STALE_ELEMENT:
-                element = new WebDriverWait(DriverManager.getDriver(), FrameworkConstants.getPageLoadWait())
+                element = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.getPageLoadWait()))
                         .until(d-> {
                             log.debug("Wait for Handling Stale Element...");
                             d.navigate().refresh();

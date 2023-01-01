@@ -4,6 +4,7 @@ import com.youvegotnigel.automation.factories.DriverFactory;
 import com.youvegotnigel.automation.utils.PropertyUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.Dimension;
 
 import java.util.Objects;
 
@@ -37,12 +38,21 @@ public final class Driver {
                 log.error("Please check the capabilities of browser");
                 log.error(e.getMessage());
             }
-            DriverManager.getDriver().manage().window().maximize();
-            log.debug("Maximizing Browser Window");
+
+            int window_width = Integer.valueOf(PropertyUtils.get("WINDOW_WIDTH"));
+            int window_height = Integer.valueOf(PropertyUtils.get("WINDOW_HEIGHT"));
+
+            // Set new size
+            Dimension dimension = new Dimension(window_width, window_height);
+            DriverManager.getDriver().manage().window().setSize(dimension);
+
+            log.info("Set Window Height: "+ window_height);
+            log.info("Set Window Width: "+ window_width);
+
             DriverManager.getDriver().manage().deleteAllCookies();
-            log.debug("Deleting All Cookies");
+            log.info("Deleting All Cookies");
             DriverManager.getDriver().get(PropertyUtils.get("LOGIN_URL"));
-            log.debug("Navigating to Application URL + " + PropertyUtils.get("LOGIN_URL"));
+            log.info("Navigating to Application URL + " + PropertyUtils.get("LOGIN_URL"));
 
         }
     }

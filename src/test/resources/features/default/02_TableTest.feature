@@ -3,7 +3,7 @@ Feature: Test HTML Table
 
   Background: User navigates to Application URL
     Given The Application has been launched
-    And User has navigated "Tables" sandbox
+    And User has navigated "tables" sandbox
 
   Scenario: Verify Table with Table Header
     Given I wait for 5 seconds

@@ -33,6 +33,7 @@ public class BasePageStepDefinitions {
         if (basePage.cookieBarIsDisplayed()) {
             basePage.acceptCookie();
         }
+        basePage.refreshPage();
         Assert.assertEquals(basePage.getPageTitle(), "Automation Testing Practice Website | automateNow |");
     }
 

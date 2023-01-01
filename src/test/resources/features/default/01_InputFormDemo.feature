@@ -3,7 +3,7 @@ Feature: Input Form Demo
 
   Background: User navigates to Application URL
     Given The Application has been launched
-    And User has navigated "Form Fields" sandbox
+    And User has navigated "form-fields" sandbox
 
   Scenario Outline: I should be able to fil all fields of the form
     Given I set checkbox value "<drink>" for label "What is your favorite drink?"
@@ -23,6 +23,3 @@ Feature: Input Form Demo
       | Eliseo | No       | eliseo.ringer@mail.com | This is my first test automation project  | Blue   | Coffee |
       | Ava    | Yes      | ava.ringer@mail.com    | This is my second test automation project | Red    | Milk   |
       | James  | Yes      | james.ringer@mail.com  | This is my third test automation project  | Yellow | Wine   |
-      | Ethan  | No       | ethan.ringer@mail.com  | This is my fourth test automation project | Green  | Coffee |
-      | Liam   | Yes      | liam.ringer@mail.com   | This is my fifth test automation project  | Green  | Water  |
-      | Noah   | No       | noah.ringer@mail.com   | This is my sixth test automation project  | Blue   | Coffee |
