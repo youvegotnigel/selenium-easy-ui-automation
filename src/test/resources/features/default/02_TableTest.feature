@@ -1,4 +1,4 @@
-@regression
+@regression1
 Feature: Test HTML Table
 
   Background: User navigates to Application URL
