@@ -63,7 +63,7 @@ public class ServiceHooks {
         }
         try{
             CreateEnvFile.createFile();
-            FrameworkConstants.createReportData();
+            FrameworkConstants.getBrowserVersion();
         }catch (Exception e){
             log.error(e.getStackTrace().toString());
             e.printStackTrace();

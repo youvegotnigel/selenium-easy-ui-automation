@@ -29,8 +29,8 @@ public class ReportHelper {
 
         Configuration configuration = new Configuration(reportOutputDirectory, projectName);
         configuration.addClassifications("Platform", FrameworkConstants.getCucumberReportPlatformName());
-        configuration.addClassifications("Browser", FrameworkConstants.getCucumberReportBrowserName());
-        configuration.addClassifications("Browser Version", FrameworkConstants.getCucumberReportBrowserVersion());
+        configuration.addClassifications("Browser", FrameworkConstants.getBrowserName());
+        configuration.addClassifications("Browser Version", FrameworkConstants.getBrowserVersion());
         configuration.addClassifications("Branch", FrameworkConstants.getGitBranchName());
 
         // optionally add metadata presented on main page via properties file
