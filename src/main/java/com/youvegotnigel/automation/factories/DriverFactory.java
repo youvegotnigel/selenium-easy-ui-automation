@@ -47,15 +47,14 @@ public final class DriverFactory {
         log.info(String.format("Starting '%s' browser with headless mode set to %s",browser, is_headless));
 
         switch (browser){
-            //TODO: Fix null pointer error when running on FIREFOX
             case "firefox":
-//                FirefoxBinary firefoxBinary = new FirefoxBinary();
-//                FirefoxOptions firefoxOptions = new FirefoxOptions();
-//                firefoxOptions.setBinary(firefoxBinary);
-//                firefoxOptions.setHeadless(is_headless);
+                FirefoxBinary firefoxBinary = new FirefoxBinary();
+                FirefoxOptions firefoxOptions = new FirefoxOptions();
+                firefoxOptions.setBinary(firefoxBinary);
+                firefoxOptions.setHeadless(is_headless);
 
                 WebDriverManager.firefoxdriver().setup();
-                driver = new FirefoxDriver();
+                driver = new FirefoxDriver(firefoxOptions);
                 log.debug("Initializing firefox driver");
                 break;
 
