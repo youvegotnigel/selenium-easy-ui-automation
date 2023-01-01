@@ -44,6 +44,21 @@ Feature: Template
 
     ## Tables
   Scenario: Template for Table Scenarios
+    Then Table should be displayed as below:
+      | Rank | Country | Population (million) |
+      | 1    | China   | 1,439.3              |
+    Then "Simple Table (item prices)" table should be displayed as below:
+      | Item    | Price |
+      | Oranges | $3.99 |
+    When I click on header "Country" column of below table
+      | Rank | Country | Population (million) |
+      | 1    | China   | 1,439.3              |
+    And I click on "Pakistan" cell in "Sortable Table (countries by population)" Table
+    Then "Sortable Table (countries by population)" Table should filer "Country" as below:
+      | United States |
+      | Pakistan      |
+      | Italy         |
+      | Tanzania      |
 
     ## Ascending/Descending Order
   Scenario: Template for Ascending/Descending Order Scenarios
