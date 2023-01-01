@@ -142,7 +142,7 @@ public class FrameworkConstants {
             log.debug("Current Git branch: " + branchName);
             return branchName;
 
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | IOException e) {
             log.error(e.getMessage());
             e.printStackTrace();
             return "GIT_BRANCH_NAME_NOT_FOUND";
